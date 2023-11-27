@@ -1,58 +1,51 @@
-'use client';
+"use client";
 import React from "react";
 
-export default function Footer() {
+const Footer = () => {
+
+
   return (
-    <footer className="bg-light text-center text-lg-start">
+    <footer className="header-footer-gradient home-rounded-corners-bottom-right">
       <div className="container p-4">
         <div className="row">
-          <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
-            <h5 className="text-uppercase">Silicon Valley Code Camp</h5>
+          <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
+            <h5 className="text-uppercase mb-4">Silicon Valley Code Camp</h5>
             <p>
-              Silicon Valley Code Camp is a community event where developers learn from fellow developers.
-              We also have developer related topics that include software branding, legal issues around software as well
-              as other topics developers are interested in hearing about.
+              An event for developers to learn, connect, and explore the latest in tech and software development.
             </p>
           </div>
 
-          <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase">Links</h5>
-
-            <ul className="list-unstyled mb-0">
-              <li>
-                <a href="#!" className="text-dark">About Us</a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">Contact</a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">Privacy Policy</a>
-              </li>
-            </ul>
+          <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 className="text-uppercase mb-4">Stay Updated</h5>
+            <div className="d-flex">
+              <input type="email" className="form-control me-2 speaker-rounded-corners" placeholder="Email address" />
+              <button type="submit" className="btn btn-outline-dark speaker-rounded-corners">Subscribe</button>
+            </div>
           </div>
 
-          <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase">Follow Us</h5>
-
-            <ul className="list-unstyled mb-0">
-              <li>
-                <a href="#!" className="text-dark">Twitter</a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">Facebook</a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">Instagram</a>
-              </li>
-            </ul>
+          <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 className="text-uppercase mb-4">Follow Us</h5>
+            <a href="#!" className="btn btn-outline-dark btn-floating m-1 social-icon facebook">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="#!" className="btn btn-outline-dark btn-floating m-1 social-icon twitter">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="#!" className="btn btn-outline-dark btn-floating m-1 social-icon instagram">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="#!" className="btn btn-outline-dark btn-floating m-1 social-icon linkedin">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="text-center p-3" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
+      <div className="text-center p-3 copyright-background speaker-rounded-corners">
         © 2023 Silicon Valley Code Camp
       </div>
     </footer>
   );
-}
+};
 
+export default Footer;

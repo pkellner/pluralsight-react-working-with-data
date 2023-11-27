@@ -434,6 +434,64 @@ header ul li button:focus {
   border-bottom-right-radius: 15px; /* Adjust the radius as needed */
 }
 
+.home-rounded-corners-top-left {
+  border-top-left-radius: 15px;    /* Adjust the radius as needed */
+}
+
+.home-rounded-corners-bottom-right {
+  border-bottom-right-radius: 15px; /* Adjust the radius as needed */
+}
+
+/* Shared Header and Footer Background */
+.header-footer-bg {
+  background-color: #00000033; /* Lighter background color */
+}
+
+.header-footer-gradient {
+  background: linear-gradient(to right, #FFD1A4, #A4D4FF); /* subtle gradient from pastel orange to pastel blue */
+  color: #333333; /* dark grey text for contrast */
+  padding: 20px; /* Adjust the padding as needed */
+  text-align: center; /* This centers the text inside the div, if needed */
+}
+
+
+/* Social Icons Styles */
+.social-icon {
+  color: white;
+  background-color: transparent;
+}
+
+.social-icon.facebook {
+  color: #3b5998; /* Facebook color */
+}
+
+.social-icon.twitter {
+  color: #55acee; /* Twitter color */
+}
+
+.social-icon.instagram {
+  color: #ac2bac; /* Instagram color */
+}
+
+.social-icon.linkedin {
+  color: #0077b5; /* LinkedIn color */
+}
+
+.social-icon:hover {
+  color: white; /* White icon color on hover */
+}
+
+.copyright-background {
+  background-color: #00000033; /* Lighter background color */
+}
+
+.full-page-border {
+  border-left: 4px solid #FFD1A4; /* Pastel orange border on the left */
+  border-right: 2px solid #A4D4FF; /* Pastel blue border on the right */
+  box-sizing: border-box; /* Includes the border in the element's total width */
+}
+
+
 
 @media screen and (max-width: 768px) {
   .flex-grow-04 {

@@ -7,11 +7,13 @@ import Home from "@/components/home";
 
 export default function Page() {
   return (
-    <ThemeProvider>
+    <div>
       <Header />
-      <Nav />
-      <Home />
+      <div className="full-page-border">
+        <Nav />
+        <Home />
+      </div>
       <Footer />
-    </ThemeProvider>
+    </div>
   );
 }

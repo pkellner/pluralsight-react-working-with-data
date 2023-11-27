@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <div className="container"> {children}</div></body>
+      <div className="container-fluid"> {children}</div></body>
     </html>
   );
 }
