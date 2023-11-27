@@ -7,8 +7,9 @@ import Home from "@/components/home";
 
 export default function Page() {
   return (
-    <div>
+    <div className="container-fluid">
       <Header />
+
       <div className="full-page-border">
         <Nav />
         <Home />

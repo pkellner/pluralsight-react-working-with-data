@@ -241,6 +241,34 @@ header ul li button:focus {
     width: 100%;
     padding: 100px;
   }
+
+  .navbar {
+    flex-wrap: wrap; /* Allows elements to wrap onto multiple lines */
+  }
+
+  .navbar-toggler {
+    margin-left: auto; /* Aligns the toggler to the right */
+  }
+
+  .navbar-collapse {
+    display: none;
+    width: 100%; /* Ensures the menu spans the full width */
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-item {
+    margin: 0.5rem 0;
+  }
+
+
 }
 
 @media screen and (max-width: 550px) {
