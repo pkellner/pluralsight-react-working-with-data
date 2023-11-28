@@ -239,7 +239,7 @@ header ul li button:focus {
   }
   .btn-toolbar .toolbar-search {
     width: 100%;
-    padding: 100px;
+    padding: 20px;
   }
 
   .navbar {
@@ -363,8 +363,8 @@ header ul li button:focus {
   margin-right: 0px;
 }
 
-.heartdarkbutton,
-.heartredbutton {
+.heart-dark-button,
+.heart-red-button {
   display: inline-block;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -378,16 +378,16 @@ header ul li button:focus {
   opacity: 0.8;
 }
 
-.heartdarkbutton::before,
-.heartredbutton::before {
+.heart-dark-button::before,
+.heart-red-button::before {
   content: "\f004";
 }
 
-.heartdarkbutton::before {
+.heart-dark-button::before {
   color: var(--dark);
 }
 
-.heartredbutton::before {
+.heart-red-button::before {
   color: var(--danger);
 }
 

@@ -1,13 +1,15 @@
 "use client";
-
-import Image from "next/image";
+import React from "react";
+import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
+import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
+import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 
 export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
   return (
     <SpeakerModalProvider>
       {speakerRec && <SpeakerModal />}
       <div className="col-xl-6 col-md-12">
-        <div className="card border-0">
+        <div className="card border-0 h-100">
           <div className="row g-0">
             <div className="col-4">
               <img
@@ -27,8 +29,11 @@ export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
                   </div>
 
                   <div className="modifyWrapper">
-                    <EditSpeakerDialog {...speakerRec} />
-                    <DeleteSpeakerButton id={speakerRec.id} />
+                    <div>
+                      TODO: Add EditSpeakerDialog and DeleteSpeakerButton
+                    </div>
+                    {/*<EditSpeakerDialog {...speakerRec} />*/}
+                    {/*<DeleteSpeakerButton id={speakerRec.id} />*/}
                   </div>
                 </div>
                 <h4 className="card-title">

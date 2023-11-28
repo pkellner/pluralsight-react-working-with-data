@@ -13,8 +13,8 @@
       "id": 1124,
       "firstName": "Douglas",
       "lastName": "Crockford",
-      "company": "",
-      "twitterHandle": "",
+      "company": "Virgule-Solidus",
+      "twitterHandle": "douglas-does-not-tweet",
       "userBioShort": "Douglas Crockford discovered the JSON Data Interchange Format.",
       "sessionIds": [7489, 7569]
     },
@@ -51,7 +51,7 @@
       "lastName": "Richardson",
       "company": "Eventuate, Inc",
       "twitterHandle": "@crichardson",
-      "userBioShort": "\nChris Richardson is a developer and architect.",
+      "userBioShort": "Chris Richardson is a developer and architect.",
       "sessionIds": [7515]
     },
     {
