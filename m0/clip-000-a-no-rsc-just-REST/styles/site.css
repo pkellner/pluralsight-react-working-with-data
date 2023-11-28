@@ -523,6 +523,26 @@ header ul li button:focus {
   background-color: #f8ffff; /* Lighter background color */
 }
 
+.show-modal {
+  display: block;
+}
+
+.has-backdrop:before {
+  content: "";
+  background: rgb(24 26 29 / 77%);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  backdrop-filter: blur(5px);
+}
+
+.hide-modal {
+  display: none;
+}
+
 
 
 @media screen and (max-width: 768px) {
