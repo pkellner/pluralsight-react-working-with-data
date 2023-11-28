@@ -10,7 +10,7 @@ export default function Page() {
     <div className="container-fluid">
       <Header />
 
-      <div className="full-page-border">
+      <div className="full-page-border app-content-background">
         <Nav />
         <Home />
       </div>

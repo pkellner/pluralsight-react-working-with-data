@@ -23,7 +23,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light bg-light p-3'>
+    <nav className='navbar navbar-expand-lg navbar-light p-3'>
       <a className='navbar-brand' href={NavRoutes.Home}>
         <img
           src='/images/svcc-logo.png'

@@ -519,6 +519,10 @@ header ul li button:focus {
   box-sizing: border-box; /* Includes the border in the element's total width */
 }
 
+.app-content-background {
+  background-color: #f8ffff; /* Lighter background color */
+}
+
 
 
 @media screen and (max-width: 768px) {
