@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma/prisma";
 
-
 export async function GET(request: Request) {
   //const userId = parseInt(req.params.userId);
   // const user = users.find((u) => u.id === userId);
@@ -17,13 +16,10 @@ export async function GET(request: Request) {
     },
   });
 
-  console.log(speakers);
-
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,
     headers: {
       "Content-Type": "application/json",
-      "API-Key": process.env.DATA_API_KEY ?? "",
     },
   });
 
