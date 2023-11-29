@@ -3,6 +3,8 @@ import React from "react";
 import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
+import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
+import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 
 export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
   return (
@@ -29,16 +31,14 @@ export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
                   </div>
 
                   <div className="modifyWrapper">
-                    <div>
-                      TODO: Add EditSpeakerDialog and DeleteSpeakerButton
-                    </div>
-                    {/*<EditSpeakerDialog {...speakerRec} />*/}
-                    {/*<DeleteSpeakerButton id={speakerRec.id} />*/}
+                    <EditSpeakerDialog {...speakerRec} />
+                    <DeleteSpeakerButton id={speakerRec.id} />
                   </div>
                 </div>
                 <h4 className="card-title">
                   {speakerRec.firstName} {speakerRec.lastName}
                 </h4>
+                <p className="card-text">{speakerRec.userBioShort}</p>
               </div>
 
               <div className="card-footer text-muted d-flex flex-wrap justify-content-between align-items-center">

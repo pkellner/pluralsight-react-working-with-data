@@ -15,11 +15,11 @@ html {
   font-family: "Roboto", sans-serif;
   color: var(--dark);
   background: linear-gradient(
-          0deg,
-          rgba(250, 250, 250, 0.5),
-          rgba(250, 250, 250, 0.5)
-  ),
-  #fff;
+      0deg,
+      rgba(250, 250, 250, 0.5),
+      rgba(250, 250, 250, 0.5)
+    ),
+    #fff;
   padding-bottom: 1rem;
 }
 
@@ -36,11 +36,11 @@ html {
 
 .theme-light:before {
   background: linear-gradient(
-          0deg,
-          rgba(250, 250, 250, 0.5),
-          rgba(250, 250, 250, 0.5)
-  ),
-  #fff;
+      0deg,
+      rgba(250, 250, 250, 0.5),
+      rgba(250, 250, 250, 0.5)
+    ),
+    #fff;
 }
 .theme-dark::before {
   background: #ccc;
@@ -206,6 +206,8 @@ header ul li button:focus {
   position: relative;
   z-index: 1;
 
+
+
   /* Uncomment below code when the toolbar need to be sticky onScroll */
   /* position: sticky;
   top: 80px;
@@ -267,8 +269,6 @@ header ul li button:focus {
   .nav-item {
     margin: 0.5rem 0;
   }
-
-
 }
 
 @media screen and (max-width: 550px) {
@@ -304,10 +304,9 @@ header ul li button:focus {
 }
 
 .speaker-rounded-corners {
-  border-top-left-radius: 10px;    /* Adjust the radius as needed */
+  border-top-left-radius: 10px; /* Adjust the radius as needed */
   border-bottom-right-radius: 10px; /* Adjust the radius as needed */
 }
-
 
 .speaker-list .card-body {
   min-height: auto;
@@ -320,6 +319,9 @@ header ul li button:focus {
 .card-body .card-text {
   color: var(--dark);
   opacity: 0.7;
+  font-size: 0.9em; /* Reduce font size */
+  line-height: 1.4; /* Adjust line height for readability */
+  margin-bottom: 1em; /* Add some space at the bottom */
 }
 
 .card-footer {
@@ -453,17 +455,17 @@ header ul li button:focus {
   flex-grow: 0.4;
 }
 
-.bg-gradient-home{
+.bg-gradient-home {
   background: linear-gradient(to right, #6dd5ed, #2193b0);
 }
 
 .home-rounded-corners {
-  border-top-left-radius: 15px;    /* Adjust the radius as needed */
+  border-top-left-radius: 15px; /* Adjust the radius as needed */
   border-bottom-right-radius: 15px; /* Adjust the radius as needed */
 }
 
 .home-rounded-corners-top-left {
-  border-top-left-radius: 15px;    /* Adjust the radius as needed */
+  border-top-left-radius: 15px; /* Adjust the radius as needed */
 }
 
 .home-rounded-corners-bottom-right {
@@ -476,12 +478,15 @@ header ul li button:focus {
 }
 
 .header-footer-gradient {
-  background: linear-gradient(to right, #FFD1A4, #A4D4FF); /* subtle gradient from pastel orange to pastel blue */
+  background: linear-gradient(
+    to right,
+    #ffd1a4,
+    #a4d4ff
+  ); /* subtle gradient from pastel orange to pastel blue */
   color: #333333; /* dark grey text for contrast */
   padding: 20px; /* Adjust the padding as needed */
   text-align: center; /* This centers the text inside the div, if needed */
 }
-
 
 /* Social Icons Styles */
 .social-icon {
@@ -514,8 +519,8 @@ header ul li button:focus {
 }
 
 .full-page-border {
-  border-left: 4px solid #FFD1A4; /* Pastel orange border on the left */
-  border-right: 2px solid #A4D4FF; /* Pastel blue border on the right */
+  border-left: 4px solid #ffd1a4; /* Pastel orange border on the left */
+  border-right: 2px solid #a4d4ff; /* Pastel blue border on the right */
   box-sizing: border-box; /* Includes the border in the element's total width */
 }
 
@@ -541,6 +546,45 @@ header ul li button:focus {
 
 .hide-modal {
   display: none;
+}
+
+.invisible-text {
+  color: transparent;
+}
+
+.bg-gradient-pending-data {
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  animation: pulseAnimation 1s infinite linear;
+}
+
+.bg-gradient-pending-text {
+  /* Applying the linear gradient */
+  background: linear-gradient(to right, #FFD1A4, #A4D4FF);
+
+  /* Padding around the text */
+  padding: 10px;
+
+  /* Aligning text */
+  text-align: center;
+
+  /* Only as wide as the content plus padding */
+  display: inline-block;
+}
+
+.animate-opacity-for-pending {
+  animation: opacityAnimation 1.5s ease-in-out infinite;
+}
+
+@keyframes opacityAnimation {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }
 
 
