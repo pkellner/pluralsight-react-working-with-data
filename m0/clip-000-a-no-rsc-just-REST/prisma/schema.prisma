@@ -9,24 +9,32 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
 model Speaker {
-  id           Int               @id
-  firstName    String
-  lastName     String
-  company      String?
+  id            Int               @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  company       String?
   twitterHandle String?
-  userBioShort String
-  sessions     SpeakerSession[]
-  favorites    AttendeeFavorite[]
+  userBioShort  String
+  sessions      SpeakerSession[]
+  favorites     AttendeeFavorite[]
 }
 
 model Session {
-  id          Int             @id
+  id          Int              @id @default(autoincrement())
   title       String
   description String
   speakers    SpeakerSession[]
 }
+
+model Attendee {
+  id        String            @id // Decide how to handle IDs for this model
+  firstName String
+  lastName  String
+  email     String            @unique
+  favorites AttendeeFavorite[]
+}
+
 
 model SpeakerSession {
   speakerId   Int
@@ -37,13 +45,7 @@ model SpeakerSession {
   @@id([speakerId, sessionId])
 }
 
-model Attendee {
-  id           String            @id
-  firstName    String
-  lastName     String
-  email        String            @unique
-  favorites    AttendeeFavorite[]
-}
+
 
 model AttendeeFavorite {
   id         Int      @id @default(autoincrement())

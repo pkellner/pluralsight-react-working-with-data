@@ -25,3 +25,27 @@ export async function GET(request: Request) {
 
   // return new Response(null, { status: 404 });
 }
+
+
+// This function handles the POST request
+export async function POST(request: Request) {
+  try {
+    const data = await request.json();
+    console.log("POST data", data);
+    const newSpeaker = await prisma.speaker.create({
+      data,
+    });
+
+    return new Response(JSON.stringify(newSpeaker, null, 2), {
+      status: 201,
+      headers: {
+        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ message: "Error creating speaker" }), { status: 500 });
+  }
+}

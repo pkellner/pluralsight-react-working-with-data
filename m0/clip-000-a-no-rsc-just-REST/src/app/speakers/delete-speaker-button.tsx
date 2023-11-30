@@ -1,7 +1,31 @@
 "use client";
 
 export default function DeleteSpeakerButton({ id }: { id: number }) {
-  const { deleteSpeaker } = { deleteSpeaker: (id: number) => {} };
+
+  function deleteSpeaker(id: number) {
+    async function deleteSpeaker() {
+      try {
+        const response = await fetch(`/api/speakers/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error deleting speaker:", error);
+        throw error;
+      }
+    }
+    deleteSpeaker().then(() => {});
+  }
+
   return (
     <button
       onClick={(e) => {

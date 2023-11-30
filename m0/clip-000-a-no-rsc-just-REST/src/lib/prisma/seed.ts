@@ -8,8 +8,8 @@ const prisma = new PrismaClient();
 async function main() {
   // Seed Sessions
   for (const session of data.sessions) {
-    await prisma.session.insert({
-      create: {
+    await prisma.session.create({
+      data: {
         id: session.id,
         title: session.title,
         description: session.description,
@@ -20,25 +20,23 @@ async function main() {
 
   // Seed Speakers
   for (const speaker of data.speakers) {
-    const updatedSpeaker = await prisma.speaker.upsert({
-      where: { id: speaker.id },
-      update: {},
-      create: {
+    const createdSpeaker = await prisma.speaker.create({
+      data: {
         id: speaker.id,
         firstName: speaker.firstName,
         lastName: speaker.lastName,
         company: speaker.company,
         twitterHandle: speaker.twitterHandle,
         userBioShort: speaker.userBioShort,
-        // sessions and favorites will be handled separately
       },
+      // sessions and favorites will be handled separately
     });
 
     // Seed SpeakerSessions
     for (const sessionId of speaker.sessionIds) {
       await prisma.speakerSession.create({
         data: {
-          speakerId: updatedSpeaker.id,
+          speakerId: createdSpeaker.id,
           sessionId: sessionId,
         },
       });
@@ -54,9 +52,7 @@ async function main() {
         id: attendee.id,
         firstName: attendee.firstName,
         lastName: attendee.lastName,
-        company: attendee.company,
-        twitterHandle: attendee.twitterHandle,
-        userBioShort: attendee.userBioShort,
+        email: attendee.email,
         // favorites will be handled separately
       },
     });

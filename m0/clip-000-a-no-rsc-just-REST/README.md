@@ -13,3 +13,5 @@ add model to schema.prisma
 npx prisma migrate dev --name init
 
 npx prisma migrate reset
+
+ts-node src/lib/prisma/seed.ts

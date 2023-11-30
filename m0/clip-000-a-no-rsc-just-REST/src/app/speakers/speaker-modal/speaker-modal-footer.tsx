@@ -1,5 +1,6 @@
-'use client';
+"use client";
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
+import { Speaker } from "@/lib/general-types";
 
 export default function SpeakerModalFooter() {
   const {
@@ -12,11 +13,56 @@ export default function SpeakerModalFooter() {
     modalUserBioShort, // Changed from modalSpeakerBioShort
   } = useSpeakerModalContext();
 
-  const { data, createSpeaker, updateSpeaker } = {
-    data: [],
-    updateSpeaker: (speaker: any) => {},
-    createSpeaker: (speaker: any) => {},
-  };
+  function updateSpeaker(speaker : Speaker) {
+    async function update() {
+      try {
+        const response = await fetch(`/api/speakers/${speaker.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(speaker),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error updating speaker:", error);
+        throw error;
+      }
+    }
+    update().then(() => {});
+  }
+
+
+  function createSpeaker(speaker: Speaker) {
+    async function create() {
+      try {
+        const response = await fetch(`/api/speakers/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(speaker),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error creating new speaker:", error);
+        throw error;
+      }
+    }
+    create().then(() => {});
+  }
 
   return (
     <div className="modal-footer justify-content-center">
@@ -57,7 +103,6 @@ export default function SpeakerModalFooter() {
               company: modalSpeakerCompany,
               twitterHandle: modalSpeakerTwitterHandle,
               userBioShort: modalUserBioShort,
-              favorite: false,
             });
             setModalShow(false);
           }}
