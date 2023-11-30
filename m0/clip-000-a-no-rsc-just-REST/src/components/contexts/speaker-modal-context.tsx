@@ -1,4 +1,3 @@
-"use client";
 import React, { createContext, ReactNode, useState } from "react";
 
 interface SpeakerModalContextProps {
@@ -10,10 +9,12 @@ interface SpeakerModalContextProps {
   setModalSpeakerFirstName: React.Dispatch<React.SetStateAction<string>>;
   modalSpeakerLastName: string;
   setModalSpeakerLastName: React.Dispatch<React.SetStateAction<string>>;
-  modalSpeakerImageUrl: string;
-  setModalSpeakerImageUrl: React.Dispatch<React.SetStateAction<string>>;
-  modalSpeakerEmail: string;
-  setModalSpeakerEmail: React.Dispatch<React.SetStateAction<string>>;
+  modalSpeakerCompany: string;
+  setModalSpeakerCompany: React.Dispatch<React.SetStateAction<string>>;
+  modalSpeakerTwitterHandle: string;
+  setModalSpeakerTwitterHandle: React.Dispatch<React.SetStateAction<string>>;
+  modalUserBioShort: string; // Changed from modalSpeakerBioShort
+  setModalUserBioShort: React.Dispatch<React.SetStateAction<string>>; // Changed from setModalSpeakerBioShort
 }
 
 const SpeakerModalContext = createContext<SpeakerModalContextProps>({
@@ -25,10 +26,12 @@ const SpeakerModalContext = createContext<SpeakerModalContextProps>({
   setModalSpeakerFirstName: () => {},
   modalSpeakerLastName: "",
   setModalSpeakerLastName: () => {},
-  modalSpeakerImageUrl: "",
-  setModalSpeakerImageUrl: () => {},
-  modalSpeakerEmail: "",
-  setModalSpeakerEmail: () => {},
+  modalSpeakerCompany: "",
+  setModalSpeakerCompany: () => {},
+  modalSpeakerTwitterHandle: "",
+  setModalSpeakerTwitterHandle: () => {},
+  modalUserBioShort: "",
+  setModalUserBioShort: () => {},
 });
 
 export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
@@ -36,8 +39,10 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalSpeakerId, setModalSpeakerId] = useState(0);
   const [modalSpeakerFirstName, setModalSpeakerFirstName] = useState("");
   const [modalSpeakerLastName, setModalSpeakerLastName] = useState("");
-  const [modalSpeakerImageUrl, setModalSpeakerImageUrl] = useState("");
-  const [modalSpeakerEmail, setModalSpeakerEmail] = useState("");
+  const [modalSpeakerCompany, setModalSpeakerCompany] = useState("");
+  const [modalSpeakerTwitterHandle, setModalSpeakerTwitterHandle] =
+    useState("");
+  const [modalUserBioShort, setModalUserBioShort] = useState("");
 
   const value = {
     modalShow,
@@ -48,10 +53,12 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
     setModalSpeakerFirstName,
     modalSpeakerLastName,
     setModalSpeakerLastName,
-    modalSpeakerEmail,
-    setModalSpeakerEmail,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
+    modalSpeakerCompany,
+    setModalSpeakerCompany,
+    modalSpeakerTwitterHandle,
+    setModalSpeakerTwitterHandle,
+    modalUserBioShort,
+    setModalUserBioShort,
   };
 
   return (

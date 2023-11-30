@@ -1,7 +1,5 @@
-
-
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-
+'use client';
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 
 export default function SpeakerModalFooter() {
   const {
@@ -9,16 +7,16 @@ export default function SpeakerModalFooter() {
     modalSpeakerId,
     modalSpeakerFirstName,
     modalSpeakerLastName,
-    modalSpeakerEmail,
-    modalSpeakerImageUrl,
+    modalSpeakerCompany, // New addition
+    modalSpeakerTwitterHandle, // New addition
+    modalUserBioShort, // Changed from modalSpeakerBioShort
   } = useSpeakerModalContext();
 
-  const { data, createSpeaker, updateSpeaker } =
-    {
-      data: [],
-      updateSpeaker: (speaker: any) => {},
-      createSpeaker: (speaker: any) => {},
-    };
+  const { data, createSpeaker, updateSpeaker } = {
+    data: [],
+    updateSpeaker: (speaker: any) => {},
+    createSpeaker: (speaker: any) => {},
+  };
 
   return (
     <div className="modal-footer justify-content-center">
@@ -29,8 +27,9 @@ export default function SpeakerModalFooter() {
               id: modalSpeakerId,
               firstName: modalSpeakerFirstName,
               lastName: modalSpeakerLastName,
-              imageUrl: modalSpeakerImageUrl,
-              email: modalSpeakerEmail,
+              company: modalSpeakerCompany,
+              twitterHandle: modalSpeakerTwitterHandle,
+              userBioShort: modalUserBioShort,
             });
             setModalShow(false);
           }}
@@ -42,9 +41,7 @@ export default function SpeakerModalFooter() {
 
       <button
         className="btn btn-danger"
-        onClick={() => {
-          setModalShow(false);
-        }}
+        onClick={() => setModalShow(false)}
         data-dismiss="modal"
       >
         Discard
@@ -57,13 +54,10 @@ export default function SpeakerModalFooter() {
             createSpeaker({
               firstName: modalSpeakerFirstName,
               lastName: modalSpeakerLastName,
-              email: modalSpeakerEmail,
-              imageUrl: modalSpeakerImageUrl,
+              company: modalSpeakerCompany,
+              twitterHandle: modalSpeakerTwitterHandle,
+              userBioShort: modalUserBioShort,
               favorite: false,
-              company: "Code Camp",
-              twitterHandle: "unknown",
-              userBioShort: "Dummy Bio",
-              bio: "Dummy Bio",
             });
             setModalShow(false);
           }}

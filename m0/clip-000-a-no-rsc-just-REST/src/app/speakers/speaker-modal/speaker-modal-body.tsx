@@ -1,4 +1,3 @@
-'use client';
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 
 export default function SpeakerModalBody() {
@@ -8,11 +7,14 @@ export default function SpeakerModalBody() {
     setModalSpeakerFirstName,
     modalSpeakerLastName,
     setModalSpeakerLastName,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
-    modalSpeakerEmail,
-    setModalSpeakerEmail,
+    modalSpeakerCompany,
+    setModalSpeakerCompany,
+    modalSpeakerTwitterHandle,
+    setModalSpeakerTwitterHandle,
+    modalUserBioShort,
+    setModalUserBioShort
   } = useSpeakerModalContext();
+
   return (
     <div className="modal-body">
       <div className="notes-box">
@@ -30,9 +32,7 @@ export default function SpeakerModalBody() {
                   <label>First Name</label>
                   <input
                     value={modalSpeakerFirstName}
-                    onChange={(event) => {
-                      setModalSpeakerFirstName(event.target.value);
-                    }}
+                    onChange={(event) => setModalSpeakerFirstName(event.target.value)}
                     type="text"
                     className="form-control"
                     placeholder="First Name"
@@ -44,9 +44,7 @@ export default function SpeakerModalBody() {
                   <label>Last Name</label>
                   <input
                     value={modalSpeakerLastName}
-                    onChange={(event) => {
-                      setModalSpeakerLastName(event.target.value);
-                    }}
+                    onChange={(event) => setModalSpeakerLastName(event.target.value)}
                     type="text"
                     className="form-control"
                     placeholder="Last Name"
@@ -55,29 +53,37 @@ export default function SpeakerModalBody() {
               </div>
               <div className="col-md-12">
                 <div className="note-title">
-                  <label>Email</label>
+                  <label>Company</label>
                   <input
-                    value={modalSpeakerEmail}
-                    onChange={(event) => {
-                      setModalSpeakerEmail(event.target.value);
-                    }}
+                    value={modalSpeakerCompany}
+                    onChange={(event) => setModalSpeakerCompany(event.target.value)}
                     type="text"
                     className="form-control"
-                    placeholder="Email"
+                    placeholder="Company Name"
                   />
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="note-title">
-                  <label>Speaker Image URL:</label>
+                  <label>Twitter Handle</label>
                   <input
-                    value={modalSpeakerImageUrl}
-                    onChange={(event) => {
-                      setModalSpeakerImageUrl(event.target.value);
-                    }}
+                    value={modalSpeakerTwitterHandle}
+                    onChange={(event) => setModalSpeakerTwitterHandle(event.target.value)}
                     type="text"
                     className="form-control"
-                    placeholder="https://"
+                    placeholder="@twitterhandle"
+                  />
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="note-title">
+                  <label>Short Bio</label>
+                  <textarea
+                    value={modalUserBioShort}
+                    onChange={(event) => setModalUserBioShort(event.target.value)}
+                    className="form-control"
+                    placeholder="speaker bio..."
+                    rows={4}
                   />
                 </div>
               </div>

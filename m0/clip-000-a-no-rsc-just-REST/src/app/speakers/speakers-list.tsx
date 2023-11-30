@@ -21,7 +21,7 @@ export default function SpeakersList() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await sleep(3000);
+        await sleep(1000);
         setSpeakerList(data);
         setLoadingStatus("success");
       } catch (err) {
@@ -43,9 +43,9 @@ export default function SpeakersList() {
   if (loadingStatus === "loading") {
     return (
       <>
-          {[1, 2, 3, 4, 5].map((item) => {
-            return <SpeakerDetailPending key={item} />;
-          })}
+        {[1, 2, 3, 4, 5].map((item) => {
+          return <SpeakerDetailPending key={item} />;
+        })}
         <div className="mt-3"></div>
       </>
     );

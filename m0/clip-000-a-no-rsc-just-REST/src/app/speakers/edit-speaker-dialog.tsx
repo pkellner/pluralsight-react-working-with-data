@@ -1,4 +1,3 @@
-"use client";
 import { useContext } from "react";
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 
@@ -6,28 +5,25 @@ export default function EditSpeakerDialog({
   id,
   firstName,
   lastName,
-  email,
-  imageUrl,
+  company,
+  twitterHandle,
+  userBioShort,
 }: {
   id: number;
   firstName: string;
   lastName: string;
-  email: string;
-  imageUrl: string;
+  company: string;
+  twitterHandle: string;
+  userBioShort: string;
 }) {
   const {
     setModalShow,
-    modalShow,
-    modalSpeakerId,
     setModalSpeakerId,
-    modalSpeakerFirstName,
     setModalSpeakerFirstName,
-    modalSpeakerLastName,
     setModalSpeakerLastName,
-    modalSpeakerEmail,
-    setModalSpeakerEmail,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
+    setModalSpeakerCompany,
+    setModalSpeakerTwitterHandle,
+    setModalUserBioShort,
   } = useSpeakerModalContext();
 
   return (
@@ -37,8 +33,9 @@ export default function EditSpeakerDialog({
         setModalSpeakerId(id);
         setModalSpeakerFirstName(firstName);
         setModalSpeakerLastName(lastName);
-        setModalSpeakerImageUrl(imageUrl);
-        setModalSpeakerEmail(email);
+        setModalSpeakerCompany(company);
+        setModalSpeakerTwitterHandle(twitterHandle);
+        setModalUserBioShort(userBioShort);
         setModalShow(true);
       }}
       className="btn btn-accent btn-sm"

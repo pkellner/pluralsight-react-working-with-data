@@ -7,8 +7,9 @@ export default function AddSpeakerDialog() {
     setModalSpeakerId,
     setModalSpeakerFirstName,
     setModalSpeakerLastName,
-    setModalSpeakerEmail,
-    setModalSpeakerImageUrl,
+    setModalSpeakerCompany,
+    setModalSpeakerTwitterHandle,
+    setModalUserBioShort
   } = useSpeakerModalContext();
 
   return (
@@ -19,8 +20,9 @@ export default function AddSpeakerDialog() {
           setModalSpeakerId(0);
           setModalSpeakerFirstName("");
           setModalSpeakerLastName("");
-          setModalSpeakerEmail("");
-          setModalSpeakerImageUrl("/images/speaker-new.jpg");
+          setModalSpeakerCompany("");
+          setModalSpeakerTwitterHandle("");
+          setModalUserBioShort("");
           setModalShow(true);
         }}
         className="btn btn-accent"

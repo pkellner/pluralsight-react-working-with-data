@@ -15,7 +15,7 @@ export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
           <div className="row g-0">
             <div className="col-4">
               <img
-                src={`/images/Speaker-${speakerRec.id}.jpg`}
+                src={`/images/speaker-${speakerRec.id}.jpg`}
                 width={200}
                 height={200}
                 className="img-fluid speaker-rounded-corners speaker-image"

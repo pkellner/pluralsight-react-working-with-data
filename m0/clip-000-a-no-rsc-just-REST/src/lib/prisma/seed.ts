@@ -6,12 +6,9 @@ const prisma = new PrismaClient();
 
 // seed all the tables for all data scenarios in the course
 async function main() {
-
   // Seed Sessions
   for (const session of data.sessions) {
-    await prisma.session.upsert({
-      where: { id: session.id },
-      update: {},
+    await prisma.session.insert({
       create: {
         id: session.id,
         title: session.title,
@@ -57,12 +54,13 @@ async function main() {
         id: attendee.id,
         firstName: attendee.firstName,
         lastName: attendee.lastName,
-        email: attendee.email,
+        company: attendee.company,
+        twitterHandle: attendee.twitterHandle,
+        userBioShort: attendee.userBioShort,
         // favorites will be handled separately
       },
     });
   }
-
 
   // Seed AttendeeFavorites
   for (const favorite of data.attendeeFavorites) {
@@ -81,8 +79,6 @@ async function main() {
       },
     });
   }
-
-  // Additional logic for SpeakerSessions if needed
 }
 
 main()
