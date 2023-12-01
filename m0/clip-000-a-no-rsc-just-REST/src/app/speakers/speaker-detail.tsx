@@ -1,15 +1,25 @@
-"use client";
 import React from "react";
 import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
+import {Speaker} from "@/lib/general-types";
 
-export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
+export default function SpeakerDetail({
+  speakerRec,
+  deleteSpeaker,
+  updateSpeaker,
+  createSpeaker,
+}: {
+  speakerRec: any;
+  deleteSpeaker: (id: number) => void;
+  updateSpeaker: (speaker: Speaker) => void;
+  createSpeaker: (speaker: Speaker) => void;
+}) {
   return (
     <SpeakerModalProvider>
-      {speakerRec && <SpeakerModal />}
+      {speakerRec && <SpeakerModal updateSpeaker={updateSpeaker} createSpeaker={createSpeaker} />}
       <div className="col-xl-6 col-md-12">
         <div className="card border-0 h-100">
           <div className="row g-0">
@@ -31,8 +41,11 @@ export default function SpeakerDetail({ speakerRec }: { speakerRec: any }) {
                   </div>
 
                   <div className="modifyWrapper">
-                    <EditSpeakerDialog {...speakerRec} />
-                    <DeleteSpeakerButton id={speakerRec.id} />
+                    <EditSpeakerDialog {...speakerRec}  />
+                    <DeleteSpeakerButton
+                      id={speakerRec.id}
+                      deleteSpeaker={deleteSpeaker}
+                    />
                   </div>
                 </div>
                 <h4 className="card-title">

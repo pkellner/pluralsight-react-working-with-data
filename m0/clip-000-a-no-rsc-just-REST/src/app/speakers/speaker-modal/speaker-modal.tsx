@@ -5,7 +5,10 @@ import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-cont
 import SpeakerModalFooter from "@/app/speakers/speaker-modal/speaker-modal-footer";
 import SpeakerModalBody from "@/app/speakers/speaker-modal/speaker-modal-body";
 
-export default function SpeakerModal() {
+export default function SpeakerModal({updateSpeaker, createSpeaker} : {
+  updateSpeaker: (speaker: any) => void;
+  createSpeaker: (speaker: any) => void;
+}) {
   const { modalShow } = useSpeakerModalContext();
 
   const cssShowHide =
@@ -24,7 +27,7 @@ export default function SpeakerModal() {
         >
           <SpeakersModalHeader />
           <SpeakerModalBody />
-          <SpeakerModalFooter />
+          <SpeakerModalFooter updateSpeaker={updateSpeaker} createSpeaker={createSpeaker} />
         </div>
       </div>
     </div>

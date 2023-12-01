@@ -2,9 +2,21 @@ import React from "react";
 import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
 import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";
+import { Speaker } from "@/lib/general-types";
 
-export default function SpeakerMenu() {
+export default function SpeakerMenu({
+  updateSpeaker,
+  createSpeaker,
+}: {
+
+  createSpeaker: (speaker: Speaker) => void;
+}) {
+
+  console.log("SpeakerMenu: updateSpeaker Type:", typeof updateSpeaker);
+
   const { searchText, setSearchText } = useSpeakerMenuContext();
+
+
 
   return (
     <div
@@ -26,7 +38,10 @@ export default function SpeakerMenu() {
         </div>
         <div className="input-group">
           <SpeakerModalProvider>
-            <AddSpeakerDialog />
+            <AddSpeakerDialog
+
+              createSpeaker={createSpeaker}
+            />
           </SpeakerModalProvider>
         </div>
       </div>
