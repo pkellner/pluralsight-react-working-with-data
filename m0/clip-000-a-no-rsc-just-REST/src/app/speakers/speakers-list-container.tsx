@@ -7,7 +7,7 @@ import {Speaker} from "@/lib/general-types";
 
 export default function SpeakersListContainer() {
 
-  const [speakerList, setSpeakerList] = useState([]);
+  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
   const [loadingStatus, setLoadingStatus] = useState("loading"); // default to loading
   const [error, setError] = useState<string | undefined>(); // error state
 
@@ -35,14 +35,40 @@ export default function SpeakersListContainer() {
   }
 
 
+  function updateSpeaker(speaker : Speaker) {
+    async function update() {
+      try {
+        const response = await fetch(`/api/speakers/${speaker.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(speaker),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error updating speaker:", error);
+        throw error;
+      }
+    }
+    update().then(() => {});
+  }
+
+
 
   return (
     <SpeakerMenuProvider>
-      <SpeakerMenu createSpeaker={createSpeaker}   />
+      <SpeakerMenu createSpeaker={createSpeaker} updateSpeaker={updateSpeaker}   />
       <div className="container">
         <div className="row g-4">
           <SpeakersList speakerList={speakerList} setSpeakerList={setSpeakerList} loadingStatus={loadingStatus} setLoadingStatus={setLoadingStatus}
-          error={error} setError={setError} />
+          error={error} setError={setError} createSpeaker={createSpeaker} updateSpeaker={updateSpeaker} />
         </div>
       </div>
     </SpeakerMenuProvider>

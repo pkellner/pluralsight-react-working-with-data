@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import useSpeakerSortAndFilter from "@/app/speakers/use-speaker-sort-and-filter";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
@@ -15,7 +14,18 @@ export default function SpeakersList({
   setLoadingStatus,
   error,
   setError,
-}: any) {
+  createSpeaker,
+  updateSpeaker
+}: {
+  speakerList: Speaker[];
+  setSpeakerList: (speakerList: Speaker[]) => void;
+  loadingStatus: string;
+  setLoadingStatus: (loadingStatus: string) => void;
+  error: string | undefined;
+  setError: (error: string | undefined) => void;
+  createSpeaker: (speaker: Speaker) => void;
+  updateSpeaker: (speaker: Speaker) => void;
+}) {
   const { searchText } = useSpeakerMenuContext();
 
   function deleteSpeaker(id: number) {
@@ -34,10 +44,7 @@ export default function SpeakersList({
 
         // Check if the response status is 204 (No Content)
         if (response.status === 204) {
-          // no need for useEffect because state changes causes re-rendering
-          setSpeakerList((currentSpeakers : Speaker[]) =>
-            currentSpeakers.filter((speaker: Speaker) => speaker.id !== id),
-          );
+          setSpeakerList(speakerList.filter((speaker: Speaker) => speaker.id !== id));
           return null; // Or a suitable message indicating successful deletion
         } else {
           // If response is not 204, then parse the JSON
@@ -51,36 +58,6 @@ export default function SpeakersList({
 
     deleteSpeakerInternal().then(() => {});
   }
-
-
-
-  function updateSpeaker(speaker : Speaker) {
-    async function update() {
-      try {
-        const response = await fetch(`/api/speakers/${speaker.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(speaker),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error("Error updating speaker:", error);
-        throw error;
-      }
-    }
-    update().then(() => {});
-  }
-
-
-
 
   useEffect(() => {
     async function fetchSpeakers() {
@@ -131,6 +108,7 @@ export default function SpeakersList({
           <SpeakerDetail
             key={speakerRec.id}
             speakerRec={speakerRec}
+            createSpeaker={createSpeaker}
             deleteSpeaker={deleteSpeaker}
             updateSpeaker={updateSpeaker}
           />

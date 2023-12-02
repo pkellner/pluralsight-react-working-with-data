@@ -8,15 +8,10 @@ export default function SpeakerMenu({
   updateSpeaker,
   createSpeaker,
 }: {
-
+  updateSpeaker: (speaker: Speaker) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
-
-  console.log("SpeakerMenu: updateSpeaker Type:", typeof updateSpeaker);
-
   const { searchText, setSearchText } = useSpeakerMenuContext();
-
-
 
   return (
     <div
@@ -39,7 +34,7 @@ export default function SpeakerMenu({
         <div className="input-group">
           <SpeakerModalProvider>
             <AddSpeakerDialog
-
+              updateSpeaker={updateSpeaker}
               createSpeaker={createSpeaker}
             />
           </SpeakerModalProvider>
