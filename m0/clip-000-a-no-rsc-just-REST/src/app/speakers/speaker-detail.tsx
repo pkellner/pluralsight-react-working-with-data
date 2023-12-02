@@ -61,18 +61,23 @@ export default function SpeakerDetail({
               </div>
 
               <div className="card-footer text-muted d-flex flex-wrap justify-content-between align-items-center">
-                {speakerRec?.company?.length > 0 ? (
+                {speakerRec?.company?.length > 0 && (
                   <small>
                     <strong>Company:</strong> {speakerRec.company}
                   </small>
-                ) : null}
+                )}
 
-                {speakerRec.twitterHandle.length > 0 ? (
+                {speakerRec.twitterHandle.length > 0 && (
                   <small>
                     <strong>Twitter</strong>: {speakerRec.twitterHandle}
                   </small>
-                ) : null}
-                <div>FORMAT THIS: {speakerRec.timeSpeaking?.toLocaleString()}</div>
+                )}
+
+                {speakerRec.timeSpeaking && (
+                  <small>
+                    <strong>Time Speaking:</strong> {new Date(speakerRec.timeSpeaking).toLocaleString()}
+                  </small>
+                )}
               </div>
             </div>
           </div>
