@@ -25,6 +25,10 @@ export default function SpeakersListContainer() {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
+
+        const newSpeaker = await response.json();
+        setSpeakerList([...speakerList, newSpeaker]);
+
         return await response.json();
       } catch (error) {
         console.error("Error creating new speaker:", error);
@@ -50,8 +54,9 @@ export default function SpeakersListContainer() {
           throw new Error(`Error: ${response.status}`);
         }
 
-        const data = await response.json();
-        return data;
+        const updatedSpeaker = await response.json();
+        setSpeakerList(speakerList.map((speaker) => speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker));
+        return updatedSpeaker;
       } catch (error) {
         console.error("Error updating speaker:", error);
         throw error;
@@ -59,9 +64,7 @@ export default function SpeakersListContainer() {
     }
     update().then(() => {});
   }
-
-
-
+  
   return (
     <SpeakerMenuProvider>
       <SpeakerMenu createSpeaker={createSpeaker} updateSpeaker={updateSpeaker}   />
