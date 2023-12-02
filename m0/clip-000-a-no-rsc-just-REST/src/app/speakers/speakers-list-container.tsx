@@ -41,7 +41,7 @@ export default function SpeakersListContainer() {
 
 
 
-  function updateSpeaker(speaker : Speaker) {
+  function updateSpeaker(speaker : Speaker, completionFunction : () => void) {
     async function update() {
       try {
         const response = await fetch(`/api/speakers/${speaker.id}`, {
@@ -58,6 +58,7 @@ export default function SpeakersListContainer() {
 
         const updatedSpeaker = await response.json();
         setSpeakerList(speakerList.map((speaker) => speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker));
+        completionFunction();
         return updatedSpeaker;
       } catch (error) {
         console.error("Error updating speaker:", error);
@@ -69,7 +70,7 @@ export default function SpeakersListContainer() {
 
   return (
     <SpeakerMenuProvider>
-      <SpeakerMenu createSpeaker={createSpeaker} updateSpeaker={updateSpeaker}   />
+      <SpeakerMenu createSpeaker={createSpeaker} updateSpeaker={updateSpeaker}  />
       <div className="container">
         <div className="row g-4">
           <SpeakersList speakerList={speakerList} setSpeakerList={setSpeakerList} loadingStatus={loadingStatus} setLoadingStatus={setLoadingStatus}

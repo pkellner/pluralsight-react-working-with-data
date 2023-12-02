@@ -24,7 +24,7 @@ export default function SpeakersList({
   error: string | undefined;
   setError: (error: string | undefined) => void;
   createSpeaker: (speaker: Speaker) => void;
-  updateSpeaker: (speaker: Speaker) => void;
+  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
 }) {
   const { searchText } = useSpeakerMenuContext();
 

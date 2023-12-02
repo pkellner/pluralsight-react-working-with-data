@@ -4,7 +4,7 @@ import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
-import {Speaker} from "@/lib/general-types";
+import { Speaker } from "@/lib/general-types";
 
 export default function SpeakerDetail({
   speakerRec,
@@ -14,17 +14,21 @@ export default function SpeakerDetail({
 }: {
   speakerRec: any;
   deleteSpeaker: (id: number) => void;
-  updateSpeaker: (speaker: Speaker) => void;
+  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
-
-  const handleImageError = (e : any) => {
+  const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };
 
   return (
     <SpeakerModalProvider>
-      {speakerRec && <SpeakerModal updateSpeaker={updateSpeaker} createSpeaker={createSpeaker} />}
+      {speakerRec && (
+        <SpeakerModal
+          updateSpeaker={updateSpeaker}
+          createSpeaker={createSpeaker}
+        />
+      )}
       <div className="col-xl-6 col-md-12">
         <div className="card border-0 h-100">
           <div className="row g-0">
@@ -47,7 +51,7 @@ export default function SpeakerDetail({
                   </div>
 
                   <div className="modifyWrapper">
-                    <EditSpeakerDialog {...speakerRec}  />
+                    <EditSpeakerDialog {...speakerRec} />
                     <DeleteSpeakerButton
                       id={speakerRec.id}
                       deleteSpeaker={deleteSpeaker}
@@ -73,15 +77,14 @@ export default function SpeakerDetail({
                   </small>
                 )}
 
-                {
-                  speakerRec.timeSpeaking &&
-                  new Date(speakerRec.timeSpeaking).getTime() !== new Date(0).getTime() && (
+                {speakerRec.timeSpeaking &&
+                  new Date(speakerRec.timeSpeaking).getTime() !==
+                    new Date(0).getTime() && (
                     <small>
-                      <strong>Time Speaking:</strong> {new Date(speakerRec.timeSpeaking).toLocaleString()}
+                      <strong>Time Speaking:</strong>{" "}
+                      {new Date(speakerRec.timeSpeaking).toLocaleString()}
                     </small>
-                  )
-                }
-
+                  )}
               </div>
             </div>
           </div>

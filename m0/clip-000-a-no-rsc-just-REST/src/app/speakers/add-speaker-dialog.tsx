@@ -5,7 +5,7 @@ export default function AddSpeakerDialog({
   updateSpeaker,
   createSpeaker,
 }: {
-  updateSpeaker: (speaker: any) => void;
+  updateSpeaker: (speaker: any, completionFunction: () => void) => void;
   createSpeaker: (speaker: any) => void;
 }) {
   const {

@@ -8,7 +8,7 @@ export default function SpeakerMenu({
   updateSpeaker,
   createSpeaker,
 }: {
-  updateSpeaker: (speaker: Speaker) => void;
+  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
   const { searchText, setSearchText } = useSpeakerMenuContext();

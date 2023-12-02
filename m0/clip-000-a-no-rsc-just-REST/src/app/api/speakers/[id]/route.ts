@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
 
   try {
-    await sleep(100);
+    await sleep(1000);
     const id = request.url.split('/').pop();
     //console.log("route.ts PUT request id:", id);
     const data = await request.json();
@@ -72,7 +72,7 @@ export async function PUT(request: Request) {
 // This function handles the DELETE request
 export async function DELETE(request: Request) {
   try {
-    await sleep(100);
+    await sleep(1000);
     const id = request.url.split('/').pop();
 
     // Start a transaction
