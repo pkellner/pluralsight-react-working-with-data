@@ -26,10 +26,11 @@ export default function SpeakersListContainer() {
           throw new Error(`Error: ${response.status}`);
         }
 
-        const newSpeaker = await response.json();
+        const newSpeaker = await response.json(); // Read the response once
         setSpeakerList([...speakerList, newSpeaker]);
 
-        return await response.json();
+        // No need to call response.json() again, newSpeaker already holds the parsed response
+        return newSpeaker;
       } catch (error) {
         console.error("Error creating new speaker:", error);
         throw error;
@@ -37,6 +38,7 @@ export default function SpeakersListContainer() {
     }
     create().then(() => {});
   }
+
 
 
   function updateSpeaker(speaker : Speaker) {
@@ -64,7 +66,7 @@ export default function SpeakersListContainer() {
     }
     update().then(() => {});
   }
-  
+
   return (
     <SpeakerMenuProvider>
       <SpeakerMenu createSpeaker={createSpeaker} updateSpeaker={updateSpeaker}   />

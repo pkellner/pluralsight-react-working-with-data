@@ -1,4 +1,7 @@
-// import does not work in standalone scripts
+// this pulls the data from db.json. That file was created in the admin section of Silicon Valley Code Camp to get real speaker data from the database.
+// The data is then used to seed the database in the course. (attendee data is made up randomly there).
+
+
 const { PrismaClient } = require("@prisma/client");
 const data = require("../../../db.json");
 
@@ -13,6 +16,7 @@ async function main() {
         id: session.id,
         title: session.title,
         description: session.description,
+        //sessionStart: session.sessionStart,
         // speakers will be linked later
       },
     });
@@ -28,6 +32,7 @@ async function main() {
         company: speaker.company,
         twitterHandle: speaker.twitterHandle,
         userBioShort: speaker.userBioShort,
+        timeSpeaking: speaker.timeSpeaking,
       },
       // sessions and favorites will be handled separately
     });
@@ -53,6 +58,7 @@ async function main() {
         firstName: attendee.firstName,
         lastName: attendee.lastName,
         email: attendee.email,
+        createdDate: attendee.createdDate,
         // favorites will be handled separately
       },
     });

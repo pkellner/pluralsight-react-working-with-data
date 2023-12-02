@@ -13,6 +13,7 @@ export interface Session {
   id: number;
   title: string;
   description: string;
+  sessionStart?: Date;
   speakers?: SpeakerSession[];
 }
 
@@ -28,6 +29,7 @@ export interface Attendee {
   firstName: string;
   lastName: string;
   email: string;
+  createdDate: Date;
   favorites?: AttendeeFavorite[];
 }
 

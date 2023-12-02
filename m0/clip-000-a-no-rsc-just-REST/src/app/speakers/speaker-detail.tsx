@@ -17,6 +17,11 @@ export default function SpeakerDetail({
   updateSpeaker: (speaker: Speaker) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
+
+  const handleImageError = (e : any) => {
+    e.target.src = "/images/speaker-pending.png"; // Path to your default image
+  };
+
   return (
     <SpeakerModalProvider>
       {speakerRec && <SpeakerModal updateSpeaker={updateSpeaker} createSpeaker={createSpeaker} />}
@@ -30,6 +35,7 @@ export default function SpeakerDetail({
                 height={200}
                 className="img-fluid speaker-rounded-corners speaker-image"
                 alt={`${speakerRec?.firstName} ${speakerRec?.lastName}`}
+                onError={handleImageError}
               />
             </div>
 
@@ -66,6 +72,7 @@ export default function SpeakerDetail({
                     <strong>Twitter</strong>: {speakerRec.twitterHandle}
                   </small>
                 ) : null}
+                <div>FORMAT THIS: {speakerRec.timeSpeaking?.toLocaleString()}</div>
               </div>
             </div>
           </div>

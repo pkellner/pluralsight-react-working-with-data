@@ -11,6 +11,7 @@ npm install prisma --save-dev
 npx prisma init --datasource-provider sqlite
 add model to schema.prisma
 npx prisma migrate dev --name init
+npx prisma generate
 
 npx prisma migrate reset
 

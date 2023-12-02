@@ -16,6 +16,7 @@ model Speaker {
   company       String?
   twitterHandle String?
   userBioShort  String
+  timeSpeaking  DateTime?
   sessions      SpeakerSession[]
   favorites     AttendeeFavorite[]
 }
@@ -24,6 +25,7 @@ model Session {
   id          Int              @id @default(autoincrement())
   title       String
   description String
+  sessionStart DateTime?
   speakers    SpeakerSession[]
 }
 
@@ -32,6 +34,7 @@ model Attendee {
   firstName String
   lastName  String
   email     String            @unique
+  createdDate DateTime
   favorites AttendeeFavorite[]
 }
 

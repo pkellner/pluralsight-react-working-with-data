@@ -1,43 +1,37 @@
 import prisma from "@/lib/prisma/prisma";
 
 export async function GET(request: Request) {
-  //const userId = parseInt(req.params.userId);
-  // const user = users.find((u) => u.id === userId);
-
-  // get all speakers from the sqlite database with prisma
-  const speakers = await prisma.speaker.findMany({
+  const attendees = await prisma.attendee.findMany({
     select: {
       id: true,
       firstName: true,
       lastName: true,
-      company: true,
-      twitterHandle: true,
-      userBioShort: true,
-      timeSpeaking: true,
+      email: true,
     },
+    orderBy: {
+      lastName: "asc",
+      firstName: "asc",
+    }
   });
 
-  return new Response(JSON.stringify(speakers, null, 2), {
+  return new Response(JSON.stringify(attendees, null, 2), {
     status: 200,
     headers: {
       "Content-Type": "application/json",
     },
   });
-
-  // return new Response(null, { status: 404 });
 }
 
 
-// This function handles the POST request
 export async function POST(request: Request) {
   try {
     const data = await request.json();
     console.log("POST data", data);
-    const newSpeaker = await prisma.speaker.create({
+    const newAttendee = await prisma.attendee.create({
       data,
     });
 
-    return new Response(JSON.stringify(newSpeaker, null, 2), {
+    return new Response(JSON.stringify(newAttendee, null, 2), {
       status: 201,
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +41,6 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error creating speaker" }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Error creating attendee" }), { status: 500 });
   }
 }
