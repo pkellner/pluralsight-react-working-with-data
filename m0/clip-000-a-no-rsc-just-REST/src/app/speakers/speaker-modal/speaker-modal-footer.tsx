@@ -1,7 +1,10 @@
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 import { Speaker } from "@/lib/general-types";
 
-export default function SpeakerModalFooter({updateSpeaker, createSpeaker} : {
+export default function SpeakerModalFooter({
+  updateSpeaker,
+  createSpeaker,
+}: {
   updateSpeaker: (speaker: Speaker) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
@@ -10,14 +13,11 @@ export default function SpeakerModalFooter({updateSpeaker, createSpeaker} : {
     modalSpeakerId,
     modalSpeakerFirstName,
     modalSpeakerLastName,
-    modalSpeakerCompany, // New addition
-    modalSpeakerTwitterHandle, // New addition
-    modalUserBioShort, // Changed from modalSpeakerBioShort
+    modalSpeakerCompany,
+    modalSpeakerTwitterHandle,
+    modalUserBioShort,
+    modalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
-
-  console.log("SpeakerModalFooter: updateSpeaker Type:", typeof updateSpeaker);
-
-
 
   return (
     <div className="modal-footer justify-content-center">
@@ -31,6 +31,7 @@ export default function SpeakerModalFooter({updateSpeaker, createSpeaker} : {
               company: modalSpeakerCompany,
               twitterHandle: modalSpeakerTwitterHandle,
               userBioShort: modalUserBioShort,
+              timeSpeaking: modalSpeakerTimeSpeaking,
             });
             setModalShow(false);
           }}

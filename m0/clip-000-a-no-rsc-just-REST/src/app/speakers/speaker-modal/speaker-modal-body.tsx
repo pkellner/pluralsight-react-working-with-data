@@ -1,4 +1,5 @@
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
+import {isoStringDateToPrismaDate, prismaDateToIsoString} from "@/lib/date-utilities";
 
 export default function SpeakerModalBody() {
   const {
@@ -12,8 +13,12 @@ export default function SpeakerModalBody() {
     modalSpeakerTwitterHandle,
     setModalSpeakerTwitterHandle,
     modalUserBioShort,
-    setModalUserBioShort
+    setModalUserBioShort,
+    modalSpeakerTimeSpeaking,
+    setModalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
+
+  const speakingTime = prismaDateToIsoString(modalSpeakerTimeSpeaking, true);
 
   return (
     <div className="modal-body">
@@ -72,6 +77,18 @@ export default function SpeakerModalBody() {
                     type="text"
                     className="form-control"
                     placeholder="@twitterhandle"
+                  />
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="note-title">
+                  <label>Time Speaking</label>
+                  <input
+                    value={speakingTime}
+                    // onChange={(event) => setModalSpeakerTimeSpeaking(new Date(event.target.value))}
+                    onChange={(event) => setModalSpeakerTimeSpeaking(isoStringDateToPrismaDate(event.target.value))}
+                    type="datetime-local"
+                    className="form-control"
                   />
                 </div>
               </div>

@@ -16,6 +16,7 @@ export default function AddSpeakerDialog({
     setModalSpeakerCompany,
     setModalSpeakerTwitterHandle,
     setModalUserBioShort,
+    setModalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
 
   return (
@@ -32,6 +33,7 @@ export default function AddSpeakerDialog({
           setModalSpeakerCompany("");
           setModalSpeakerTwitterHandle("");
           setModalUserBioShort("");
+          setModalSpeakerTimeSpeaking(new Date());
           setModalShow(true);
         }}
         className="btn btn-accent"

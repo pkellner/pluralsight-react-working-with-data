@@ -5,6 +5,7 @@ export interface Speaker {
   company?: string | null;
   twitterHandle?: string | null;
   userBioShort: string;
+  timeSpeaking?: Date;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
 }

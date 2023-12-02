@@ -1,9 +1,14 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
 
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
 // This function handles the GET request
 export async function GET(request: Request) {
   try {
+    await sleep(1000);
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
@@ -36,11 +41,13 @@ export async function GET(request: Request) {
 
 // This function handles the PUT request
 export async function PUT(request: Request) {
+
   try {
+    await sleep(100);
     const id = request.url.split('/').pop();
-    console.log("route.ts PUT request id:", id);
+    //console.log("route.ts PUT request id:", id);
     const data = await request.json();
-    console.log("route.ts PUT request data:", data)
+    //console.log("route.ts PUT request data:", data)
 
     const updatedSpeaker = await prisma.speaker.update({
       where: { id: parseInt(id ?? "0") },
@@ -65,6 +72,7 @@ export async function PUT(request: Request) {
 // This function handles the DELETE request
 export async function DELETE(request: Request) {
   try {
+    await sleep(100);
     const id = request.url.split('/').pop();
 
     // Start a transaction

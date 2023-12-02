@@ -13,8 +13,10 @@ interface SpeakerModalContextProps {
   setModalSpeakerCompany: React.Dispatch<React.SetStateAction<string>>;
   modalSpeakerTwitterHandle: string;
   setModalSpeakerTwitterHandle: React.Dispatch<React.SetStateAction<string>>;
-  modalUserBioShort: string; // Changed from modalSpeakerBioShort
-  setModalUserBioShort: React.Dispatch<React.SetStateAction<string>>; // Changed from setModalSpeakerBioShort
+  modalUserBioShort: string;
+  setModalUserBioShort: React.Dispatch<React.SetStateAction<string>>;
+  modalSpeakerTimeSpeaking: Date;
+  setModalSpeakerTimeSpeaking: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const SpeakerModalContext = createContext<SpeakerModalContextProps>({
@@ -32,6 +34,8 @@ const SpeakerModalContext = createContext<SpeakerModalContextProps>({
   setModalSpeakerTwitterHandle: () => {},
   modalUserBioShort: "",
   setModalUserBioShort: () => {},
+  modalSpeakerTimeSpeaking: new Date(),
+  setModalSpeakerTimeSpeaking: () => {},
 });
 
 export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
@@ -43,6 +47,8 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalSpeakerTwitterHandle, setModalSpeakerTwitterHandle] =
     useState("");
   const [modalUserBioShort, setModalUserBioShort] = useState("");
+  const [modalSpeakerTimeSpeaking, setModalSpeakerTimeSpeaking] =
+    useState<Date>(new Date());
 
   const value = {
     modalShow,
@@ -59,6 +65,8 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
     setModalSpeakerTwitterHandle,
     modalUserBioShort,
     setModalUserBioShort,
+    modalSpeakerTimeSpeaking,
+    setModalSpeakerTimeSpeaking,
   };
 
   return (

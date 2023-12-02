@@ -8,6 +8,7 @@ export default function EditSpeakerDialog({
   company,
   twitterHandle,
   userBioShort,
+  timeSpeaking,
 }: {
   id: number;
   firstName: string;
@@ -15,6 +16,7 @@ export default function EditSpeakerDialog({
   company: string;
   twitterHandle: string;
   userBioShort: string;
+  timeSpeaking: Date;
 }) {
   const {
     setModalShow,
@@ -24,6 +26,7 @@ export default function EditSpeakerDialog({
     setModalSpeakerCompany,
     setModalSpeakerTwitterHandle,
     setModalUserBioShort,
+    setModalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
 
   return (
@@ -35,6 +38,7 @@ export default function EditSpeakerDialog({
         setModalSpeakerLastName(lastName);
         setModalSpeakerCompany(company);
         setModalSpeakerTwitterHandle(twitterHandle);
+        setModalSpeakerTimeSpeaking(timeSpeaking);
         setModalUserBioShort(userBioShort);
         setModalShow(true);
       }}
