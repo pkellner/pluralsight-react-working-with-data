@@ -6,7 +6,7 @@ enum NavRoutes {
   Home = '/',
   Speakers = '/speakers',
   Sessions = '/sessions',
-  Admin = '/admin',
+  Attendees = '/attendees',
 }
 
 export default function Nav() {
@@ -68,14 +68,14 @@ export default function Nav() {
             </a>
           </li>
           <li
-            className={`nav-item ${activeNav === NavRoutes.Admin ? 'active' : ''}`}
+            className={`nav-item ${activeNav === NavRoutes.Attendees ? 'active' : ''}`}
           >
             <a
               className='nav-link'
-              href={NavRoutes.Admin}
-              onClick={() => handleNavClick(NavRoutes.Admin)}
+              href={NavRoutes.Attendees}
+              onClick={() => handleNavClick(NavRoutes.Attendees)}
             >
-              Admin
+              Attendees
             </a>
           </li>
         </ul>

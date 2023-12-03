@@ -8,11 +8,12 @@ export async function GET(request: Request) {
       lastName: true,
       email: true,
     },
-    orderBy: {
-      lastName: "asc",
-      firstName: "asc",
-    }
+    orderBy: [
+      { lastName: "asc" },
+      { firstName: "asc" }
+    ]
   });
+
 
   return new Response(JSON.stringify(attendees, null, 2), {
     status: 200,
