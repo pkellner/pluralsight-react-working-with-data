@@ -30,7 +30,7 @@ model Session {
 }
 
 model Attendee {
-  id        String            @id // Decide how to handle IDs for this model
+  id        String            @id // These ID's need to be added manually before the insert (saves having to get return)
   firstName String
   lastName  String
   email     String            @unique

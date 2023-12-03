@@ -1,6 +1,6 @@
-import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
-import { Speaker } from "@/lib/general-types";
-import { useState } from "react";
+import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
+import {Speaker} from "@/lib/general-types";
+import {useState} from "react";
 
 export default function SpeakerModalFooter({
   updateSpeaker,

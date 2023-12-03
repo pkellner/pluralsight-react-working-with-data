@@ -2,13 +2,14 @@
 import prisma from "@/lib/prisma/prisma";
 
 // This function handles the GET request
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: number } },
+) {
+  const id = Number(params.id);
   try {
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get('id')
-
     const speaker = await prisma.speaker.findUnique({
-      where: { id: parseInt(id ?? "0") },
+      where: { id: Number(id) },
       select: {
         id: true,
         firstName: true,
@@ -16,11 +17,22 @@ export async function GET(request: Request) {
         company: true,
         twitterHandle: true,
         userBioShort: true,
+        // Use an aggregate query on the favorites relation
+        _count: {
+          select: {
+            favorites: true, // Counts the number of entries in the favorites relation
+          },
+        },
       },
     });
 
+    console.log("speaker", speaker)
+
+
     if (!speaker) {
-      return new Response(JSON.stringify({ message: "Speaker not found" }), { status: 404 });
+      return new Response(JSON.stringify({ message: "Speaker not found" }), {
+        status: 404,
+      });
     }
 
     return new Response(JSON.stringify(speaker, null, 2), {
@@ -30,17 +42,19 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
+      status: 500,
+    });
   }
 }
 
 // This function handles the PUT request
 export async function PUT(request: Request) {
   try {
-    const id = request.url.split('/').pop();
+    const id = request.url.split("/").pop();
     console.log("route.ts PUT request id:", id);
     const data = await request.json();
-    console.log("route.ts PUT request data:", data)
+    console.log("route.ts PUT request data:", data);
 
     const updatedSpeaker = await prisma.speaker.update({
       where: { id: parseInt(id ?? "0") },
@@ -51,42 +65,47 @@ export async function PUT(request: Request) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error updating speaker" }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Error updating speaker" }), {
+      status: 500,
+    });
   }
 }
 
-
 // This function handles the DELETE request
-export async function DELETE(request: Request) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: number } },
+) {
+  const id = Number(params.id);
   try {
-    const id = request.url.split('/').pop();
-
     // Start a transaction
     await prisma.$transaction(async (prisma) => {
       // 1. Delete related records in SpeakerSession
       await prisma.speakerSession.deleteMany({
-        where: { speakerId: parseInt(id ?? "0") },
+        where: { speakerId: Number(id) },
       });
 
       // 2. Delete related records in AttendeeFavorite
       await prisma.attendeeFavorite.deleteMany({
-        where: { speakerId: parseInt(id ?? "0")  },
+        where: { speakerId: Number(id) },
       });
 
       // 3. Finally, delete the speaker
       await prisma.speaker.delete({
-        where: { id: parseInt(id ?? "0")  },
+        where: { id: Number(id) },
       });
     });
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error deleting speaker" }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Error deleting speaker" }), {
+      status: 500,
+    });
   }
 }

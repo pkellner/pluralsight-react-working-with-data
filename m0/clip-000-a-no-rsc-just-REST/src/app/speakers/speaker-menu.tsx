@@ -1,8 +1,8 @@
 import React from "react";
-import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
-import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
+import {useSpeakerMenuContext} from "@/components/contexts/speaker-menu-context";
+import {SpeakerModalProvider} from "@/components/contexts/speaker-modal-context";
 import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";
-import { Speaker } from "@/lib/general-types";
+import {Speaker} from "@/lib/general-types";
 
 export default function SpeakerMenu({
   updateSpeaker,

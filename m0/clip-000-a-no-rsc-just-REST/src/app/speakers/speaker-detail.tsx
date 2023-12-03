@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function SpeakerDetail({
   speakerRec,
@@ -17,9 +19,13 @@ export default function SpeakerDetail({
   updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
   createSpeaker: (speaker: Speaker) => void;
 }) {
+
+
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };
+
+
 
   return (
     <SpeakerModalProvider>

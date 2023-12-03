@@ -1,11 +1,44 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {Speaker} from "@/lib/general-types";
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function FavoriteSpeakerToggle({ speakerRec  }: { speakerRec: any  }) {
   const { updateSpeaker } = {
     updateSpeaker: (speaker: any) => {},
   }
-  const [updating, setUpdating] = useState<boolean>(false);
+
+  const [speaker, setSpeaker] = useState<Speaker>();
+  const [loadingStatus, setLoadingStatus] = useState("loading"); // default to loading
+  const [error, setError] = useState<string | undefined>(); // error state
+
+
+  useEffect(() => {
+    async function fetchSpeaker() {
+      try {
+        const response = await fetch(`/api/speakers/${speakerRec.id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log("data", data)
+        await sleep(1000);
+        setSpeaker(data);
+        setLoadingStatus("success");
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error("Error in fetch SpeakersList", err);
+          setError(err.message);
+        } else {
+          console.error("An unexpected error occurred");
+          setError("An unexpected error occurred");
+        }
+        setLoadingStatus("error");
+      }
+    }
+    fetchSpeaker().then(() => {});
+  }, []);
+
 
   return (
     <button
@@ -18,13 +51,13 @@ export default function FavoriteSpeakerToggle({ speakerRec  }: { speakerRec: any
           ...speakerRec,
           favorite: !speakerRec.favorite,
         };
-        setUpdating(true);
+        setLoadingStatus("loading");
         updateSpeaker(newSpeakerRec);
       }}
     >
-      {updating ? (
+      {loadingStatus === "loading" ? (
         <i className="spinner-border text-dark" role="status" />
-      ) : null}
+      ) : (<span className="m-2">({speaker?.favoriteCount})</span>)}
     </button>
   );
 }

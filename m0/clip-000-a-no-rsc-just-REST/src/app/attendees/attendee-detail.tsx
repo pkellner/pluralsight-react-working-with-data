@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useLocalAuthContext } from "@/components/contexts/auth-context";
-import {log} from "util";
+import React, {useState} from "react";
+import {useLocalAuthContext} from "@/components/contexts/auth-context";
 
 export default function AttendeeDetail({
   attendeeRec,
@@ -20,6 +19,7 @@ export default function AttendeeDetail({
   const handleCancel = () => {
     setIsEditing(false);
   };
+
 
   const { loggedInName, setLoggedInName } = useLocalAuthContext();
 

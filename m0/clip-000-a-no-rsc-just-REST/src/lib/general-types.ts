@@ -8,6 +8,7 @@ export interface Speaker {
   timeSpeaking?: Date;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
+  favoriteCount?: number;
 }
 
 export interface Session {

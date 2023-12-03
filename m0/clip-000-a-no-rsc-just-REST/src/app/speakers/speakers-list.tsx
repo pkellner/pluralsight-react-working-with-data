@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect} from "react";
 import useSpeakerSortAndFilter from "@/app/speakers/use-speaker-sort-and-filter";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
-import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
+import {useSpeakerMenuContext} from "@/components/contexts/speaker-menu-context";
 import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
-import { Speaker } from "@/lib/general-types";
+import {Speaker} from "@/lib/general-types";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

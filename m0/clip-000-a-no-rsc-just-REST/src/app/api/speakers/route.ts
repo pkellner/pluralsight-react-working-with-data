@@ -34,7 +34,6 @@ export async function POST(request: Request) {
   await sleep(1000);
   try {
     const data = await request.json();
-    //console.log("POST data", data);
     const newSpeaker = await prisma.speaker.create({
       data,
     });
