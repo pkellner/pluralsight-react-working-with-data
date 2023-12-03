@@ -7,6 +7,7 @@ export async function GET(request: Request) {
       firstName: true,
       lastName: true,
       email: true,
+      createdDate: true,
     },
     orderBy: [
       { lastName: "asc" },

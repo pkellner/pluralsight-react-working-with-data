@@ -1,50 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { Attendee } from "@/lib/general-types";
 
 export default function AttendeeDetail({
-  attendeeRec,
-  deleteAttendee,
-  updateAttendee,
-  createAttendee,
-}: {
-  attendeeRec: any;
-  deleteAttendee: (id: string) => void;
-  updateAttendee: (attendee: Attendee, completionFunction: () => void) => void;
-  createAttendee: (attendee: Attendee) => void;
-}) {
-  return (
-    <div className="col-xl-6 col-md-12">
-      <div className="card border-0 h-100">
-        <div className="row g-0">
-          <div className="col-8 d-flex flex-column flex-nowrap">
-            <div className="card-body">
-              <div className="attendee-action d-flex">
-                <div className="modifyWrapper">
-                  <button className="btn btn-outline-secondary btn-sm">
-                    delete
-                  </button>
-                  {/* Additional functionality can be added here if needed */}
-                  {/*<DeleteAttendeeButton*/}
-                  {/*  id={attendeeRec.id}*/}
-                  {/*  deleteAttendee={deleteAttendee}*/}
-                  {/*/>*/}
-                </div>
-              </div>
-              <h4 className="card-title">
-                {attendeeRec.firstName} {attendeeRec.lastName}
-              </h4>
-              <p className="card-text">{attendeeRec.email}</p>
-            </div>
+                                         attendeeRec,
+                                         deleteAttendee,
+                                         updateAttendee,
+                                         createAttendee,
+                                       } : any) {
+  // State to manage edit mode
+  const [isEditing, setIsEditing] = useState(false);
 
-            <div className="card-footer text-muted d-flex flex-wrap justify-content-between align-items-center">
-              <small>
-                <strong>Created Date:</strong>{" "}
-                {new Date(attendeeRec.createdDate).toLocaleString()}
-              </small>
+  // Function to handle edit mode
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  // Function to handle cancel
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    <div className="col-12">
+      <div className="card border-0 h-100">
+        {/* Headers */}
+        <div className="row g-0 align-items-center border-bottom">
+          <div className="col-2">Action</div> {/* Header for the new button column */}
+          <div className="col-2">Name</div>
+          <div className="col-3">Date Created</div>
+          <div className="col-2">ID</div>
+          <div className="col-3">Operations</div>
+        </div>
+        {/* Data Rows */}
+        <div className="row g-0 align-items-center">
+          <div className="col d-flex">
+            <div className="col-2">
+              <button className="btn btn-outline-success btn-sm p-1">Set as Logged In</button> {/* New Button */}
+            </div>
+            <div className="col-2">
+              <span>{attendeeRec.firstName}</span> <span>{attendeeRec.lastName}</span>
+            </div>
+            <div className="col-3">
+              <span>{new Date(attendeeRec.createdDate).toLocaleString()}</span>
+            </div>
+            <div className="col-2">
+              <span>{attendeeRec.id}</span>
+            </div>
+            <div className="col-3">
+              {isEditing ? (
+                <>
+                  <button className="btn btn-outline-primary btn-sm p-1" onClick={() => updateAttendee(attendeeRec, handleCancel)}>Update</button>
+                  <button className="btn btn-outline-secondary btn-sm p-1" onClick={handleCancel}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <button className="btn btn-outline-primary btn-sm p-1" onClick={handleEdit}>Edit</button>
+                  <button className="btn btn-outline-danger btn-sm p-1" onClick={() => deleteAttendee(attendeeRec.id)}>Delete</button>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+
+
 }
