@@ -4,8 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "/styles/site.css";
 import "/styles/fontawesome/css/all.css";
 import "/styles/roboto/roboto.css";
-
-
+import LocalAuthProvider from "@/components/contexts/auth-context";
 
 export const metadata: Metadata = {
   title: "React with Data",
@@ -20,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <div className="container-fluid"> {children}</div></body>
+        <LocalAuthProvider>
+          <div className="container-fluid">{children}</div>
+        </LocalAuthProvider>
+      </body>
     </html>
   );
 }

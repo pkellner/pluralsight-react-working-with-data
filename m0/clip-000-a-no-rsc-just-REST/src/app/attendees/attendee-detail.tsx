@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Attendee } from "@/lib/general-types";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import {log} from "util";
 
 export default function AttendeeDetail({
   attendeeRec,
@@ -20,15 +21,27 @@ export default function AttendeeDetail({
     setIsEditing(false);
   };
 
+  const { loggedInName, setLoggedInName } = useLocalAuthContext();
+
+  function getLoginName(firstName : string, lastName : string) {
+    return `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
+  }
+
+  const firstLast = getLoginName(attendeeRec.firstName, attendeeRec.lastName);
+
   return (
     <div className="row g-2 align-items-center">
       <div className="col d-flex">
         {/* Log In Button - Adjusted for xs screens */}
         <div className="col-4 col-md-2">
-          <button className="btn btn-outline-success btn-sm p-1 m-1">
-            Log In
+          <button
+            className="btn btn-outline-success btn-sm p-1 m-1"
+            onClick={() => {
+              setLoggedInName(firstLast);
+            }}
+          >
+            {firstLast.length > 0 && firstLast === loggedInName  ? "Log Out" : "Log In"}
           </button>{" "}
-          {/* New Button */}
         </div>
 
         {/* Name - Adjusted for xs screens */}

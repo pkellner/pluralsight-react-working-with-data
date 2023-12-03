@@ -15,6 +15,7 @@ export default function AttendeeMenu() {
           <input
             value={searchText}
             onChange={(event) => {
+              debugger;
               setSearchText(event.target.value);
             }}
             type="text"
