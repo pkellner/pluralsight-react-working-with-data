@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Attendee } from "@/lib/general-types";
 
 export default function AttendeeDetail({
-                                         attendeeRec,
-                                         deleteAttendee,
-                                         updateAttendee,
-                                         createAttendee,
-                                       } : any) {
+  attendeeRec,
+  deleteAttendee,
+  updateAttendee,
+  createAttendee,
+}: any) {
   // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
 
@@ -21,49 +21,73 @@ export default function AttendeeDetail({
   };
 
   return (
-    <div className="col-12">
-      <div className="card border-0 h-100">
-        {/* Headers */}
-        <div className="row g-0 align-items-center border-bottom">
-          <div className="col-2">Action</div> {/* Header for the new button column */}
-          <div className="col-2">Name</div>
-          <div className="col-3">Date Created</div>
-          <div className="col-2">ID</div>
-          <div className="col-3">Operations</div>
+    <div className="row g-2 align-items-center">
+      <div className="col d-flex">
+        {/* Log In Button - Adjusted for xs screens */}
+        <div className="col-4 col-md-2">
+          <button className="btn btn-outline-success btn-sm p-1 m-1">
+            Log In
+          </button>{" "}
+          {/* New Button */}
         </div>
-        {/* Data Rows */}
-        <div className="row g-0 align-items-center">
-          <div className="col d-flex">
-            <div className="col-2">
-              <button className="btn btn-outline-success btn-sm p-1">Set as Logged In</button> {/* New Button */}
+
+        {/* Name - Adjusted for xs screens */}
+        <div className="col-4 col-md-2">
+          <span>{attendeeRec.firstName}</span>{" "}
+          <span>{attendeeRec.lastName}</span>
+        </div>
+
+        {/* Date Created - Hidden on xs screens, visible on md and larger */}
+        <div className="col-md-3 d-none d-md-block">
+          <span>
+            {new Date(attendeeRec.createdDate).toLocaleDateString("en-US", {
+              year: "2-digit",
+              month: "2-digit",
+              day: "2-digit",
+            })}
+          </span>
+        </div>
+
+        {/* ID - Hidden on xs screens, visible on md and larger */}
+        <div className="col-md-2 d-none d-md-block">
+          <span>{attendeeRec.id.slice(0, 10) + "..."}</span>
+        </div>
+
+        {/* Operations - Adjusted for xs screens */}
+        <div className="col-4 col-md-3">
+          {isEditing ? (
+            <>
+              <button
+                className="btn btn-outline-primary btn-sm p-1"
+                onClick={() => updateAttendee(attendeeRec, handleCancel)}
+              >
+                Update
+              </button>
+              <button
+                className="btn btn-outline-secondary btn-sm p-1"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
+            <div className="">
+              <button
+                className="btn btn-outline-primary btn-sm p-1 m-1"
+                onClick={handleEdit}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-outline-danger btn-sm p-1 m-1"
+                onClick={() => deleteAttendee(attendeeRec.id)}
+              >
+                Delete
+              </button>
             </div>
-            <div className="col-2">
-              <span>{attendeeRec.firstName}</span> <span>{attendeeRec.lastName}</span>
-            </div>
-            <div className="col-3">
-              <span>{new Date(attendeeRec.createdDate).toLocaleString()}</span>
-            </div>
-            <div className="col-2">
-              <span>{attendeeRec.id}</span>
-            </div>
-            <div className="col-3">
-              {isEditing ? (
-                <>
-                  <button className="btn btn-outline-primary btn-sm p-1" onClick={() => updateAttendee(attendeeRec, handleCancel)}>Update</button>
-                  <button className="btn btn-outline-secondary btn-sm p-1" onClick={handleCancel}>Cancel</button>
-                </>
-              ) : (
-                <>
-                  <button className="btn btn-outline-primary btn-sm p-1" onClick={handleEdit}>Edit</button>
-                  <button className="btn btn-outline-danger btn-sm p-1" onClick={() => deleteAttendee(attendeeRec.id)}>Delete</button>
-                </>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
   );
-
-
 }

@@ -11,7 +11,7 @@ export default function AttendeeMenu() {
       aria-label="Speaker toolbar filter"
     >
       <div className="toolbar-trigger mb-3">
-        <div className="toolbar-search">
+        <div className="toolbar-search p-0">
           <input
             value={searchText}
             onChange={(event) => {

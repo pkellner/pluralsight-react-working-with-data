@@ -19,7 +19,7 @@ export default function SpeakerMenu({
       role="toolbar"
       aria-label="Speaker toolbar filter"
     >
-      <div className="toolbar-trigger mb-3">
+      <div className="toolbar-trigger mb-3 p-1">
         <div className="toolbar-search">
           <input
             value={searchText}

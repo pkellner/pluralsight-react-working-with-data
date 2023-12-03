@@ -240,8 +240,7 @@ header ul li button:focus {
     justify-content: center;
   }
   .btn-toolbar .toolbar-search {
-    width: 100%;
-    padding: 20px;
+    padding: 5px;
   }
 
   .navbar {

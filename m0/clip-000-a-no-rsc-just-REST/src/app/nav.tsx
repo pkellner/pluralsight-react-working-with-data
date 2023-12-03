@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 enum NavRoutes {
   Home = '/',
   Speakers = '/speakers',
-  Sessions = '/sessions',
   Attendees = '/attendees',
 }
 
@@ -54,17 +53,6 @@ export default function Nav() {
               onClick={() => handleNavClick(NavRoutes.Speakers)}
             >
               Speakers
-            </a>
-          </li>
-          <li
-            className={`nav-item ${activeNav === NavRoutes.Sessions ? 'active' : ''}`}
-          >
-            <a
-              className='nav-link'
-              href={NavRoutes.Sessions}
-              onClick={() => handleNavClick(NavRoutes.Sessions)}
-            >
-              Sessions
             </a>
           </li>
           <li
