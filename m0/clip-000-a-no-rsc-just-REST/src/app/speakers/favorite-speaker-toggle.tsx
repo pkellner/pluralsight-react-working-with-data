@@ -21,8 +21,7 @@ export default function FavoriteSpeakerToggle({ speakerRec  }: { speakerRec: any
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log("data", data)
-        await sleep(1000);
+        await sleep(1000 + Math.random() * 2000);
         setSpeaker(data);
         setLoadingStatus("success");
       } catch (err) {
@@ -57,7 +56,7 @@ export default function FavoriteSpeakerToggle({ speakerRec  }: { speakerRec: any
     >
       {loadingStatus === "loading" ? (
         <i className="spinner-border text-dark" role="status" />
-      ) : (<span className="m-2">({speaker?.favoriteCount})</span>)}
+      ) : (<span className="m-2 text-primary">({speaker?.favoriteCount})</span>)}
     </button>
   );
 }

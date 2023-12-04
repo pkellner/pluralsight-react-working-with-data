@@ -39,8 +39,7 @@ export default function SpeakersListContainer() {
     create().then(() => {});
   }
 
-
-
+  
   function updateSpeaker(speaker : Speaker, completionFunction : () => void) {
     async function update() {
       try {
