@@ -16,11 +16,15 @@ export default function LocalAuthProvider({ children }: { children: ReactNode })
 
   const setLoggedInName = useCallback((name: string) => {
     setLoggedInNameState(name);
-    Cookies.set('loggedInName', name, { expires: 7 });
+
+    const setAuthToken = (authToken : string) => {
+      Cookies.set('authToken', authToken, { expires: 7 }); // Set the auth token as a cookie
+    };
+    setAuthToken(name);
   }, []);
 
   useEffect(() => {
-    const cookieValue = Cookies.get('loggedInName');
+    const cookieValue = Cookies.get('authToken');
     if (cookieValue) {
       setLoggedInNameState(cookieValue);
     }

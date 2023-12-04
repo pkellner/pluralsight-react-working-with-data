@@ -4,6 +4,11 @@ import { useLocalAuthContext } from "@/components/contexts/auth-context";
 export default function Header() {
   const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();
 
+  function getFirstLast(loggedInName: string) {
+    const firstLast = loggedInName.split("/");
+    return `${firstLast[0]} ${firstLast[1]}`;
+  }
+
   return (
     <div className="hero py-4 mt-2 header-footer-gradient home-rounded-corners-top-left">
       <div className="container">
@@ -32,7 +37,7 @@ export default function Header() {
                     (ADMIN MODE)
                   </div>
                   <div>
-                    Logged in as <b>{loggedInName}</b>
+                    Logged in as <b>{getFirstLast(loggedInName)}</b>
                   </div>
                   <button
                     className="btn btn-outline-dark mt-2"

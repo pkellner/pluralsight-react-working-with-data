@@ -1,6 +1,8 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
 
+
+
 // This function handles the GET request
 export async function GET(
   request: Request,
@@ -25,8 +27,6 @@ export async function GET(
         },
       },
     });
-
-    console.log("speaker", speaker)
 
 
     if (!speaker) {

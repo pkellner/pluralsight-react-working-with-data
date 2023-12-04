@@ -1,6 +1,19 @@
 import prisma from "@/lib/prisma/prisma";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request) {
+// Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
+function getValuesFromToken(value: string) {
+  const [firstName, lastName, attendeeId] = value.split("/");
+  if (!firstName || !lastName || !attendeeId) {
+    throw new Error("Invalid authorization token");
+  }
+  return { firstName, lastName, attendeeId };
+}
+
+export async function GET(request: NextRequest) {
+
+
+
   const attendees = await prisma.attendee.findMany({
     select: {
       id: true,
@@ -9,11 +22,9 @@ export async function GET(request: Request) {
       email: true,
       createdDate: true,
     },
-    orderBy: [
-      { lastName: "asc" },
-      { firstName: "asc" }
-    ]
+    orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
   });
+
 
 
   return new Response(JSON.stringify(attendees, null, 2), {
@@ -23,7 +34,6 @@ export async function GET(request: Request) {
     },
   });
 }
-
 
 export async function POST(request: Request) {
   try {
@@ -37,12 +47,15 @@ export async function POST(request: Request) {
       status: 201,
       headers: {
         "Content-Type": "application/json",
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error creating attendee" }), { status: 500 });
+    return new Response(
+      JSON.stringify({ message: "Error creating attendee" }),
+      { status: 500 },
+    );
   }
 }

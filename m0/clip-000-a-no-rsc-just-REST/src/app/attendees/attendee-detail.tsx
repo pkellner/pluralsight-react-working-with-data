@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import React, { useState } from "react";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function AttendeeDetail({
   attendeeRec,
@@ -20,14 +20,13 @@ export default function AttendeeDetail({
     setIsEditing(false);
   };
 
-
   const { loggedInName, setLoggedInName } = useLocalAuthContext();
 
-  function getLoginName(firstName : string, lastName : string) {
-    return `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
+  function getLoginName(firstName: string, lastName: string, id: string) {
+    return `${firstName}/${lastName}/${id}`;
   }
 
-  const firstLast = getLoginName(attendeeRec.firstName, attendeeRec.lastName);
+  const firstLastId = getLoginName(attendeeRec.firstName, attendeeRec.lastName,attendeeRec.id);
 
   return (
     <div className="row g-2 align-items-center">
@@ -37,10 +36,12 @@ export default function AttendeeDetail({
           <button
             className="btn btn-outline-success btn-sm p-1 m-1"
             onClick={() => {
-              setLoggedInName(firstLast);
+              setLoggedInName(firstLastId);
             }}
           >
-            {firstLast.length > 0 && firstLast === loggedInName  ? "Log Out" : "Log In"}
+            {firstLastId.length > 0 && firstLastId === loggedInName
+              ? "Log Out"
+              : "Log In"}
           </button>{" "}
         </div>
 
