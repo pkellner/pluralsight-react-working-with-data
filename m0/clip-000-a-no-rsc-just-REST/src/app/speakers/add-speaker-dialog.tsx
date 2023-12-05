@@ -1,13 +1,7 @@
 import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 
-export default function AddSpeakerDialog({
-  updateSpeaker,
-  createSpeaker,
-}: {
-  updateSpeaker: (speaker: any, completionFunction: () => void) => void;
-  createSpeaker: (speaker: any) => void;
-}) {
+export default function AddSpeakerDialog() {
   const {
     setModalShow,
     setModalSpeakerId,
@@ -21,10 +15,7 @@ export default function AddSpeakerDialog({
 
   return (
     <>
-      <SpeakerModal
-        updateSpeaker={updateSpeaker}
-        createSpeaker={createSpeaker}
-      />
+      <SpeakerModal />
       <button
         onClick={() => {
           setModalSpeakerId(0);

@@ -4,13 +4,7 @@ import {SpeakerModalProvider} from "@/components/contexts/speaker-modal-context"
 import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";
 import {Speaker} from "@/lib/general-types";
 
-export default function SpeakerMenu({
-  updateSpeaker,
-  createSpeaker,
-}: {
-  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
-  createSpeaker: (speaker: Speaker) => void;
-}) {
+export default function SpeakerMenu() {
   const { searchText, setSearchText } = useSpeakerMenuContext();
 
   return (
@@ -33,10 +27,7 @@ export default function SpeakerMenu({
         </div>
         <div className="input-group">
           <SpeakerModalProvider>
-            <AddSpeakerDialog
-              updateSpeaker={updateSpeaker}
-              createSpeaker={createSpeaker}
-            />
+            <AddSpeakerDialog />
           </SpeakerModalProvider>
         </div>
       </div>

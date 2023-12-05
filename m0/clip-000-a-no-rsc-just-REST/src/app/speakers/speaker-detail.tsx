@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export default function SpeakerDetail({speakerId} : {speakerId: number}) {
 
-export default function SpeakerDetail({
-  speakerRec,
-  deleteSpeaker,
-  updateSpeaker,
-  createSpeaker,
-}: {
-  speakerRec: any;
-  deleteSpeaker: (id: number) => void;
-  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
-  createSpeaker: (speaker: Speaker) => void;
-}) {
-
-
+  const { speakerList } = useSpeakerDataContext();
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };
 
-
+  if (speakerId === undefined || speakerId === null || speakerId === 0) {
+    console.log("speaker-detail: speakerId is undefined, null, or 0", speakerId);
+  }
+  const speakerRec : Speaker = speakerList.find(value => value.id === speakerId) ?? {} as Speaker; // this should always be a real speaker
 
   return (
-    <SpeakerModalProvider>
+    <>
       {speakerRec && (
         <SpeakerModal
-          updateSpeaker={updateSpeaker}
-          createSpeaker={createSpeaker}
+
         />
       )}
       <div className="col-xl-6 col-md-12">
@@ -53,14 +42,15 @@ export default function SpeakerDetail({
               <div className="card-body">
                 <div className="speaker-action d-flex">
                   <div className="favoriteToggleWrapper">
-                    <FavoriteSpeakerToggle speakerRec={speakerRec} />
+                    <FavoriteSpeakerToggle
+                      speakerId={speakerRec.id}
+                    />
                   </div>
 
                   <div className="modifyWrapper">
-                    <EditSpeakerDialog {...speakerRec} />
+                    <EditSpeakerDialog speakerId={speakerRec.id} />
                     <DeleteSpeakerButton
-                      id={speakerRec.id}
-                      deleteSpeaker={deleteSpeaker}
+                      speakerId={speakerRec.id}
                     />
                   </div>
                 </div>
@@ -77,7 +67,7 @@ export default function SpeakerDetail({
                   </small>
                 )}
 
-                {speakerRec.twitterHandle.length > 0 && (
+                {speakerRec?.twitterHandle?.length > 0 && (
                   <small>
                     <strong>Twitter</strong>: {speakerRec.twitterHandle}
                   </small>
@@ -96,6 +86,6 @@ export default function SpeakerDetail({
           </div>
         </div>
       </div>
-    </SpeakerModalProvider>
+    </>
   );
 }

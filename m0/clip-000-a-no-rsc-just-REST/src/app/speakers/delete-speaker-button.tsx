@@ -1,10 +1,13 @@
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+
 export default function DeleteSpeakerButton({
-  id,
-  deleteSpeaker,
+  speakerId,
 }: {
-  id: number;
-  deleteSpeaker: (id: number) => void;
+  speakerId: number;
 }) {
+
+  const { deleteSpeaker } = useSpeakerDataContext();
+
   return (
     <button
       onClick={(e) => {
@@ -13,7 +16,9 @@ export default function DeleteSpeakerButton({
           "Are you sure you want to delete this speaker?",
         );
         if (confirmed) {
-          deleteSpeaker(id);
+          deleteSpeaker(speakerId,() => {
+            // do nothing
+          });
         }
       }}
       className="btn btn-danger btn-sm"

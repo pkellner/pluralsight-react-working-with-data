@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useState} from "react";
+import React, { createContext, ReactNode, useState } from "react";
 
 interface SpeakerModalContextProps {
   modalShow: boolean;
@@ -19,24 +19,9 @@ interface SpeakerModalContextProps {
   setModalSpeakerTimeSpeaking: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const SpeakerModalContext = createContext<SpeakerModalContextProps>({
-  modalShow: false,
-  setModalShow: () => {},
-  modalSpeakerId: 0,
-  setModalSpeakerId: () => {},
-  modalSpeakerFirstName: "",
-  setModalSpeakerFirstName: () => {},
-  modalSpeakerLastName: "",
-  setModalSpeakerLastName: () => {},
-  modalSpeakerCompany: "",
-  setModalSpeakerCompany: () => {},
-  modalSpeakerTwitterHandle: "",
-  setModalSpeakerTwitterHandle: () => {},
-  modalUserBioShort: "",
-  setModalUserBioShort: () => {},
-  modalSpeakerTimeSpeaking: new Date(),
-  setModalSpeakerTimeSpeaking: () => {},
-});
+const SpeakerModalContext = createContext<SpeakerModalContextProps | undefined>(
+  undefined,
+);
 
 export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalShow, setModalShow] = useState(false);

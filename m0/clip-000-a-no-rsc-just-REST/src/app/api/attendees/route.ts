@@ -12,8 +12,6 @@ function getValuesFromToken(value: string) {
 
 export async function GET(request: NextRequest) {
 
-
-
   const attendees = await prisma.attendee.findMany({
     select: {
       id: true,

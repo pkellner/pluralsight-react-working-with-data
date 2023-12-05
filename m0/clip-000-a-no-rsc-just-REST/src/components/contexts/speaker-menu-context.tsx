@@ -8,10 +8,7 @@ interface SpeakerMenuContextProps {
 }
 
 // Create the context with the defined shape
-const SpeakerMenuContext = createContext<SpeakerMenuContextProps>({
-  searchText: "",
-  setSearchText: () => {}, // Provide a no-op function for initialization
-});
+const SpeakerMenuContext = createContext<SpeakerMenuContextProps| undefined>(undefined)
 
 export default function SpeakerMenuProvider({
   children,

@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     const speakersWithFavorites = speakers.map((speaker) => {
       return {
         ...speaker,
-        isFavorite: attendeeFavorites?.some(
+        favorite: attendeeFavorites?.some(
           (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
         ),
       };

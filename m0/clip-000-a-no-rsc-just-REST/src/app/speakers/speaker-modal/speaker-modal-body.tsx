@@ -86,7 +86,11 @@ export default function SpeakerModalBody() {
                   <input
                     value={speakingTime}
                     // onChange={(event) => setModalSpeakerTimeSpeaking(new Date(event.target.value))}
-                    onChange={(event) => setModalSpeakerTimeSpeaking(isoStringDateToPrismaDate(event.target.value))}
+                    onChange={(event) => {
+                      console.log("speaker-modal-body.tsx: event.target.value: ", event.target.value);
+                      console.log("speaker-modal-body.tsx: isoStringDateToPrismaDate(event.target.value): ", isoStringDateToPrismaDate(event.target.value));
+                      setModalSpeakerTimeSpeaking(isoStringDateToPrismaDate(event.target.value));
+                    }}
                     type="datetime-local"
                     className="form-control"
                   />

@@ -8,10 +8,7 @@ interface AttendeeMenuContextProps {
 }
 
 // Create the context with the defined shape
-const AttendeeMenuContext = createContext<AttendeeMenuContextProps>({
-  searchText: "",
-  setSearchText: () => {}, // Provide a no-op function for initialization
-});
+const AttendeeMenuContext = createContext<AttendeeMenuContextProps| undefined>(undefined)
 
 export default function AttendeeMenuProvider({
   children,

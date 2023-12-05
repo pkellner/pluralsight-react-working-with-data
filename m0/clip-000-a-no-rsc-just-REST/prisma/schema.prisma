@@ -13,10 +13,10 @@ model Speaker {
   id            Int               @id @default(autoincrement())
   firstName     String
   lastName      String
-  company       String?
-  twitterHandle String?
+  company       String
+  twitterHandle String
   userBioShort  String
-  timeSpeaking  DateTime?
+  timeSpeaking  DateTime
   sessions      SpeakerSession[]
   favorites     AttendeeFavorite[]
 }

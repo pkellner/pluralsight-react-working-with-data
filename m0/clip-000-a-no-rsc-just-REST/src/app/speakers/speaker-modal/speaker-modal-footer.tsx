@@ -1,14 +1,8 @@
 import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-import {Speaker} from "@/lib/general-types";
 import {useState} from "react";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
 
-export default function SpeakerModalFooter({
-  updateSpeaker,
-  createSpeaker,
-}: {
-  updateSpeaker: (speaker: Speaker, completionFunction: () => void) => void;
-  createSpeaker: (speaker: Speaker) => void;
-}) {
+export default function SpeakerModalFooter() {
   const {
     setModalShow,
     modalSpeakerId,
@@ -20,6 +14,8 @@ export default function SpeakerModalFooter({
     modalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
 
+  const { updateSpeaker, createSpeaker } = useSpeakerDataContext();
+
   const [updating, setUpdating] = useState(false);
   return (
     <div className="modal-footer justify-content-center">
@@ -27,6 +23,8 @@ export default function SpeakerModalFooter({
         <button
           onClick={() => {
             setUpdating(true);
+            console.log("SpeakerModalFooter: modalSpeakerId: ", modalSpeakerId);
+            console.log("SpeakerModalFooter: modalSpeakerTimeSpeaking: ", modalSpeakerTimeSpeaking);
             updateSpeaker(
               {
                 id: modalSpeakerId,
@@ -63,13 +61,16 @@ export default function SpeakerModalFooter({
           className="btn btn-accent"
           onClick={() => {
             createSpeaker({
+              id: modalSpeakerId,
               firstName: modalSpeakerFirstName,
               lastName: modalSpeakerLastName,
               company: modalSpeakerCompany,
               twitterHandle: modalSpeakerTwitterHandle,
               userBioShort: modalUserBioShort,
+              timeSpeaking: modalSpeakerTimeSpeaking,
+            }, () => {
+              setModalShow(false);
             });
-            setModalShow(false);
           }}
         >
           Add

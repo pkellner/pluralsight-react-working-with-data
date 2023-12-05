@@ -6,6 +6,7 @@ interface LocalAuthContext {
   loggedInName: string;
   setLoggedInName: (name: string) => void;
   isLoading: boolean;
+  isLoggedIn: boolean;
 }
 
 const LocalAuthContext = createContext<LocalAuthContext | undefined>(undefined);
@@ -35,6 +36,8 @@ export default function LocalAuthProvider({ children }: { children: ReactNode })
     loggedInName,
     setLoggedInName,
     isLoading,
+    isLoggedIn: loggedInName.length > 0,
+    isAdmin: loggedInName === "admin",
   };
 
   return <LocalAuthContext.Provider value={value}>{children}</LocalAuthContext.Provider>;
