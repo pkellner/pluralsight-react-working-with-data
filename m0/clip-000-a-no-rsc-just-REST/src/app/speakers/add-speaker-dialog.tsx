@@ -24,7 +24,7 @@ export default function AddSpeakerDialog() {
           setModalSpeakerCompany("");
           setModalSpeakerTwitterHandle("");
           setModalUserBioShort("");
-          setModalSpeakerTimeSpeaking(new Date());
+          setModalSpeakerTimeSpeaking(new Date(0)); // 0 time, jan 1, 1970 12:00 AM
           setModalShow(true);
         }}
         className="btn btn-accent"

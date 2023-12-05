@@ -50,7 +50,7 @@ async function getSpeakerDataById(id: number) {
   if (speakerOri) {
     speaker = {
       ...speakerOri,
-      favoriteCount: speakerOri._count?.favorites ?? 0,
+      favoriteCount: 0, // speakerOri._count?.favorites ?? 0,
       favorite: isFavorite,
     };
   }

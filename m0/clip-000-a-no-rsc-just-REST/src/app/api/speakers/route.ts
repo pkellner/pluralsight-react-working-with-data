@@ -80,13 +80,14 @@ export async function POST(request: Request) {
   await sleep(1000);
   try {
     const data = await request.json();
+    delete data.id; // let the database handle assigning the id
     const newSpeaker = await prisma.speaker.create({
       data,
     });
 
     return new Response(JSON.stringify(newSpeaker, null, 2), {
       status: 201,
-      headers: {
+      headers: { // CORS headers
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",

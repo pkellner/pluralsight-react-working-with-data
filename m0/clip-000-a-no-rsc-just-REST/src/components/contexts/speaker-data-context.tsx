@@ -84,15 +84,17 @@ export default function SpeakerDataProvider({
     fetchSpeakers().then(() => {});
   }, []);
 
-  function createSpeaker(speaker: Speaker) {
+  function createSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function create() {
+      // make sure no id is passed in
+      const speakerToAdd: Speaker = { ...speaker, id: 0 };
       try {
         const response = await fetch(`/api/speakers/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(speaker),
+          body: JSON.stringify(speakerToAdd),
         });
 
         if (!response.ok) {
@@ -109,7 +111,9 @@ export default function SpeakerDataProvider({
         throw error;
       }
     }
-    create().then(() => {});
+    create().then(() => {
+      completionFunction();
+    });
   }
 
   // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
@@ -163,17 +167,19 @@ export default function SpeakerDataProvider({
             speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
           ),
         );
-        completionFunction();
+
         return updatedSpeaker;
       } catch (error) {
         console.error("Error updating speaker:", error);
         throw error;
       }
     }
-    update().then(() => {});
+    update().then(() => {
+      completionFunction();
+    });
   }
 
-  function deleteSpeaker(id: number) {
+  function deleteSpeaker(id: number, completionFunction: () => void) {
     async function deleteSpeakerInternal() {
       try {
         const response = await fetch(`/api/speakers/${id}`, {
@@ -202,7 +208,9 @@ export default function SpeakerDataProvider({
         throw error;
       }
     }
-    deleteSpeakerInternal().then(() => {});
+    deleteSpeakerInternal().then(() => {
+      completionFunction();
+    });
   }
 
   const value = {
