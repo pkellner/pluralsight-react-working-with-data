@@ -17,6 +17,7 @@ export default function SpeakerModalFooter() {
   const { updateSpeaker, createSpeaker } = useSpeakerDataContext();
 
   const [updating, setUpdating] = useState(false);
+  const [adding, setAdding] = useState(false);
   return (
     <div className="modal-footer justify-content-center">
       {modalSpeakerId !== 0 && (
@@ -50,7 +51,9 @@ export default function SpeakerModalFooter() {
 
       <button
         className="btn btn-danger"
-        onClick={() => setModalShow(false)}
+        onClick={() => {
+          setModalShow(false);
+        }}
         data-dismiss="modal"
       >
         Discard
@@ -59,7 +62,9 @@ export default function SpeakerModalFooter() {
       {modalSpeakerId === 0 && (
         <button
           className="btn btn-accent"
+          disabled={adding}
           onClick={() => {
+            setAdding(true);
             createSpeaker({
               id: modalSpeakerId,
               firstName: modalSpeakerFirstName,
@@ -69,11 +74,12 @@ export default function SpeakerModalFooter() {
               userBioShort: modalUserBioShort,
               timeSpeaking: modalSpeakerTimeSpeaking,
             }, () => {
+              setAdding(false);
               setModalShow(false);
             });
           }}
         >
-          Add
+          {adding ? "Adding..." : "Add"}
         </button>
       )}
     </div>
