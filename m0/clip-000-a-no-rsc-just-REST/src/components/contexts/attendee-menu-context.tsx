@@ -1,5 +1,5 @@
 "use client";
-import React, {createContext, ReactNode, useContext, useState} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 // Define the shape of the context's value
 interface AttendeeMenuContextProps {
@@ -8,7 +8,9 @@ interface AttendeeMenuContextProps {
 }
 
 // Create the context with the defined shape
-const AttendeeMenuContext = createContext<AttendeeMenuContextProps| undefined>(undefined)
+const AttendeeMenuContext = createContext<AttendeeMenuContextProps | undefined>(
+  undefined,
+);
 
 export default function AttendeeMenuProvider({
   children,

@@ -1,6 +1,15 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
+import {NextRequest} from "next/server";
+
+function getValuesFromToken(value: string) {
+  const [firstName, lastName, attendeeId] = value.split("/");
+  if (!firstName || !lastName || !attendeeId) {
+    throw new Error("Invalid authorization token");
+  }
+  return { firstName, lastName, attendeeId };
+}
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -8,12 +17,11 @@ const sleep = (milliseconds: number) => {
 
 // Define an interface that extends the Speaker type from Prisma
 interface ExtendedSpeaker extends Speaker {
-  favoriteCount: number;
   favorite?: boolean;
 }
 
 async function getSpeakerDataById(id: number) {
-  const speakerData : Speaker | null = await prisma.speaker.findUnique({
+  const speakerData: Speaker | null = await prisma.speaker.findUnique({
     where: { id },
     select: {
       id: true,
@@ -23,11 +31,11 @@ async function getSpeakerDataById(id: number) {
       twitterHandle: true,
       userBioShort: true,
       timeSpeaking: true,
-      _count: {
-        select: {
-          favorites: true,
-        },
-      },
+      // _count: {
+      //   select: {
+      //     favorites: true,
+      //   },
+      // },
     },
   });
 
@@ -35,8 +43,7 @@ async function getSpeakerDataById(id: number) {
     throw new Error("Speaker not found:" + id);
   }
 
-  const speakerOri : Speaker = speakerData as Speaker;
-
+  const speakerOri: Speaker = speakerData as Speaker;
 
   const isFavorite =
     (await prisma.attendeeFavorite.count({
@@ -50,7 +57,7 @@ async function getSpeakerDataById(id: number) {
   if (speakerOri) {
     speaker = {
       ...speakerOri,
-      favoriteCount: 0, // speakerOri._count?.favorites ?? 0,
+      // favoriteCount: 0, // speakerOri._count?.favorites ?? 0,
       favorite: isFavorite,
     };
   }
@@ -94,7 +101,7 @@ export async function GET(
 }
 
 // This function handles the PUT request (UPDATE)
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
     await sleep(1000);
     const id = request.url.split("/").pop();
@@ -107,7 +114,10 @@ export async function PUT(request: Request) {
       twitterHandle,
       userBioShort,
       timeSpeaking,
+      favorite,
     } = requestData;
+
+    const originalSpeaker = await getSpeakerDataById(Number(id));
 
     await prisma.speaker.update({
       where: { id: Number(id) },
@@ -120,6 +130,35 @@ export async function PUT(request: Request) {
         timeSpeaking,
       },
     });
+
+    if (favorite !== originalSpeaker?.favorite) {
+      console.log("/speakers/[id]/route.ts: PUT: favorite changed. new,original:",favorite, originalSpeaker?.favorite);
+
+      const authorization = request.cookies.get("authToken");
+      if (
+        !(authorization && authorization.value && authorization.value.length > 0)
+      ) {
+        throw new Error("No authorization token found");
+      }
+      const { attendeeId } = getValuesFromToken(
+        authorization.value,
+      );
+      if (favorite) {
+        await prisma.attendeeFavorite.create({
+          data: {
+            attendeeId: attendeeId ?? "",
+            speakerId: Number(id),
+          },
+        });
+      } else {
+        await prisma.attendeeFavorite.deleteMany({
+          where: {
+            attendeeId: attendeeId ?? "",
+            speakerId: Number(id),
+          },
+        });
+      }
+    }
 
     let updatedSpeaker = await getSpeakerDataById(Number(id));
 

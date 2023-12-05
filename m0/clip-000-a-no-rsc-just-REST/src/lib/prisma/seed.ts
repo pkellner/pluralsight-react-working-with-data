@@ -1,7 +1,6 @@
 // this pulls the data from db.json. That file was created in the admin section of Silicon Valley Code Camp to get real speaker data from the database.
 // The data is then used to seed the database in the course. (attendee data is made up randomly there).
 
-
 const { PrismaClient } = require("@prisma/client");
 const data = require("../../../db.json");
 

@@ -13,7 +13,6 @@ function getValuesFromToken(value: string) {
   return { firstName, lastName, attendeeId };
 }
 
-
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: number } },

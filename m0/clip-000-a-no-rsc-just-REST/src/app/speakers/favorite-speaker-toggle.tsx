@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {Speaker} from "@/lib/general-types";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import { useEffect, useState } from "react";
+import { Speaker } from "@/lib/general-types";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -10,32 +10,33 @@ export default function FavoriteSpeakerToggle({
 }: {
   speakerId: number;
 }) {
-  const [loadingStatus, setLoadingStatus] = useState("loading"); // default to loading
+  const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
   const [error, setError] = useState<string | undefined>(); // error state
   const { isLoggedIn } = useLocalAuthContext();
 
-  const { speakerList, setSpeakerList, updateSpeaker } = useSpeakerDataContext();
+  const { speakerList, setSpeakerList, updateSpeaker } =
+    useSpeakerDataContext();
 
-  const speakerRec : Speaker = speakerList.find((value) => value.id === speakerId) ?? {} as Speaker; // this should always be a real speaker
+  const speakerRec: Speaker =
+    speakerList.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
 
   useEffect(() => {
     async function fetchSpeaker() {
       try {
-        const updatingSpeakerListWithPendingUpdate = speakerList.map(
-          (speaker: Speaker) => {
-            if (speaker.id === speakerId) {
-
-              const updatedSpeaker : Speaker = {
-                ...speaker,
-                favoriteCountDisplayStatus: "updating",
-              };
-              return updatedSpeaker;
-            } else {
-              return speaker;
-            }
-          },
-        );
-        setSpeakerList(updatingSpeakerListWithPendingUpdate);
+        // const updatingSpeakerListWithPendingUpdate = speakerList.map(
+        //   (speaker: Speaker) => {
+        //     if (speaker.id === speakerId) {
+        //       const updatedSpeaker: Speaker = {
+        //         ...speaker,
+        //         favoriteCountDisplayStatus: "updating",
+        //       };
+        //       return updatedSpeaker;
+        //     } else {
+        //       return speaker;
+        //     }
+        //   },
+        // );
+        // setSpeakerList(updatingSpeakerListWithPendingUpdate);
 
         // const response = await fetch(`/api/speakers/${speakerId}`);
         // if (!response.ok) {
@@ -57,7 +58,7 @@ export default function FavoriteSpeakerToggle({
         //   },
         // );
         // setSpeakerList(updatedSpeakerListWithPendingUpdate);
-        setLoadingStatus("success");
+        //setLoadingStatus("success");
       } catch (err) {
         if (err instanceof Error) {
           console.error("Error in fetch SpeakersList", err);
@@ -91,7 +92,10 @@ export default function FavoriteSpeakerToggle({
             <i className="spinner-border text-dark" role="status" />
           ) : (
             <span className="m-2 text-primary">
-              ({speakerRec?.favoriteCount})
+              (
+              {/*{speakerRec?.favoriteCount}*/}
+              <span>FAVORITE COUNT</span>
+              )
             </span>
           )}
         </button>
@@ -102,20 +106,19 @@ export default function FavoriteSpeakerToggle({
   return (
     <button
       className={
-        speakerRec?.favorite
-          ? "heart-red-button btn"
-          : "heart-dark-button btn"
+        speakerRec?.favorite ? "heart-red-button btn" : "heart-dark-button btn"
       }
       onClick={(e) => {
         e.preventDefault();
 
         //const z = {...speakerRec};
 
-        const newSpeakerRec : Speaker = {
+        const newSpeakerRec: Speaker = {
           ...speakerRec,
-          //favorite: !speakerRec?.favorite,
+          favorite: !speakerRec?.favorite,
         };
         setLoadingStatus("loading");
+        console.log("favorite-speaker-toggle: newSpeakerRec", newSpeakerRec);
         updateSpeaker(newSpeakerRec, () => {
           setLoadingStatus("success");
         });
@@ -124,9 +127,8 @@ export default function FavoriteSpeakerToggle({
       {loadingStatus === "loading" ? (
         <i className="spinner-border text-dark" role="status" />
       ) : (
-        <span className="m-2 text-primary">
-          ({speakerRec?.favoriteCount})
-        </span>
+        // <span className="m-2 text-primary">({speakerRec?.favoriteCount})</span>
+        <span>FAVORITE COUNT</span>
       )}
     </button>
   );

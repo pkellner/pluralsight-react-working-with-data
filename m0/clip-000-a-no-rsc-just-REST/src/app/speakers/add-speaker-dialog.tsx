@@ -1,4 +1,4 @@
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 
 export default function AddSpeakerDialog() {
@@ -11,6 +11,7 @@ export default function AddSpeakerDialog() {
     setModalSpeakerTwitterHandle,
     setModalUserBioShort,
     setModalSpeakerTimeSpeaking,
+    setModalSpeakerFavorite,
   } = useSpeakerModalContext();
 
   return (
@@ -26,6 +27,7 @@ export default function AddSpeakerDialog() {
           setModalUserBioShort("");
           setModalSpeakerTimeSpeaking(new Date(0)); // 0 time, jan 1, 1970 12:00 AM
           setModalShow(true);
+          setModalSpeakerFavorite(false);
         }}
         className="btn btn-accent"
       >

@@ -119,7 +119,6 @@ export default function SpeakerDataProvider({
   // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
-    console.log("updateSpeaker: speaker", speaker);
     async function update() {
       try {
         // first get original speaker data so can check and see if favorite has changed
@@ -147,6 +146,7 @@ export default function SpeakerDataProvider({
         // check to see if favorite has changed
         const originalSpeaker = await responseSingleSpeaker.json();
         if (originalSpeaker?.favorite !== speaker?.favorite) {
+          console.log("speaker-data-context: favorite has changed", originalSpeaker, speaker);
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
           const filteredSpeakerList = speakerList.filter(
@@ -161,7 +161,6 @@ export default function SpeakerDataProvider({
         }
 
         const updatedSpeaker = await response.json();
-        console.log("updateSpeaker: updatedSpeaker", updatedSpeaker);
         setSpeakerList(
           speakerList.map((speaker) =>
             speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,

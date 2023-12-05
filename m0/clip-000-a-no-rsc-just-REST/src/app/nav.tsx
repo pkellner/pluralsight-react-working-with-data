@@ -1,11 +1,10 @@
-'use client'
-import React, {useState} from 'react';
-
+"use client";
+import React, { useState } from "react";
 
 enum NavRoutes {
-  Home = '/',
-  Speakers = '/speakers',
-  Attendees = '/attendees',
+  Home = "/",
+  Speakers = "/speakers",
+  Attendees = "/attendees",
 }
 
 export default function Nav() {
@@ -22,33 +21,38 @@ export default function Nav() {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light p-3'>
-      <a className='navbar-brand' href={NavRoutes.Home}>
+    <nav className="navbar navbar-expand-lg navbar-light p-3">
+      <a className="navbar-brand" href={NavRoutes.Home}>
         <img
-          src='/images/svcc-logo.png'
-          alt='SVCC'
+          src="/images/svcc-logo.png"
+          alt="SVCC"
           height={25}
-          className='d-inline-block align-top'
+          className="d-inline-block align-top"
         />
       </a>
       <button
-        className='navbar-toggler'
-        type='button'
+        className="navbar-toggler"
+        type="button"
         onClick={handleToggle}
-        aria-controls='navbarNav'
+        aria-controls="navbarNav"
         aria-expanded={!isNavCollapsed}
-        aria-label='Toggle navigation'
-        style={{ marginLeft: 'auto' }} // Align the button to the far right
+        aria-label="Toggle navigation"
+        style={{ marginLeft: "auto" }} // Align the button to the far right
       >
-        <span className='navbar-toggler-icon'></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div className={`collapse navbar-collapse ${!isNavCollapsed ? 'show' : ''}`} id='navbarNav'>
-        <ul className='navbar-nav'>
+      <div
+        className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
+        id="navbarNav"
+      >
+        <ul className="navbar-nav">
           <li
-            className={`nav-item ${activeNav === NavRoutes.Speakers ? 'active' : ''}`}
+            className={`nav-item ${
+              activeNav === NavRoutes.Speakers ? "active" : ""
+            }`}
           >
             <a
-              className='nav-link'
+              className="nav-link"
               href={NavRoutes.Speakers}
               onClick={() => handleNavClick(NavRoutes.Speakers)}
             >
@@ -56,10 +60,12 @@ export default function Nav() {
             </a>
           </li>
           <li
-            className={`nav-item ${activeNav === NavRoutes.Attendees ? 'active' : ''}`}
+            className={`nav-item ${
+              activeNav === NavRoutes.Attendees ? "active" : ""
+            }`}
           >
             <a
-              className='nav-link'
+              className="nav-link"
               href={NavRoutes.Attendees}
               onClick={() => handleNavClick(NavRoutes.Attendees)}
             >

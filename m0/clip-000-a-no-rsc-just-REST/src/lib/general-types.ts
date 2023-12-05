@@ -1,8 +1,15 @@
-type FavoriteCountDisplayStatusEnum = 'updating' | 'showing' | 'hidden' | 'errored';
+// type FavoriteCountDisplayStatusEnum =
+//   | "updating"
+//   | "showing"
+//   | "hidden"
+//   | "errored";
 
-type FavoriteStatusEnum = 'favored' | 'not-favored' | 'updating' | 'hidden' | 'errored';
-
-
+type FavoriteStatusEnum =
+  | "favored"
+  | "not-favored"
+  | "updating"
+  | "hidden"
+  | "errored";
 
 export interface Speaker {
   id: number;
@@ -12,13 +19,12 @@ export interface Speaker {
   twitterHandle: string;
   userBioShort: string;
   timeSpeaking: Date;
-  favoriteCount?: number;
-  favoriteCountDisplayStatus?: FavoriteCountDisplayStatusEnum;
+  // favoriteCount?: number;
+  // favoriteCountDisplayStatus?: FavoriteCountDisplayStatusEnum;
   favorite?: boolean;
   favoriteStatus?: FavoriteStatusEnum;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
-
 }
 
 export interface Session {

@@ -17,6 +17,8 @@ interface SpeakerModalContextProps {
   setModalUserBioShort: React.Dispatch<React.SetStateAction<string>>;
   modalSpeakerTimeSpeaking: Date;
   setModalSpeakerTimeSpeaking: React.Dispatch<React.SetStateAction<Date>>;
+  modalSpeakerFavorite: boolean;
+  setModalSpeakerFavorite: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SpeakerModalContext = createContext<SpeakerModalContextProps | undefined>(
@@ -34,6 +36,7 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalUserBioShort, setModalUserBioShort] = useState("");
   const [modalSpeakerTimeSpeaking, setModalSpeakerTimeSpeaking] =
     useState<Date>(new Date());
+  const [modalSpeakerFavorite, setModalSpeakerFavorite] = useState(false);
 
   const value = {
     modalShow,
@@ -52,6 +55,8 @@ export const SpeakerModalProvider = ({ children }: { children: ReactNode }) => {
     setModalUserBioShort,
     modalSpeakerTimeSpeaking,
     setModalSpeakerTimeSpeaking,
+    modalSpeakerFavorite,
+    setModalSpeakerFavorite,
   };
 
   return (

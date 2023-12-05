@@ -6,7 +6,6 @@ import React from "react";
 import AttendeesListContainer from "@/app/attendees/attendees-list-container";
 
 export default function Speakers() {
-
   return (
     <div className="container-fluid">
       <Header />

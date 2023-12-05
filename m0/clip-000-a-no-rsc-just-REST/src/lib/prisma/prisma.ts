@@ -1,4 +1,4 @@
-import {PrismaClient} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 type LogOption = {
   emit: "event" | "stdout";
@@ -60,7 +60,6 @@ if (process.env.NODE_ENV === "production") {
   }
   // @ts-ignore
   prisma = global.prisma;
-
 }
 
 // @ts-ignore

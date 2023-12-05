@@ -26,7 +26,11 @@ export default function AttendeeDetail({
     return `${firstName}/${lastName}/${id}`;
   }
 
-  const firstLastId = getLoginName(attendeeRec.firstName, attendeeRec.lastName,attendeeRec.id);
+  const firstLastId = getLoginName(
+    attendeeRec.firstName,
+    attendeeRec.lastName,
+    attendeeRec.id,
+  );
 
   return (
     <div className="row g-2 align-items-center">

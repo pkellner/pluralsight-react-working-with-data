@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
-import {Attendee} from "@/lib/general-types";
-import {useAttendeeMenuContext} from "@/components/contexts/attendee-menu-context";
+import React, { useEffect } from "react";
+import { Attendee } from "@/lib/general-types";
+import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/app/attendees/use-attendee-sort-and-filter";
 import AttendeeDetailPending from "@/app/attendees/attendee-detail-pending";
 import AttendeeDetail from "@/app/attendees/attendee-detail";

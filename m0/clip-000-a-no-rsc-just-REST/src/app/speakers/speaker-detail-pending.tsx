@@ -3,9 +3,8 @@ import React from "react";
 
 export default function SpeakerDetailPending() {
   return (
-
-      <div className="col-xl-6 col-md-12">
-        <div className="animate-opacity-for-pending">
+    <div className="col-xl-6 col-md-12">
+      <div className="animate-opacity-for-pending">
         <div className="card border-0 h-100">
           <div className="row g-0">
             <div className="col-4">

@@ -1,6 +1,6 @@
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-import {useState} from "react";
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
+import { useState } from "react";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 export default function SpeakerModalFooter() {
   const {
@@ -12,6 +12,7 @@ export default function SpeakerModalFooter() {
     modalSpeakerTwitterHandle,
     modalUserBioShort,
     modalSpeakerTimeSpeaking,
+    modalSpeakerFavorite,
   } = useSpeakerModalContext();
 
   const { updateSpeaker, createSpeaker } = useSpeakerDataContext();
@@ -24,8 +25,6 @@ export default function SpeakerModalFooter() {
         <button
           onClick={() => {
             setUpdating(true);
-            console.log("SpeakerModalFooter: modalSpeakerId: ", modalSpeakerId);
-            console.log("SpeakerModalFooter: modalSpeakerTimeSpeaking: ", modalSpeakerTimeSpeaking);
             updateSpeaker(
               {
                 id: modalSpeakerId,
@@ -35,6 +34,7 @@ export default function SpeakerModalFooter() {
                 twitterHandle: modalSpeakerTwitterHandle,
                 userBioShort: modalUserBioShort,
                 timeSpeaking: modalSpeakerTimeSpeaking,
+                favorite: modalSpeakerFavorite
               },
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
@@ -65,18 +65,22 @@ export default function SpeakerModalFooter() {
           disabled={adding}
           onClick={() => {
             setAdding(true);
-            createSpeaker({
-              id: modalSpeakerId,
-              firstName: modalSpeakerFirstName,
-              lastName: modalSpeakerLastName,
-              company: modalSpeakerCompany,
-              twitterHandle: modalSpeakerTwitterHandle,
-              userBioShort: modalUserBioShort,
-              timeSpeaking: modalSpeakerTimeSpeaking,
-            }, () => {
-              setAdding(false);
-              setModalShow(false);
-            });
+            createSpeaker(
+              {
+                id: modalSpeakerId,
+                firstName: modalSpeakerFirstName,
+                lastName: modalSpeakerLastName,
+                company: modalSpeakerCompany,
+                twitterHandle: modalSpeakerTwitterHandle,
+                userBioShort: modalUserBioShort,
+                timeSpeaking: modalSpeakerTimeSpeaking,
+                favorite: modalSpeakerFavorite,
+              },
+              () => {
+                setAdding(false);
+                setModalShow(false);
+              },
+            );
           }}
         >
           {adding ? "Adding..." : "Add"}

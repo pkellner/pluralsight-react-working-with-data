@@ -1,5 +1,4 @@
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 
 export default function SpeakerModalHeader() {
   const { setModalShow, modalSpeakerId } = useSpeakerModalContext();

@@ -1,5 +1,5 @@
 "use client";
-import React, {createContext, ReactNode, useContext, useState} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 // Define the shape of the context's value
 interface SpeakerMenuContextProps {
@@ -8,7 +8,9 @@ interface SpeakerMenuContextProps {
 }
 
 // Create the context with the defined shape
-const SpeakerMenuContext = createContext<SpeakerMenuContextProps| undefined>(undefined)
+const SpeakerMenuContext = createContext<SpeakerMenuContextProps | undefined>(
+  undefined,
+);
 
 export default function SpeakerMenuProvider({
   children,

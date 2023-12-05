@@ -1,5 +1,5 @@
 import React from "react";
-import {useAttendeeMenuContext} from "@/components/contexts/attendee-menu-context";
+import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 
 export default function AttendeeMenu() {
   const { searchText, setSearchText } = useAttendeeMenuContext();
@@ -15,7 +15,6 @@ export default function AttendeeMenu() {
           <input
             value={searchText}
             onChange={(event) => {
-              debugger;
               setSearchText(event.target.value);
             }}
             type="text"

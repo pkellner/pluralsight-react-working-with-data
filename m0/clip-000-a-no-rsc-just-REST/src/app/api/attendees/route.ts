@@ -1,17 +1,7 @@
 import prisma from "@/lib/prisma/prisma";
 import { NextRequest } from "next/server";
 
-// Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
-function getValuesFromToken(value: string) {
-  const [firstName, lastName, attendeeId] = value.split("/");
-  if (!firstName || !lastName || !attendeeId) {
-    throw new Error("Invalid authorization token");
-  }
-  return { firstName, lastName, attendeeId };
-}
-
 export async function GET(request: NextRequest) {
-
   const attendees = await prisma.attendee.findMany({
     select: {
       id: true,
@@ -22,8 +12,6 @@ export async function GET(request: NextRequest) {
     },
     orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
   });
-
-
 
   return new Response(JSON.stringify(attendees, null, 2), {
     status: 200,
@@ -36,7 +24,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    console.log("POST data", data);
     const newAttendee = await prisma.attendee.create({
       data,
     });

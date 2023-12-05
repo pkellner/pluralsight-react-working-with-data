@@ -1,5 +1,8 @@
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-import {isoStringDateToPrismaDate, prismaDateToIsoString} from "@/lib/date-utilities";
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
+import {
+  isoStringDateToPrismaDate,
+  prismaDateToIsoString,
+} from "@/lib/date-utilities";
 
 export default function SpeakerModalBody() {
   const {
@@ -37,7 +40,9 @@ export default function SpeakerModalBody() {
                   <label>First Name</label>
                   <input
                     value={modalSpeakerFirstName}
-                    onChange={(event) => setModalSpeakerFirstName(event.target.value)}
+                    onChange={(event) =>
+                      setModalSpeakerFirstName(event.target.value)
+                    }
                     type="text"
                     className="form-control"
                     placeholder="First Name"
@@ -49,7 +54,9 @@ export default function SpeakerModalBody() {
                   <label>Last Name</label>
                   <input
                     value={modalSpeakerLastName}
-                    onChange={(event) => setModalSpeakerLastName(event.target.value)}
+                    onChange={(event) =>
+                      setModalSpeakerLastName(event.target.value)
+                    }
                     type="text"
                     className="form-control"
                     placeholder="Last Name"
@@ -61,7 +68,9 @@ export default function SpeakerModalBody() {
                   <label>Company</label>
                   <input
                     value={modalSpeakerCompany}
-                    onChange={(event) => setModalSpeakerCompany(event.target.value)}
+                    onChange={(event) =>
+                      setModalSpeakerCompany(event.target.value)
+                    }
                     type="text"
                     className="form-control"
                     placeholder="Company Name"
@@ -73,7 +82,9 @@ export default function SpeakerModalBody() {
                   <label>Twitter Handle</label>
                   <input
                     value={modalSpeakerTwitterHandle}
-                    onChange={(event) => setModalSpeakerTwitterHandle(event.target.value)}
+                    onChange={(event) =>
+                      setModalSpeakerTwitterHandle(event.target.value)
+                    }
                     type="text"
                     className="form-control"
                     placeholder="@twitterhandle"
@@ -87,9 +98,9 @@ export default function SpeakerModalBody() {
                     value={speakingTime}
                     // onChange={(event) => setModalSpeakerTimeSpeaking(new Date(event.target.value))}
                     onChange={(event) => {
-                      console.log("speaker-modal-body.tsx: event.target.value: ", event.target.value);
-                      console.log("speaker-modal-body.tsx: isoStringDateToPrismaDate(event.target.value): ", isoStringDateToPrismaDate(event.target.value));
-                      setModalSpeakerTimeSpeaking(isoStringDateToPrismaDate(event.target.value));
+                      setModalSpeakerTimeSpeaking(
+                        isoStringDateToPrismaDate(event.target.value),
+                      );
                     }}
                     type="datetime-local"
                     className="form-control"
@@ -101,7 +112,9 @@ export default function SpeakerModalBody() {
                   <label>Short Bio</label>
                   <textarea
                     value={modalUserBioShort}
-                    onChange={(event) => setModalUserBioShort(event.target.value)}
+                    onChange={(event) =>
+                      setModalUserBioShort(event.target.value)
+                    }
                     className="form-control"
                     placeholder="speaker bio..."
                     rows={4}

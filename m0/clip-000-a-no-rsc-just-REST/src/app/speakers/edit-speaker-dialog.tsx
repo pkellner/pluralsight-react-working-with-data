@@ -9,8 +9,6 @@ export default function EditSpeakerDialog({
 }) {
   const { speakerList } = useSpeakerDataContext();
 
-  console.log("edit-speaker-dialog: speakerId", speakerId);
-
   const speakerRec: Speaker =
     speakerList.find((speaker) => speaker.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
 
@@ -22,7 +20,8 @@ export default function EditSpeakerDialog({
     twitterHandle,
     userBioShort,
     timeSpeaking,
-  } = speakerRec;
+
+  } : Speaker = speakerRec;
 
   const {
     setModalShow,
