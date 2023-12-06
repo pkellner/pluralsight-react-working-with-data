@@ -19,8 +19,7 @@ export interface Speaker {
   twitterHandle: string;
   userBioShort: string;
   timeSpeaking: Date;
-  // favoriteCount?: number;
-  // favoriteCountDisplayStatus?: FavoriteCountDisplayStatusEnum;
+  favoriteCount?: number;
   favorite?: boolean;
   favoriteStatus?: FavoriteStatusEnum;
   sessions?: SpeakerSession[];

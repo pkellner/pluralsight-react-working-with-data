@@ -127,8 +127,7 @@ export default function FavoriteSpeakerToggle({
       {loadingStatus === "loading" ? (
         <i className="spinner-border text-dark" role="status" />
       ) : (
-        // <span className="m-2 text-primary">({speakerRec?.favoriteCount})</span>
-        <span>FAVORITE COUNT</span>
+        <span className="m-2 text-primary">({speakerRec?.favoriteCount})</span>
       )}
     </button>
   );

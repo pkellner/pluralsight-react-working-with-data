@@ -88,6 +88,7 @@ export default function SpeakerDataProvider({
     async function create() {
       // make sure no id is passed in
       const speakerToAdd: Speaker = { ...speaker, id: 0 };
+      console.log("createSpeaker: speakerToAdd:",speakerToAdd);
       try {
         const response = await fetch(`/api/speakers/`, {
           method: "POST",

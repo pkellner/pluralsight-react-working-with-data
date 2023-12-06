@@ -24,7 +24,24 @@ export async function GET(request: NextRequest) {
   }
 
   // get all speakers from the sqlite database with prisma
-  const speakers = await prisma.speaker.findMany({
+  // const speakers = await prisma.speaker.findMany({
+  //   select: {
+  //     id: true,
+  //     firstName: true,
+  //     lastName: true,
+  //     company: true,
+  //     twitterHandle: true,
+  //     userBioShort: true,
+  //     timeSpeaking: true,
+  //     _count: {
+  //       select: {
+  //         favorites: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  const speakers = (await prisma.speaker.findMany({
     select: {
       id: true,
       firstName: true,
@@ -33,8 +50,16 @@ export async function GET(request: NextRequest) {
       twitterHandle: true,
       userBioShort: true,
       timeSpeaking: true,
+      _count: {
+        select: {
+          favorites: true,
+        },
+      },
     },
-  });
+  })).map(speaker => ({
+    ...speaker,
+    favoriteCount: speaker._count.favorites,
+  }));
 
   if (attendeeId) {
     const attendeeFavorites = await prisma.attendeeFavorite.findMany({
@@ -76,12 +101,13 @@ export async function GET(request: NextRequest) {
   // return new Response(null, { status: 404 });
 }
 
-// This function handles the POST request
+// This function handles the POST request (INSERT)
 export async function POST(request: Request) {
   await sleep(1000);
   try {
     const data = await request.json();
     delete data.id; // let the database handle assigning the id
+    delete data.favorite; // this will confuse prisma and it's virtual field
     const newSpeaker = await prisma.speaker.create({
       data,
     });

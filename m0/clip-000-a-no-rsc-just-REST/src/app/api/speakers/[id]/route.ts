@@ -21,7 +21,25 @@ interface ExtendedSpeaker extends Speaker {
 }
 
 async function getSpeakerDataById(id: number, attendeeId?: string) {
-  const speakerData: Speaker | null = await prisma.speaker.findUnique({
+  // const speakerData: Speaker | null = await prisma.speaker.findUnique({
+  //   where: { id },
+  //   select: {
+  //     id: true,
+  //     firstName: true,
+  //     lastName: true,
+  //     company: true,
+  //     twitterHandle: true,
+  //     userBioShort: true,
+  //     timeSpeaking: true,
+  //     _count: {
+  //       select: {
+  //         favorites: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  const speakerData = await prisma.speaker.findUnique({
     where: { id },
     select: {
       id: true,
@@ -31,11 +49,11 @@ async function getSpeakerDataById(id: number, attendeeId?: string) {
       twitterHandle: true,
       userBioShort: true,
       timeSpeaking: true,
-      // _count: {
-      //   select: {
-      //     favorites: true,
-      //   },
-      // },
+      _count: {
+        select: {
+          favorites: true,
+        },
+      },
     },
   });
 
@@ -43,7 +61,11 @@ async function getSpeakerDataById(id: number, attendeeId?: string) {
     throw new Error("Speaker not found:" + id);
   }
 
-  const speakerOri: Speaker = speakerData as Speaker;
+  const speakerOri: Speaker = {
+    ...speakerData,
+    favoriteCount: speakerData._count.favorites,
+  };
+
 
   let isFavorite: boolean;
   const count = await prisma.attendeeFavorite.count({
