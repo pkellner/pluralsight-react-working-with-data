@@ -76,7 +76,7 @@ export default function AttendeeDetail({
           {isEditing ? (
             <>
               <button
-                className="btn btn-outline-primary btn-sm p-1"
+                className="btn btn-outline-primary btn-sm p-1 m-1"
                 onClick={() => updateAttendee(attendeeRec, handleCancel)}
               >
                 Update
