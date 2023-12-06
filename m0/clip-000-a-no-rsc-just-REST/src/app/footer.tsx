@@ -16,6 +16,7 @@ const Footer = () => {
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
             <h5 className="text-uppercase mb-4">Stay Updated</h5>
+            <form>
             <div className="d-flex">
               <input
                 type="email"
@@ -29,6 +30,7 @@ const Footer = () => {
                 Subscribe
               </button>
             </div>
+            </form>
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
