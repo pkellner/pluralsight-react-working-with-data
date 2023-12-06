@@ -42,11 +42,12 @@ export async function GET(request: NextRequest) {
         attendeeId: attendeeId ?? "",
       },
       select: {
-        id: true,
         attendeeId: true,
         speakerId: true,
       },
     });
+
+    console.log("api/speakers/route.ts: attendeeFavorites: ", attendeeFavorites);
 
     const speakersWithFavorites = speakers.map((speaker) => {
       return {

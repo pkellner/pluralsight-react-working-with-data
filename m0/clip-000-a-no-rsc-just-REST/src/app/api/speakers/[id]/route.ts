@@ -1,7 +1,7 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
-import {NextRequest} from "next/server";
+import { NextRequest } from "next/server";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");
@@ -20,7 +20,7 @@ interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
 
-async function getSpeakerDataById(id: number) {
+async function getSpeakerDataById(id: number, attendeeId?: string) {
   const speakerData: Speaker | null = await prisma.speaker.findUnique({
     where: { id },
     select: {
@@ -45,12 +45,14 @@ async function getSpeakerDataById(id: number) {
 
   const speakerOri: Speaker = speakerData as Speaker;
 
-  const isFavorite =
-    (await prisma.attendeeFavorite.count({
-      where: {
-        speakerId: id,
-      },
-    })) > 0;
+  let isFavorite: boolean;
+  const count = await prisma.attendeeFavorite.count({
+    where: {
+      speakerId: id,
+      attendeeId: attendeeId ?? undefined,
+    },
+  });
+  isFavorite = count !== 0;
 
   let speaker: ExtendedSpeaker | null = null;
 
@@ -103,8 +105,10 @@ export async function GET(
 // This function handles the PUT request (UPDATE)
 export async function PUT(request: NextRequest) {
   try {
+    const speakerId = request.url.split("/").pop();
+    //console.log("/speakers/[speakerId]/route.ts: PUT: speakerId:", speakerId);
     await sleep(1000);
-    const id = request.url.split("/").pop();
+
     const requestData = await request.json();
     // Extract only the specific fields to update
     const {
@@ -117,10 +121,17 @@ export async function PUT(request: NextRequest) {
       favorite,
     } = requestData;
 
-    const originalSpeaker = await getSpeakerDataById(Number(id));
+    const authorization = request.cookies.get("authToken");
+    const attendeeId =
+      authorization && authorization.value && authorization.value.length > 0
+        ? getValuesFromToken(authorization.value).attendeeId
+        : undefined; // or any other default value for the case when the user is not logged in
+    //console.log("/speakers/[speakerId]/route.ts: PUT: attendeeId:", attendeeId);
+
+    const originalSpeaker = await getSpeakerDataById(Number(speakerId),attendeeId);
 
     await prisma.speaker.update({
-      where: { id: Number(id) },
+      where: { id: Number(speakerId) },
       data: {
         firstName,
         lastName,
@@ -131,36 +142,58 @@ export async function PUT(request: NextRequest) {
       },
     });
 
-    if (favorite !== originalSpeaker?.favorite) {
-      console.log("/speakers/[id]/route.ts: PUT: favorite changed. new,original:",favorite, originalSpeaker?.favorite);
+    // only update favorite count if there is a logged in user, and if the favorite value has changed
 
-      const authorization = request.cookies.get("authToken");
-      if (
-        !(authorization && authorization.value && authorization.value.length > 0)
-      ) {
-        throw new Error("No authorization token found");
-      }
-      const { attendeeId } = getValuesFromToken(
-        authorization.value,
+    if (attendeeId) {
+      console.log(
+        "/speakers/[speakerId]/route.ts: PUT: favorite passed in:",
+        favorite,
+        "originalSpeaker.favorite ",
+        originalSpeaker,
       );
-      if (favorite) {
-        await prisma.attendeeFavorite.create({
-          data: {
-            attendeeId: attendeeId ?? "",
-            speakerId: Number(id),
-          },
-        });
-      } else {
-        await prisma.attendeeFavorite.deleteMany({
-          where: {
-            attendeeId: attendeeId ?? "",
-            speakerId: Number(id),
-          },
-        });
+
+      if (favorite !== originalSpeaker?.favorite) {
+        // console.log(
+        //   "/speakers/[speakerId]/route.ts: PUT: favorite changed. new,original:",
+        //   favorite,
+        //   originalSpeaker?.favorite,
+        // );
+
+        if (favorite) {
+          // console.log(
+          //   "/speakers/[speakerId]/route.ts: PUT: favorite changed to true. creating attendeeFavorite: attendeeId:",
+          //   attendeeId,
+          //   "speakerId:",
+          //   speakerId,
+          // );
+          await prisma.attendeeFavorite.create({
+            data: {
+              attendeeId: attendeeId ?? "",
+              speakerId: Number(speakerId),
+            },
+          });
+        } else {
+          // console.log(
+          //   "/speakers/[speakerId]/route.ts: PUT: favorite changed to false. deleting attendeeFavorite: attendeeId:",
+          //   attendeeId,
+          //   "speakerId:",
+          //   speakerId,
+          // );
+          await prisma.attendeeFavorite.deleteMany({
+            where: {
+              attendeeId: attendeeId,
+              speakerId: Number(speakerId),
+            },
+          });
+        }
       }
     }
 
-    let updatedSpeaker = await getSpeakerDataById(Number(id));
+    // if attendee logged in, then this gets favorite status also. otherwise, it's just the speaker data
+    let updatedSpeaker = await getSpeakerDataById(
+      Number(speakerId),
+      attendeeId,
+    );
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {
       status: 200,
