@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import React, { useState } from "react";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function AttendeeDetail({
   attendeeRec,
@@ -52,10 +52,7 @@ export default function AttendeeDetail({
         {/* Name - Adjusted for xs screens */}
         <div className="col-6 col-md-3">
           <span>{attendeeRec.firstName}</span>{" "}
-          <span>{attendeeRec.lastName}</span>{" "}
-          {/*<span className="d-none d-md-inline">*/}
-            ({attendeeRec.email})
-          {/*</span>*/}
+          <span>{attendeeRec.lastName}</span>{" "}({attendeeRec.email})
         </div>
 
         {/* Date Created - Hidden on xs screens, visible on md and larger */}

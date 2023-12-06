@@ -74,25 +74,21 @@ export async function PUT(request: Request) {
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: { id: string } },
 ) {
-  const id = Number(params.id);
+  const id =params.id;
   try {
     // Start a transaction
     await prisma.$transaction(async (prisma) => {
       // 1. Delete related records in SpeakerSession
-      await prisma.speakerSession.deleteMany({
-        where: { speakerId: Number(id) },
-      });
 
-      // 2. Delete related records in AttendeeFavorite
       await prisma.attendeeFavorite.deleteMany({
-        where: { speakerId: Number(id) },
+        where: { attendeeId: id },
       });
 
       // 3. Finally, delete the speaker
-      await prisma.speaker.delete({
-        where: { id: Number(id) },
+      await prisma.attendee.delete({
+        where: { id },
       });
     });
 
