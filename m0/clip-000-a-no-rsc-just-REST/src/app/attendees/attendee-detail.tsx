@@ -36,7 +36,7 @@ export default function AttendeeDetail({
     <div className="row g-2 align-items-center">
       <div className="col d-flex">
         {/* Log In Button - Adjusted for xs screens */}
-        <div className="col-4 col-md-2">
+        <div className="col-2 col-md-1">
           <button
             className="btn btn-outline-success btn-sm p-1 m-1"
             onClick={() => {
@@ -50,9 +50,12 @@ export default function AttendeeDetail({
         </div>
 
         {/* Name - Adjusted for xs screens */}
-        <div className="col-4 col-md-2">
+        <div className="col-6 col-md-3">
           <span>{attendeeRec.firstName}</span>{" "}
-          <span>{attendeeRec.lastName}</span>
+          <span>{attendeeRec.lastName}</span>{" "}
+          {/*<span className="d-none d-md-inline">*/}
+            ({attendeeRec.email})
+          {/*</span>*/}
         </div>
 
         {/* Date Created - Hidden on xs screens, visible on md and larger */}

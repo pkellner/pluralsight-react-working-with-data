@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import FooterSubscribe from "@/app/footer-subscribe";
 
 const Footer = () => {
   return (
@@ -15,22 +16,7 @@ const Footer = () => {
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4">Stay Updated</h5>
-            <form>
-            <div className="d-flex">
-              <input
-                type="email"
-                className="form-control me-2 speaker-rounded-corners"
-                placeholder="Email address"
-              />
-              <button
-                type="submit"
-                className="btn btn-outline-dark speaker-rounded-corners"
-              >
-                Subscribe
-              </button>
-            </div>
-            </form>
+            <FooterSubscribe />
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">

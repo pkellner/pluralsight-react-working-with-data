@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
-import {Attendee} from "@/lib/general-types";
-import {useAttendeeMenuContext} from "@/components/contexts/attendee-menu-context";
+import React, { useEffect } from "react";
+import { Attendee } from "@/lib/general-types";
+import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/app/attendees/use-attendee-sort-and-filter";
 import AttendeeDetailPending from "@/app/attendees/attendee-detail-pending";
 import AttendeeDetail from "@/app/attendees/attendee-detail";
@@ -166,10 +166,10 @@ export default function AttendeesList({
         <div className="card border-0">
           <div className="row g-2 align-items-center border-bottom">
             {/* For xs screens, each takes 1/3 of the width; adjusted for md screens */}
-            <div className="col-4 col-md-2">Action</div>{" "}
+            <div className="col-2 col-md-1">Action</div>{" "}
             {/* Header for the new button column */}
             {/* For xs screens, each takes 1/3 of the width; adjusted for md screens */}
-            <div className="col-4 col-md-2">Name</div>
+            <div className="col-6 col-md-3">Name / Email</div>
             {/* Hidden on xs screens, visible and adjusted on md and larger */}
             <div className="col-md-3 d-none d-md-block">
               Date Created {/* Assuming this is the header for Date Created */}
@@ -185,20 +185,22 @@ export default function AttendeesList({
       </div>
 
       {/* Mapping over attendeeListFiltered */}
-      {attendeeListFiltered.map(function (attendeeRec) {
-        return (
-          <div className="col-12" key={attendeeRec.id}>
-            <div className="card border-0 h-100">
-              <AttendeeDetail
-                attendeeRec={attendeeRec}
-                createAttendee={createAttendee}
-                deleteAttendee={deleteAttendee}
-                updateAttendee={updateAttendee}
-              />
+      {attendeeListFiltered
+        .sort((a, b) => a.lastName.localeCompare(b.lastName))
+        .map(function (attendeeRec) {
+          return (
+            <div className="col-12" key={attendeeRec.id}>
+              <div className="card border-0 h-100">
+                <AttendeeDetail
+                  attendeeRec={attendeeRec}
+                  createAttendee={createAttendee}
+                  deleteAttendee={deleteAttendee}
+                  updateAttendee={updateAttendee}
+                />
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
       <div className="mt-3"></div>
     </>
   );
