@@ -12,11 +12,9 @@ export default function SpeakersListContainer() {
       <SpeakerMenuProvider>
         <SpeakerModalProvider>
           <SpeakerMenu />
-          <div className="container">
-            <div className="row g-4">
+
               <SpeakersList />
-            </div>
-          </div>
+
         </SpeakerModalProvider>
       </SpeakerMenuProvider>
     </SpeakerDataProvider>
