@@ -1,7 +1,7 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
-import { Speaker } from "@/lib/general-types";
-import { NextRequest } from "next/server";
+import {Speaker} from "@/lib/general-types";
+import {NextRequest} from "next/server";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Speaker } from "@/lib/general-types";
-import { useLocalAuthContext } from "@/components/contexts/auth-context";
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import {useEffect, useState} from "react";
+import {Speaker} from "@/lib/general-types";
+import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -1,6 +1,6 @@
-import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
-import { useState } from "react";
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
+import {useState} from "react";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
 
 export default function SpeakerModalFooter() {
   const {

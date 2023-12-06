@@ -1,8 +1,5 @@
-import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
-import {
-  isoStringDateToPrismaDate,
-  prismaDateToIsoString,
-} from "@/lib/date-utilities";
+import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
+import {isoStringDateToPrismaDate, prismaDateToIsoString,} from "@/lib/date-utilities";
 
 export default function SpeakerModalBody() {
   const {

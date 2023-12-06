@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma/prisma";
-import { NextRequest } from "next/server";
+import {NextRequest} from "next/server";
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
 function getValuesFromToken(value: string) {

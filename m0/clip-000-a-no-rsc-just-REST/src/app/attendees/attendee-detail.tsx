@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import React, {useState} from "react";
+import {useLocalAuthContext} from "@/components/contexts/auth-context";
 
 export default function AttendeeDetail({
   attendeeRec,

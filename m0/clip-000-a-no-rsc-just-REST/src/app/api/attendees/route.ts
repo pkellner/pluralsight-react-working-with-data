@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma/prisma";
-import { NextRequest } from "next/server";
+import {NextRequest} from "next/server";
 
 export async function GET(request: NextRequest) {
   const attendees = await prisma.attendee.findMany({

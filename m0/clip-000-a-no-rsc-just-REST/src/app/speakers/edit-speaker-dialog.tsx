@@ -1,6 +1,6 @@
-import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
-import { Speaker } from "@/lib/general-types";
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
+import {Speaker} from "@/lib/general-types";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
 
 export default function EditSpeakerDialog({
   speakerId,
@@ -20,7 +20,6 @@ export default function EditSpeakerDialog({
     twitterHandle,
     userBioShort,
     timeSpeaking,
-
   } : Speaker = speakerRec;
 
   const {

@@ -1,12 +1,5 @@
 "use client";
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, {createContext, ReactNode, useCallback, useContext, useEffect, useState,} from "react";
 import Cookies from "js-cookie";
 
 interface LocalAuthContext {
