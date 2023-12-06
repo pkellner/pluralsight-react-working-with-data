@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    console.log("api/speakers/route.ts: attendeeFavorites: ", attendeeFavorites);
+    // console.log("api/speakers/route.ts: attendeeFavorites: ", attendeeFavorites);
 
     const speakersWithFavorites = speakers.map((speaker) => {
       return {

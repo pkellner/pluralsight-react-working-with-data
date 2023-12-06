@@ -7,6 +7,7 @@ import { useSpeakerDataContext } from "@/components/contexts/speaker-data-contex
 
 export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
   const { speakerList } = useSpeakerDataContext();
+
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };

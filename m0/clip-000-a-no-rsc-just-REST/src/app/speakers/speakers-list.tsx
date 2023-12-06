@@ -5,8 +5,6 @@ import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-contex
 import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export default function SpeakersList() {
   const { searchText } = useSpeakerMenuContext();
   const { speakerList, loadingStatus, error } = useSpeakerDataContext();

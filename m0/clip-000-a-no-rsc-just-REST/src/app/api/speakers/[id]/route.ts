@@ -145,12 +145,12 @@ export async function PUT(request: NextRequest) {
     // only update favorite count if there is a logged in user, and if the favorite value has changed
 
     if (attendeeId) {
-      console.log(
-        "/speakers/[speakerId]/route.ts: PUT: favorite passed in:",
-        favorite,
-        "originalSpeaker.favorite ",
-        originalSpeaker,
-      );
+      // console.log(
+      //   "/speakers/[speakerId]/route.ts: PUT: favorite passed in:",
+      //   favorite,
+      //   "originalSpeaker.favorite ",
+      //   originalSpeaker,
+      // );
 
       if (favorite !== originalSpeaker?.favorite) {
         // console.log(
