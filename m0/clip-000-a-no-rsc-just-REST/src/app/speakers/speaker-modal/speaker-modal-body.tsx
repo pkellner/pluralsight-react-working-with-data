@@ -96,7 +96,6 @@ export default function SpeakerModalBody() {
                   <label>Time Speaking</label>
                   <input
                     value={speakingTime}
-                    // onChange={(event) => setModalSpeakerTimeSpeaking(new Date(event.target.value))}
                     onChange={(event) => {
                       setModalSpeakerTimeSpeaking(
                         isoStringDateToPrismaDate(event.target.value),
