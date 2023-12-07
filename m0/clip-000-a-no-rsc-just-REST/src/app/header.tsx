@@ -3,7 +3,7 @@ import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 export default function Header({
-  speakerListUpdate,
+  speakerListUpdate = false,
 }: {
   speakerListUpdate: boolean;
 }) {
