@@ -13,16 +13,14 @@ export default function SpeakerModal() {
       ? "modal show-modal has-backdrop"
       : "modal hide-modal";
 
-  console.log("SpeakerModal: cssShowHide: ", cssShowHide);
-
   return (
     <div role="dialog" className={cssShowHide}>
       <div className="modal-dialog modal-dialog-centered">
         <div
           className="modal-content border-0"
-          style={{
-            backgroundColor: "#EEEEEE",
-          }}
+          // style={{
+          //   backgroundColor: "#EEEEEE",
+          // }}
         >
           <SpeakersModalHeader />
           <SpeakerModalBody />

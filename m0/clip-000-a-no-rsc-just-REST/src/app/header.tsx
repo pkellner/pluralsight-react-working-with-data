@@ -5,7 +5,7 @@ import { useSpeakerDataContext } from "@/components/contexts/speaker-data-contex
 export default function Header({
   speakerListUpdate = false,
 }: {
-  speakerListUpdate: boolean;
+  speakerListUpdate?: boolean;
 }) {
   const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();
 

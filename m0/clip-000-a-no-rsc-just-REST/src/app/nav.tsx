@@ -37,7 +37,7 @@ export default function Nav() {
         aria-controls="navbarNav"
         aria-expanded={!isNavCollapsed}
         aria-label="Toggle navigation"
-        style={{ marginLeft: "auto" }} // Align the button to the far right
+        // style={{ marginLeft: "auto" }} // Align the button to the far right
       >
         <span className="navbar-toggler-icon"></span>
       </button>
