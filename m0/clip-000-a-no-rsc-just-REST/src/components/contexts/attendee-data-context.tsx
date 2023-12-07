@@ -45,7 +45,7 @@ export default function AttendeeDataProvider({
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await sleep(1000);
+        await sleep(500);
 
         setAttendeeList(data);
         setLoadingStatus("success");

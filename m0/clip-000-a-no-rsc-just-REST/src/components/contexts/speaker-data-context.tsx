@@ -49,7 +49,7 @@ export default function SpeakerDataProvider({
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await sleep(1000);
+        await sleep(500);
 
         setSpeakerList(
           data.map((speaker: Speaker) => {

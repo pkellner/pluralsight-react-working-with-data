@@ -94,7 +94,7 @@ export async function GET(
 ) {
   const id = Number(params.id);
   try {
-    await sleep(1000);
+    await sleep(500);
 
     let speaker = await getSpeakerDataById(id);
 

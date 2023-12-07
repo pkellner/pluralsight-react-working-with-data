@@ -16,7 +16,6 @@ export default function AddSpeakerDialog() {
 
   return (
     <>
-      <SpeakerModal />
       <button
         onClick={() => {
           setModalSpeakerId(0);

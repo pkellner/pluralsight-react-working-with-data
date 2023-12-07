@@ -16,7 +16,6 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
   return (
     <>
-      {speakerRec && <SpeakerModal />}
       <div className="col-xl-6 col-md-12">
         <div className="card border-0 h-100">
           <div className="row g-0">
