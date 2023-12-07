@@ -10,6 +10,8 @@ npx prisma generate
 npx prisma migrate dev --name init
 ts-node src/lib/prisma/seed.ts
 
+Then, "npm run dev" makes it work
+
 (
     you might have to install ts-node separately: (with sudo for elevated privileges)
     npm install -g typescript

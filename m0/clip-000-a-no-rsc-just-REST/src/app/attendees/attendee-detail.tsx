@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import AttendeeForm from "@/app/attendees/attendee-form";
 
 export default function AttendeeDetail({
   attendeeRec,
@@ -9,6 +10,7 @@ export default function AttendeeDetail({
 }: any) {
   // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
+  const { loggedInName, setLoggedInName } = useLocalAuthContext();
 
   // Function to handle edit mode
   const handleEdit = () => {
@@ -19,8 +21,6 @@ export default function AttendeeDetail({
   const handleCancel = () => {
     setIsEditing(false);
   };
-
-  const { loggedInName, setLoggedInName } = useLocalAuthContext();
 
   function getLoginName(firstName: string, lastName: string, id: string) {
     return `${firstName}/${lastName}/${id}`;
@@ -49,13 +49,17 @@ export default function AttendeeDetail({
           </button>{" "}
         </div>
 
-        {/* Name - Adjusted for xs screens */}
-        <div className="col-6 col-md-3">
-          <span>{attendeeRec.firstName}</span>{" "}
-          <span>{attendeeRec.lastName}</span>{" "}({attendeeRec.email})
-        </div>
+        {isEditing ? (
+          <div className="col-6 col-md-3">
+            <AttendeeForm attendee={attendeeRec} onSave={updateAttendee} onCancel={handleCancel} />
+          </div>
+        ) : (
+          <div className="col-6 col-md-3">
+            <span>{attendeeRec.firstName}</span>{" "}
+            <span>{attendeeRec.lastName}</span> ({attendeeRec.email})
+          </div>
+        )}
 
-        {/* Date Created - Hidden on xs screens, visible on md and larger */}
         <div className="col-md-3 d-none d-md-block">
           <span>
             {new Date(attendeeRec.createdDate).toLocaleDateString("en-US", {
