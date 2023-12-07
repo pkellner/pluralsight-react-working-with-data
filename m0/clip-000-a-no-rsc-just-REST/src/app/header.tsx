@@ -1,8 +1,17 @@
 "use client";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
-export default function Header() {
+export default function Header({
+  speakerListUpdate,
+}: {
+  speakerListUpdate: boolean;
+}) {
   const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();
+
+  const { speakerList, setSpeakerList } = speakerListUpdate
+    ? useSpeakerDataContext()
+    : { speakerList: [], setSpeakerList: (speakerList: any) => {} };
 
   function getFirstLast(loggedInName: string) {
     const firstLast = loggedInName.split("/");
@@ -41,7 +50,17 @@ export default function Header() {
                   </div>
                   <button
                     className="btn btn-outline-dark mt-2"
-                    onClick={() => setLoggedInName("")}
+                    onClick={() => {
+                      setLoggedInName("");
+                      if (speakerListUpdate) {
+                        setSpeakerList(
+                          speakerList.map((speaker) => ({
+                            ...speaker,
+                            favorite: false,
+                          })),
+                        );
+                      }
+                    }}
                   >
                     Logout
                   </button>

@@ -23,24 +23,6 @@ export async function GET(request: NextRequest) {
     attendeeId = getValuesFromToken(authorization.value).attendeeId;
   }
 
-  // get all speakers from the sqlite database with prisma
-  // const speakers = await prisma.speaker.findMany({
-  //   select: {
-  //     id: true,
-  //     firstName: true,
-  //     lastName: true,
-  //     company: true,
-  //     twitterHandle: true,
-  //     userBioShort: true,
-  //     timeSpeaking: true,
-  //     _count: {
-  //       select: {
-  //         favorites: true,
-  //       },
-  //     },
-  //   },
-  // });
-
   const speakers = (
     await prisma.speaker.findMany({
       select: {
@@ -74,8 +56,6 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // console.log("api/speakers/route.ts: attendeeFavorites: ", attendeeFavorites);
-
     const speakersWithFavorites = speakers.map((speaker) => {
       return {
         ...speaker,
@@ -99,8 +79,6 @@ export async function GET(request: NextRequest) {
       "Content-Type": "application/json",
     },
   });
-
-  // return new Response(null, { status: 404 });
 }
 
 // This function handles the POST request (INSERT)

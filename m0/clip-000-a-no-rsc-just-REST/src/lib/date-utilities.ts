@@ -26,6 +26,6 @@ export function isoStringDateToPrismaDate(incomingDate: string | Date) {
       : incomingDate;
   } catch (error) {
     console.log("Error converting date:", error);
-    return incomingDate;
+    return incomingDate as Date;
   }
 }
