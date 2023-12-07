@@ -56,19 +56,6 @@ export default function SpeakerDataProvider({
             return speaker;
           }),
         );
-
-        // setSpeakerList(
-        //   data.map((speaker: Speaker) => {
-        //
-        //     const newSpeaker : Speaker = {
-        //       ...speaker,
-        //       favoriteCountDisplayStatus: "updating",
-        //     };
-        //     console.log("speaker-data-context: newSpeaker", newSpeaker);
-        //     return (newSpeaker);
-        //   }),
-        // );
-        // console.log(speakerList);
         setLoadingStatus("success");
       } catch (err) {
         if (err instanceof Error) {
@@ -121,6 +108,10 @@ export default function SpeakerDataProvider({
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
+        if (speaker.timeSpeaking === undefined || speaker.timeSpeaking === null) {
+          speaker.timeSpeaking = new Date(0);
+        }
+
         // first get original speaker data so can check and see if favorite has changed
         const responseSingleSpeaker = await fetch(
           `/api/speakers/${speaker.id}`,

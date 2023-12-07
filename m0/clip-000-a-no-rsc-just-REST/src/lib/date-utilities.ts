@@ -4,9 +4,7 @@ export function prismaDateToIsoString(
 ) {
   try {
     const startTimeLocal = new Date(incomingPrismaDate);
-
     let offset = startTimeLocal.getTimezoneOffset() * 60000; // Convert offset to milliseconds
-
     const adjustedDate = new Date(startTimeLocal.getTime() - offset); // Add the offset
 
     return stripTimezoneOffset
@@ -14,7 +12,10 @@ export function prismaDateToIsoString(
       : adjustedDate.toISOString();
   } catch (e) {
     console.log("prismaDateToIsoString: Error converting date:", e);
-    return incomingPrismaDate;
+    const errorDate = new Date();
+    return stripTimezoneOffset
+      ? errorDate.toISOString().slice(0, 16)
+      : errorDate.toISOString();
   }
 }
 

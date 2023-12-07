@@ -147,7 +147,6 @@ export async function PUT(request: NextRequest) {
       authorization && authorization.value && authorization.value.length > 0
         ? getValuesFromToken(authorization.value).attendeeId
         : undefined; // or any other default value for the case when the user is not logged in
-    //console.log("/speakers/[speakerId]/route.ts: PUT: attendeeId:", attendeeId);
 
     const originalSpeaker = await getSpeakerDataById(
       Number(speakerId),
@@ -162,34 +161,15 @@ export async function PUT(request: NextRequest) {
         company,
         twitterHandle,
         userBioShort,
-        timeSpeaking,
+        timeSpeaking: timeSpeaking === undefined || timeSpeaking === null ? new Date(0) : timeSpeaking,
       },
     });
 
     // only update favorite count if there is a logged in user, and if the favorite value has changed
 
     if (attendeeId) {
-      // console.log(
-      //   "/speakers/[speakerId]/route.ts: PUT: favorite passed in:",
-      //   favorite,
-      //   "originalSpeaker.favorite ",
-      //   originalSpeaker,
-      // );
-
       if (favorite !== originalSpeaker?.favorite) {
-        // console.log(
-        //   "/speakers/[speakerId]/route.ts: PUT: favorite changed. new,original:",
-        //   favorite,
-        //   originalSpeaker?.favorite,
-        // );
-
         if (favorite) {
-          // console.log(
-          //   "/speakers/[speakerId]/route.ts: PUT: favorite changed to true. creating attendeeFavorite: attendeeId:",
-          //   attendeeId,
-          //   "speakerId:",
-          //   speakerId,
-          // );
           await prisma.attendeeFavorite.create({
             data: {
               attendeeId: attendeeId ?? "",
@@ -197,12 +177,6 @@ export async function PUT(request: NextRequest) {
             },
           });
         } else {
-          // console.log(
-          //   "/speakers/[speakerId]/route.ts: PUT: favorite changed to false. deleting attendeeFavorite: attendeeId:",
-          //   attendeeId,
-          //   "speakerId:",
-          //   speakerId,
-          // );
           await prisma.attendeeFavorite.deleteMany({
             where: {
               attendeeId: attendeeId,
