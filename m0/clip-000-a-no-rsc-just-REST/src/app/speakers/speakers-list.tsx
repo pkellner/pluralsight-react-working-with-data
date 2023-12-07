@@ -7,10 +7,12 @@ import { useSpeakerDataContext } from "@/components/contexts/speaker-data-contex
 
 function ContainerRow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container">
-      <div className="row g-4">{children}</div>
-      <div className={"mt-4"} />
-    </div>
+    <>
+      <div className="container">
+        <div className="row g-4">{children}</div>
+        &nbsp;
+      </div>
+    </>
   );
 }
 

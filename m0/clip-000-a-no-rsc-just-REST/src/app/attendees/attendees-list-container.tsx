@@ -10,9 +10,10 @@ export default function AttendeesListContainer() {
   return (
     <AttendeeDataProvider>
       <AttendeeMenuProvider>
-        <AttendeeMenu />
+
         <div className="container">
           <div className="row g-4">
+            <AttendeeMenu />
             <AttendeesList />
           </div>
         </div>

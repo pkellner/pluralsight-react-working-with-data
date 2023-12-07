@@ -1,5 +1,5 @@
 import React from "react";
-import {useAttendeeMenuContext} from "@/components/contexts/attendee-menu-context";
+import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 
 export default function AttendeeMenu() {
   const { searchText, setSearchText } = useAttendeeMenuContext();

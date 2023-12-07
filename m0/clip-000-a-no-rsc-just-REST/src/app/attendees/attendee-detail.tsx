@@ -40,7 +40,11 @@ export default function AttendeeDetail({
           <button
             className="btn btn-outline-success btn-sm p-1 m-1"
             onClick={() => {
-              setLoggedInName(firstLastId);
+              if (loggedInName.length > 0 && firstLastId === loggedInName) {
+                setLoggedInName("");
+              } else {
+                setLoggedInName(firstLastId);
+              }
             }}
           >
             {firstLastId.length > 0 && firstLastId === loggedInName
@@ -51,7 +55,11 @@ export default function AttendeeDetail({
 
         {isEditing ? (
           <div className="col-6 col-md-3">
-            <AttendeeForm attendee={attendeeRec} onSave={updateAttendee} onCancel={handleCancel} />
+            <AttendeeForm
+              attendee={attendeeRec}
+              onSave={updateAttendee}
+              onCancel={handleCancel}
+            />
           </div>
         ) : (
           <div className="col-6 col-md-3">
