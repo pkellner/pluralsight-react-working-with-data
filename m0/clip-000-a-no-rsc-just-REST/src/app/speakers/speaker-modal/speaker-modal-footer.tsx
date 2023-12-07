@@ -1,6 +1,6 @@
-import {useSpeakerModalContext} from "@/components/contexts/speaker-modal-context";
-import {useState} from "react";
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
+import { useState } from "react";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 export default function SpeakerModalFooter() {
   const {
@@ -34,7 +34,7 @@ export default function SpeakerModalFooter() {
                 twitterHandle: modalSpeakerTwitterHandle,
                 userBioShort: modalUserBioShort,
                 timeSpeaking: modalSpeakerTimeSpeaking,
-                favorite: modalSpeakerFavorite
+                favorite: modalSpeakerFavorite,
               },
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...

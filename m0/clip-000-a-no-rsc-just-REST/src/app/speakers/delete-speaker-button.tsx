@@ -1,5 +1,5 @@
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
-import {useState} from "react";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import { useState } from "react";
 
 export default function DeleteSpeakerButton({
   speakerId,

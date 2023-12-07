@@ -1,5 +1,5 @@
 import React from "react";
-import {useSpeakerMenuContext} from "@/components/contexts/speaker-menu-context";
+import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
 import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";
 
 export default function SpeakerMenu() {
@@ -24,7 +24,7 @@ export default function SpeakerMenu() {
           />
         </div>
         <div className="input-group">
-            <AddSpeakerDialog />
+          <AddSpeakerDialog />
         </div>
       </div>
     </div>

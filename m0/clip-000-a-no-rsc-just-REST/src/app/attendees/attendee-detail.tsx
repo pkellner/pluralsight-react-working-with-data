@@ -1,4 +1,4 @@
-import React, { isValidElement, useState } from "react";
+import React, { useState } from "react";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import AttendeeForm from "@/app/attendees/attendee-form";
 
@@ -130,10 +130,9 @@ export default function AttendeeDetail({
                 className="btn btn-outline-danger btn-sm p-1 m-1"
                 onClick={() => {
                   setDeleting(true);
-                  deleteAttendee(attendeeRec.id,() => {
+                  deleteAttendee(attendeeRec.id, () => {
                     setDeleting(false);
                   });
-
                 }}
               >
                 {deleting ? "Deleting..." : "Delete"}

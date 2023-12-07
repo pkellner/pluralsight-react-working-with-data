@@ -1,6 +1,12 @@
 "use client";
-import React, {createContext, ReactNode, useContext, useEffect, useState,} from "react";
-import {Speaker} from "@/lib/general-types";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Speaker } from "@/lib/general-types";
 
 // Define the shape of the context's value
 
@@ -82,7 +88,6 @@ export default function SpeakerDataProvider({
     async function create() {
       // make sure no id is passed in
       const speakerToAdd: Speaker = { ...speaker, id: 0 };
-      console.log("createSpeaker: speakerToAdd:",speakerToAdd);
       try {
         const response = await fetch(`/api/speakers/`, {
           method: "POST",
@@ -141,7 +146,6 @@ export default function SpeakerDataProvider({
         // check to see if favorite has changed
         const originalSpeaker = await responseSingleSpeaker.json();
         if (originalSpeaker?.favorite !== speaker?.favorite) {
-          console.log("speaker-data-context: favorite has changed", originalSpeaker, speaker);
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
           const filteredSpeakerList = speakerList.filter(

@@ -6,10 +6,9 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-
   try {
     const attendee = await prisma.attendee.findUnique({
-      where: { id : params.id },
+      where: { id: params.id },
       select: {
         id: true,
         firstName: true,
@@ -61,9 +60,12 @@ export async function PUT(request: Request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error updating attendee" }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ message: "Error updating attendee" }),
+      {
+        status: 500,
+      },
+    );
   }
 }
 
@@ -72,7 +74,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const id =params.id;
+  const id = params.id;
   try {
     // Start a transaction
     await prisma.$transaction(async (prisma) => {
@@ -89,8 +91,11 @@ export async function DELETE(
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error deleting attendee" }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ message: "Error deleting attendee" }),
+      {
+        status: 500,
+      },
+    );
   }
 }

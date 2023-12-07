@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { ChangeEvent, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Attendee {
   firstName: string;
@@ -10,22 +10,28 @@ interface Attendee {
 
 interface AttendeeFormProps {
   formData: { firstName: string; lastName: string; email: string };
-  setFormData: (formData: { firstName: string; lastName: string; email: string }) => void;
+  setFormData: (formData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  }) => void;
 }
 
-export default function AttendeeForm({ formData, setFormData }: AttendeeFormProps) {
-
-  const [error, setError] = useState('');
+export default function AttendeeForm({
+  formData,
+  setFormData,
+}: AttendeeFormProps) {
+  const [error, setError] = useState("");
 
   const validateEmail = (email: string): boolean => {
     return /\S+@\S+\.\S+/.test(email);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'email' && !validateEmail(e.target.value)) {
-      setError('Invalid email address');
+    if (e.target.id === "email" && !validateEmail(e.target.value)) {
+      setError("Invalid email address");
     } else {
-      setError('');
+      setError("");
     }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };

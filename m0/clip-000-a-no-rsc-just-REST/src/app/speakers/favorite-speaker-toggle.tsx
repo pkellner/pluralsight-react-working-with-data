@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {Speaker} from "@/lib/general-types";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import { useEffect, useState } from "react";
+import { Speaker } from "@/lib/general-types";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -37,7 +37,6 @@ export default function FavoriteSpeakerToggle({
         //   },
         // );
         // setSpeakerList(updatingSpeakerListWithPendingUpdate);
-
         // const response = await fetch(`/api/speakers/${speakerId}`);
         // if (!response.ok) {
         //   throw new Error("Network response was not ok");
@@ -92,10 +91,8 @@ export default function FavoriteSpeakerToggle({
             <i className="spinner-border text-dark" role="status" />
           ) : (
             <span className="m-2 text-primary">
-              (
-              {/*{speakerRec?.favoriteCount}*/}
-              <span>FAVORITE COUNT</span>
-              )
+              ({/*{speakerRec?.favoriteCount}*/}
+              <span>FAVORITE COUNT</span>)
             </span>
           )}
         </button>
@@ -110,15 +107,11 @@ export default function FavoriteSpeakerToggle({
       }
       onClick={(e) => {
         e.preventDefault();
-
-        //const z = {...speakerRec};
-
         const newSpeakerRec: Speaker = {
           ...speakerRec,
           favorite: !speakerRec?.favorite,
         };
         setLoadingStatus("loading");
-        console.log("favorite-speaker-toggle: newSpeakerRec", newSpeakerRec);
         updateSpeaker(newSpeakerRec, () => {
           setLoadingStatus("success");
         });

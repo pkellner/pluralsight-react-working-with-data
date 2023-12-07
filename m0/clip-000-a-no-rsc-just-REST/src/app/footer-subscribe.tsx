@@ -21,9 +21,9 @@ export default function FooterSubscribe() {
     setIsSubmitting(true);
 
     function createGUID(): string {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
         return v.toString(16);
       });
     }
@@ -34,8 +34,8 @@ export default function FooterSubscribe() {
         email: email,
         firstName: "_firstName_",
         lastName: "_lastName_",
-        createdDate: new Date()
-      }
+        createdDate: new Date(),
+      };
       const response = await fetch("/api/attendees", {
         method: "POST",
         headers: {
@@ -50,10 +50,6 @@ export default function FooterSubscribe() {
           `${email} has been subscribed. You should get an email confirming that.`,
         );
       } else {
-        console.log(
-          "footer-subscribe.tsx: handleSubmit: response.ok: ",
-          response,
-        );
         alert(`Failed to subscribe ${email}. Please try again.`);
       }
     } catch (error) {

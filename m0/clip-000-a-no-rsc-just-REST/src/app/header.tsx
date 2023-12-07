@@ -1,5 +1,5 @@
 "use client";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function Header() {
   const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();

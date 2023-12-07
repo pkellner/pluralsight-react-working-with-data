@@ -12,9 +12,11 @@ type GroupByResult = {
   };
 };
 
-export async function getSpeakerCountsByAttendee(speakerIds: number[]): Promise<SpeakerCount> {
+export async function getSpeakerCountsByAttendee(
+  speakerIds: number[],
+): Promise<SpeakerCount> {
   const counts = await prisma.attendeeFavorite.groupBy({
-    by: ['speakerId'],
+    by: ["speakerId"],
     _count: {
       speakerId: true,
     },

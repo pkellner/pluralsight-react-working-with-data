@@ -1,7 +1,7 @@
 // Import prisma from the prisma client
 import prisma from "@/lib/prisma/prisma";
-import {Speaker} from "@/lib/general-types";
-import {NextRequest} from "next/server";
+import { Speaker } from "@/lib/general-types";
+import { NextRequest } from "next/server";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");
@@ -65,7 +65,6 @@ async function getSpeakerDataById(id: number, attendeeId?: string) {
     ...speakerData,
     favoriteCount: speakerData._count.favorites,
   };
-
 
   let isFavorite: boolean;
   const count = await prisma.attendeeFavorite.count({
@@ -150,7 +149,10 @@ export async function PUT(request: NextRequest) {
         : undefined; // or any other default value for the case when the user is not logged in
     //console.log("/speakers/[speakerId]/route.ts: PUT: attendeeId:", attendeeId);
 
-    const originalSpeaker = await getSpeakerDataById(Number(speakerId),attendeeId);
+    const originalSpeaker = await getSpeakerDataById(
+      Number(speakerId),
+      attendeeId,
+    );
 
     await prisma.speaker.update({
       where: { id: Number(speakerId) },

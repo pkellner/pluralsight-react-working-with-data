@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Attendee } from "@/lib/general-types";
 
 type LoadingStatusType = "loading" | "success" | "error";
@@ -22,12 +28,13 @@ const AttendeeDataContext = createContext<AttendeeDataContextProps | undefined>(
 );
 
 export default function AttendeeDataProvider({
-                                               children,
-                                             }: {
+  children,
+}: {
   children: ReactNode;
 }) {
   const [attendeeList, setAttendeeList] = useState<Attendee[]>([]);
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatusType>("loading");
+  const [loadingStatus, setLoadingStatus] =
+    useState<LoadingStatusType>("loading");
   const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
@@ -82,7 +89,6 @@ export default function AttendeeDataProvider({
   }
 
   function updateAttendee(attendee: Attendee, completionFunction: () => void) {
-
     async function update() {
       try {
         const response = await fetch(`/api/attendees/${attendee.id}`, {
@@ -100,7 +106,9 @@ export default function AttendeeDataProvider({
         const updatedAttendee = await response.json();
         setAttendeeList(
           attendeeList.map((existingAttendee) =>
-            existingAttendee.id === updatedAttendee.id ? updatedAttendee : existingAttendee,
+            existingAttendee.id === updatedAttendee.id
+              ? updatedAttendee
+              : existingAttendee,
           ),
         );
       } catch (error) {
@@ -130,7 +138,9 @@ export default function AttendeeDataProvider({
 
         if (response.status === 204) {
           setAttendeeList(
-            attendeeList.filter((existingAttendee) => existingAttendee.id !== id),
+            attendeeList.filter(
+              (existingAttendee) => existingAttendee.id !== id,
+            ),
           );
         } else {
           await response.json();
