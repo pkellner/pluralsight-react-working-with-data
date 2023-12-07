@@ -12,9 +12,9 @@ interface AttendeeDataContextProps {
   setError: (error: string | undefined) => void;
   loadingStatus: LoadingStatusType;
   setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
-  updateAttendee: (attendee: Attendee) => void;
+  updateAttendee: (attendee: Attendee, completionFunction: () => void) => void;
   createAttendee: (attendee: Attendee) => void;
-  deleteAttendee: (id: string) => void;
+  deleteAttendee: (id: string, completionFunction: () => void) => void;
 }
 
 const AttendeeDataContext = createContext<AttendeeDataContextProps | undefined>(
@@ -81,7 +81,8 @@ export default function AttendeeDataProvider({
     create().then(() => {});
   }
 
-  function updateAttendee(attendee: Attendee) {
+  function updateAttendee(attendee: Attendee, completionFunction: () => void) {
+
     async function update() {
       try {
         const response = await fetch(`/api/attendees/${attendee.id}`, {
@@ -107,11 +108,14 @@ export default function AttendeeDataProvider({
         throw error;
       }
     }
-    update().then(() => {});
+    update().then(() => {
+      completionFunction();
+    });
   }
 
-  function deleteAttendee(id: string) {
+  function deleteAttendee(id: string, completionFunction: () => void) {
     async function deleteAttendeeInternal() {
+      await sleep(1000);
       try {
         const response = await fetch(`/api/attendees/${id}`, {
           method: "DELETE",
@@ -137,7 +141,9 @@ export default function AttendeeDataProvider({
       }
     }
 
-    deleteAttendeeInternal().then(() => {});
+    deleteAttendeeInternal().then(() => {
+      completionFunction();
+    });
   }
 
   const value = {

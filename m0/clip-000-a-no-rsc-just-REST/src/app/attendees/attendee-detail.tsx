@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { isValidElement, useState } from "react";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import AttendeeForm from "@/app/attendees/attendee-form";
 
@@ -6,18 +6,26 @@ export default function AttendeeDetail({
   attendeeRec,
   deleteAttendee,
   updateAttendee,
-  createAttendee,
 }: any) {
   // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
   const { loggedInName, setLoggedInName } = useLocalAuthContext();
+  const [updating, setUpdating] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [formData, setFormData] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+  }>({
+    firstName: attendeeRec.firstName,
+    lastName: attendeeRec.lastName,
+    email: attendeeRec.email,
+  });
 
-  // Function to handle edit mode
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  // Function to handle cancel
   const handleCancel = () => {
     setIsEditing(false);
   };
@@ -31,6 +39,13 @@ export default function AttendeeDetail({
     attendeeRec.lastName,
     attendeeRec.id,
   );
+
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const validateEmail = (email: string): boolean => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   return (
     <div className="row g-2 align-items-center">
@@ -55,11 +70,7 @@ export default function AttendeeDetail({
 
         {isEditing ? (
           <div className="col-6 col-md-3">
-            <AttendeeForm
-              attendee={attendeeRec}
-              onSave={updateAttendee}
-              onCancel={handleCancel}
-            />
+            <AttendeeForm formData={formData} setFormData={setFormData} />
           </div>
         ) : (
           <div className="col-6 col-md-3">
@@ -88,10 +99,17 @@ export default function AttendeeDetail({
           {isEditing ? (
             <>
               <button
+                disabled={!validateEmail(formData.email)}
                 className="btn btn-outline-primary btn-sm p-1 m-1"
-                onClick={() => updateAttendee(attendeeRec, handleCancel)}
+                onClick={() => {
+                  setUpdating(true);
+                  updateAttendee({ ...attendeeRec, ...formData }, () => {
+                    setUpdating(false);
+                    setIsEditing(false);
+                  });
+                }}
               >
-                Update
+                {updating ? "Updating..." : "Update"}
               </button>
               <button
                 className="btn btn-outline-secondary btn-sm p-1"
@@ -110,9 +128,15 @@ export default function AttendeeDetail({
               </button>
               <button
                 className="btn btn-outline-danger btn-sm p-1 m-1"
-                onClick={() => deleteAttendee(attendeeRec.id)}
+                onClick={() => {
+                  setDeleting(true);
+                  deleteAttendee(attendeeRec.id,() => {
+                    setDeleting(false);
+                  });
+
+                }}
               >
-                Delete
+                {deleting ? "Deleting..." : "Delete"}
               </button>
             </div>
           )}

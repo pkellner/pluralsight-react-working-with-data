@@ -9,17 +9,12 @@ interface Attendee {
 }
 
 interface AttendeeFormProps {
-  attendee: Attendee;
-  onSave: (attendee: Attendee) => void;
-  onCancel: () => void;
+  formData: { firstName: string; lastName: string; email: string };
+  setFormData: (formData: { firstName: string; lastName: string; email: string }) => void;
 }
 
-export default function AttendeeForm({ attendee, onSave, onCancel }: AttendeeFormProps) {
-  const [formData, setFormData] = useState({
-    firstName: attendee.firstName,
-    lastName: attendee.lastName,
-    email: attendee.email
-  });
+export default function AttendeeForm({ formData, setFormData }: AttendeeFormProps) {
+
   const [error, setError] = useState('');
 
   const validateEmail = (email: string): boolean => {
@@ -27,20 +22,16 @@ export default function AttendeeForm({ attendee, onSave, onCancel }: AttendeeFor
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.id === 'email' && !validateEmail(e.target.value)) {
+      setError('Invalid email address');
+    } else {
+      setError('');
+    }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    if (!validateEmail(formData.email)) {
-      setError('Invalid email address');
-      return;
-    }
-    setError('');
-    onSave({ ...attendee, ...formData });
-  };
-
   return (
-    <div className="container mt-3">
+    <div className="container m-3 p-1">
       {error && <p className="text-danger">{error}</p>}
       <div className="form-group">
         <label htmlFor="firstName">First Name</label>
@@ -72,8 +63,6 @@ export default function AttendeeForm({ attendee, onSave, onCancel }: AttendeeFor
           onChange={handleInputChange}
         />
       </div>
-      <button onClick={handleSubmit} className="btn btn-primary mt-2">Save</button>
-      <button onClick={onCancel} className="btn btn-secondary mt-2 ml-2">Cancel</button>
     </div>
   );
 }
