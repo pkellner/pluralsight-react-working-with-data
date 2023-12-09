@@ -4,7 +4,7 @@ import { Speaker } from "@/lib/general-types";
 import { NextRequest } from "next/server";
 import {
   getSpeakerDataById,
-  getUpdatedSpeakerBasedOnFields,
+  updateSpeakerRecord,
 } from "@/lib/prisma/speaker-utils";
 
 function getValuesFromToken(value: string) {
@@ -91,10 +91,7 @@ export async function PUT(request: NextRequest) {
 
   await sleep(1000);
   try {
-    let updatedSpeaker = await getUpdatedSpeakerBasedOnFields(
-      speaker,
-      attendeeId,
-    );
+    let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {
       status: 200,

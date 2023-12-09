@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 
 // Define an interface that extends the Speaker type from Prisma
-interface ExtendedSpeaker extends Speaker {
+export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
 
@@ -110,9 +110,9 @@ export async function getSpeakerDataById(id: number, attendeeId?: string) {
   return speaker;
 }
 
-export async function getUpdatedSpeakerBasedOnFields(
+export async function updateSpeakerRecord(
   speaker: Speaker,
-  attendeeId: string | undefined,
+  attendeeId?: string | undefined,
 ) {
   const speakerId = speaker.id;
   const {

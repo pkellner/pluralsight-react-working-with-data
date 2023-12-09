@@ -36,6 +36,7 @@ export default function SpeakerModalFooter() {
                 timeSpeaking: modalSpeakerTimeSpeaking,
                 favorite: modalSpeakerFavorite,
               },
+              undefined,
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
                 setModalShow(false);

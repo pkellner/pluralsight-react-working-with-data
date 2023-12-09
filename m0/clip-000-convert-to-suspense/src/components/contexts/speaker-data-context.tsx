@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Speaker } from "@/lib/general-types";
+import { updateSpeakerAction } from "@/components/contexts/speaker-data-context-actions";
 
 // Define the shape of the context's value
 
@@ -15,7 +16,11 @@ interface SpeakerDataContextProps {
   // setError: (error: string | undefined) => void;
   // loadingStatus: LoadingStatusType;
   // setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
-  updateSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
+  updateSpeaker: (
+    speakerRec: Speaker,
+    attendeeId: string | undefined,
+    completionFunction: () => void,
+  ) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
   //getSpeakerPromise: () => Promise<Speaker[]>;
@@ -102,7 +107,11 @@ export default function SpeakerDataProvider({
 
   // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
-  function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
+  function updateSpeaker(
+    speaker: Speaker,
+    attendeeId: string | undefined,
+    completionFunction: () => void,
+  ) {
     async function update() {
       try {
         if (
@@ -112,47 +121,33 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // first get original speaker data so can check and see if favorite has changed
-        const responseSingleSpeaker = await fetch(
-          `/api/speakers/${speaker.id}`,
-        );
-        if (!responseSingleSpeaker.ok) {
-          throw new Error(
-            `Network response was not ok for fetch /api/speakers/${speaker.id}`,
-          );
-        }
+        // SHOULD BE DOING ZOD THING HERE
+        const ret = await updateSpeakerAction(speaker.id, speaker, attendeeId);
+        const updatedSpeaker = ret.updatedSpeaker;
+        const originalSpeaker = ret.originalSpeaker;
 
-        // now update the speaker
-        const response = await fetch(`/api/speakers/${speaker.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(speaker),
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
+        console.log(
+          "speaker-data-context.tsx: originalSpeaker: ",
+          originalSpeaker,
+          "updatedSpeaker:",
+          updatedSpeaker,
+        );
 
         // check to see if favorite has changed
-        const originalSpeaker = await responseSingleSpeaker.json();
         if (originalSpeaker?.favorite !== speaker?.favorite) {
-          // if favorite has changed, then need to update the speakerList
-          // first remove the original speaker from the speakerList
-          const filteredSpeakerList = speakerList.filter(
-            (speaker) => speaker.id !== originalSpeaker.id,
-          );
-
-          // now add the updated speaker to the speakerList
-          setSpeakerList([...filteredSpeakerList, speaker]);
+          const tempList: Speaker[] = speakerList.map(function (speaker) {
+            if (
+              speaker.id === originalSpeaker?.id &&
+              updatedSpeaker !== undefined &&
+              updatedSpeaker !== null
+            ) {
+              return updatedSpeaker;
+            } else {
+              return speaker;
+            }
+          });
+          setSpeakerList(tempList);
         }
-
-        const updatedSpeaker = await response.json();
-        setSpeakerList(
-          speakerList.map((speaker) =>
-            speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
-          ),
-        );
 
         return updatedSpeaker;
       } catch (error) {

@@ -12,7 +12,7 @@ export default function FavoriteSpeakerToggle({
 }) {
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
   const [error, setError] = useState<string | undefined>(); // error state
-  const { isLoggedIn } = useLocalAuthContext();
+  const { isLoggedIn, loggedInAttendeeId } = useLocalAuthContext();
 
   const { speakerList, setSpeakerList, updateSpeaker } =
     useSpeakerDataContext();
@@ -60,7 +60,7 @@ export default function FavoriteSpeakerToggle({
           favorite: !speakerRec?.favorite,
         };
         setLoadingStatus("loading");
-        updateSpeaker(newSpeakerRec, () => {
+        updateSpeaker(newSpeakerRec, loggedInAttendeeId, () => {
           setLoadingStatus("success");
         });
       }}

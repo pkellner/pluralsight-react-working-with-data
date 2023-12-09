@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 
 interface LocalAuthContext {
   loggedInName: string;
+  loggedInAttendeeId: string | undefined;
   setLoggedInName: (name: string) => void;
   isLoading: boolean;
   isLoggedIn: boolean;
@@ -49,6 +50,7 @@ export default function LocalAuthProvider({
 
   const value = {
     loggedInName,
+    loggedInAttendeeId: loggedInName?.split("/")[2] || undefined,
     setLoggedInName,
     isLoading,
     isLoggedIn: loggedInName.length > 0,
