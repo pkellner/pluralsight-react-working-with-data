@@ -108,7 +108,10 @@ export default function SpeakerDataProvider({
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
-        if (speaker.timeSpeaking === undefined || speaker.timeSpeaking === null) {
+        if (
+          speaker.timeSpeaking === undefined ||
+          speaker.timeSpeaking === null
+        ) {
           speaker.timeSpeaking = new Date(0);
         }
 

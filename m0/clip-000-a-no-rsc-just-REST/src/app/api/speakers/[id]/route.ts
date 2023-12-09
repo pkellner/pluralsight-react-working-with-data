@@ -161,7 +161,10 @@ export async function PUT(request: NextRequest) {
         company,
         twitterHandle,
         userBioShort,
-        timeSpeaking: timeSpeaking === undefined || timeSpeaking === null ? new Date(0) : timeSpeaking,
+        timeSpeaking:
+          timeSpeaking === undefined || timeSpeaking === null
+            ? new Date(0)
+            : timeSpeaking,
       },
     });
 
