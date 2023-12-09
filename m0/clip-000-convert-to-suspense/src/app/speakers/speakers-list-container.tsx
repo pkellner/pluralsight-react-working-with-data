@@ -27,7 +27,6 @@ export default async function SpeakersListContainer() {
         <SpeakerModalProvider>
           <SpeakerModal />
           <SpeakerMenu />
-
           <SpeakersList />
         </SpeakerModalProvider>
       </SpeakerMenuProvider>
