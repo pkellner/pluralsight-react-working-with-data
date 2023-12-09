@@ -1,10 +1,12 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
+import LoginControl from '@/app/login-control';
+import { useLocalAuthContext } from '@/components/contexts/auth-context';
 
 enum NavRoutes {
-  Home = "/",
-  Speakers = "/speakers",
-  Attendees = "/attendees",
+  Home = '/',
+  Speakers = '/speakers',
+  Attendees = '/attendees',
 }
 
 export default function Nav() {
@@ -37,18 +39,17 @@ export default function Nav() {
         aria-controls="navbarNav"
         aria-expanded={!isNavCollapsed}
         aria-label="Toggle navigation"
-        // style={{ marginLeft: "auto" }} // Align the button to the far right
       >
         <span className="navbar-toggler-icon"></span>
       </button>
       <div
-        className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
+        className={`collapse navbar-collapse ${!isNavCollapsed ? 'show' : ''}`}
         id="navbarNav"
       >
-        <ul className="navbar-nav">
+        <ul className="navbar-nav mr-auto">
           <li
             className={`nav-item ${
-              activeNav === NavRoutes.Speakers ? "active" : ""
+              activeNav === NavRoutes.Speakers ? 'active' : ''
             }`}
           >
             <a
@@ -61,7 +62,7 @@ export default function Nav() {
           </li>
           <li
             className={`nav-item ${
-              activeNav === NavRoutes.Attendees ? "active" : ""
+              activeNav === NavRoutes.Attendees ? 'active' : ''
             }`}
           >
             <a
@@ -73,6 +74,9 @@ export default function Nav() {
             </a>
           </li>
         </ul>
+        <div className="ms-auto d-flex">
+          <LoginControl />
+        </div>
       </div>
     </nav>
   );
