@@ -20,6 +20,7 @@ export default function EditSpeakerDialog({
     twitterHandle,
     userBioShort,
     timeSpeaking,
+    favorite
   }: Speaker = speakerRec;
 
   const {
@@ -31,6 +32,7 @@ export default function EditSpeakerDialog({
     setModalSpeakerTwitterHandle,
     setModalUserBioShort,
     setModalSpeakerTimeSpeaking,
+    setModalSpeakerFavorite,
   } = useSpeakerModalContext();
 
   return (
@@ -44,6 +46,7 @@ export default function EditSpeakerDialog({
         setModalSpeakerTwitterHandle(twitterHandle ?? "");
         setModalSpeakerTimeSpeaking(timeSpeaking);
         setModalUserBioShort(userBioShort);
+        setModalSpeakerFavorite(favorite ?? false);
         setModalShow(true);
       }}
       className="btn btn-accent btn-sm"

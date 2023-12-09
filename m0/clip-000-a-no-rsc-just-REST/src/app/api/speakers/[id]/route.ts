@@ -68,6 +68,7 @@ export async function PUT(request: NextRequest) {
 
   const requestData = await request.json();
   const {
+    id,
     firstName,
     lastName,
     company,
@@ -77,8 +78,8 @@ export async function PUT(request: NextRequest) {
     favorite,
   } = requestData;
 
-  const speaker: Speaker = {
-    id: parseInt(speakerId ?? "0"),
+const speaker: Speaker = {
+    id,
     firstName,
     lastName,
     company,
@@ -89,10 +90,11 @@ export async function PUT(request: NextRequest) {
   };
 
   await sleep(1000);
-  console.log("/api/speakers/[id] PUT", speaker);
 
   try {
     let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
+
+
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {
       status: 200,

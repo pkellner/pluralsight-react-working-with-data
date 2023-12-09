@@ -66,10 +66,19 @@ export default function AttendeesList() {
 
       {/* Mapping over attendeeListFiltered */}
       {attendeeListFiltered
-        .sort((a, b) => a.lastName.localeCompare(b.lastName))
+        .sort((a, b) => {
+          // Sort 'admin' to the top
+          if (a.lastName.toLowerCase() === "admin") return -1;
+          if (b.lastName.toLowerCase() === "admin") return 1;
+          // Alphabetical sort for the rest
+          return a.lastName
+            .toUpperCase()
+            .localeCompare(b.lastName.toUpperCase());
+        })
         .map(function (attendeeRec) {
           return (
             <div className="col-12" key={attendeeRec.id}>
+              {attendeeRec.lastName}
               <div className="card border-0 h-100">
                 <AttendeeDetail
                   attendeeRec={attendeeRec}

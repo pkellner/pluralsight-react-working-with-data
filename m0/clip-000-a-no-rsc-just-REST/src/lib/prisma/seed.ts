@@ -47,6 +47,27 @@ async function main() {
     }
   }
 
+  function generateSimpleGUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      },
+    );
+  }
+
+  await prisma.attendee.create({
+    data: {
+      id: generateSimpleGUID(),
+      firstName: "admin",
+      lastName: "admin",
+      email: "admin@siliconvalley-codecamp.com",
+      createdDate: new Date(),
+    },
+  });
+
   // Seed Attendees
   for (const attendee of data.attendees) {
     await prisma.attendee.upsert({

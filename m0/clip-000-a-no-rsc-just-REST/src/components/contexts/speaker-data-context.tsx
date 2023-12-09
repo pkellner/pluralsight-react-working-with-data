@@ -106,6 +106,7 @@ export default function SpeakerDataProvider({
   // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
+
     async function update() {
       try {
         // cleanup timeSpeaking

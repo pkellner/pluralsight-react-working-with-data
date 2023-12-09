@@ -38,6 +38,15 @@ model Attendee {
   favorites AttendeeFavorite[]
 }
 
+model AttendeeFavorite {
+  attendeeId String
+  speakerId  Int
+  attendee   Attendee @relation(fields: [attendeeId], references: [id])
+  speaker    Speaker  @relation(fields: [speakerId], references: [id])
+
+  @@id([attendeeId, speakerId])
+}
+
 
 model SpeakerSession {
   speakerId   Int
@@ -50,13 +59,6 @@ model SpeakerSession {
 
 
 
-model AttendeeFavorite {
-  attendeeId String
-  speakerId  Int
-  attendee   Attendee @relation(fields: [attendeeId], references: [id])
-  speaker    Speaker  @relation(fields: [speakerId], references: [id])
 
-  @@id([attendeeId, speakerId])
-}
 
 

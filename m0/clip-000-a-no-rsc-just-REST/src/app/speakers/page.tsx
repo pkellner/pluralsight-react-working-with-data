@@ -11,7 +11,7 @@ export default function Speakers() {
   return (
     <div className="container-fluid">
       <SpeakerDataProvider>
-        <Header speakerListUpdate={true} />
+        <Header />
         <div className="full-page-border app-content-background">
           <Nav />
           <SpeakersListContainer />

@@ -3,9 +3,11 @@ import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
   const { speakerList } = useSpeakerDataContext();
+  const { isAdmin } = useLocalAuthContext();
 
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
@@ -36,10 +38,12 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
                     <FavoriteSpeakerToggle speakerId={speakerRec.id} />
                   </div>
 
-                  <div className="modifyWrapper">
-                    <EditSpeakerDialog speakerId={speakerRec.id} />
-                    <DeleteSpeakerButton speakerId={speakerRec.id} />
-                  </div>
+                  {isAdmin && (
+                    <div className="modifyWrapper">
+                      <EditSpeakerDialog speakerId={speakerRec.id} />
+                      <DeleteSpeakerButton speakerId={speakerRec.id} />
+                    </div>
+                  )}
                 </div>
                 <h4 className="card-title">
                   {speakerRec.firstName} {speakerRec.lastName}

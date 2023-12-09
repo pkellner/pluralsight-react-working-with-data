@@ -59,7 +59,7 @@ export default function LocalAuthProvider({
     setLoggedInName,
     isLoading,
     isLoggedIn: loggedInName.length > 0,
-    isAdmin: loggedInName.startsWith("admin"),
+    isAdmin: loggedInName.startsWith("admin"), // not secure! just for demonstration
   };
 
   return (
