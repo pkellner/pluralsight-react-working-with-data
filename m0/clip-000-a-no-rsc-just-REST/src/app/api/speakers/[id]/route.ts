@@ -58,10 +58,15 @@ export async function GET(
 // This function handles the PUT request (UPDATE)
 export async function PUT(request: NextRequest) {
   const speakerId = request.url.split("/").pop();
-  //console.log("/speakers/[speakerId]/route.ts: PUT: speakerId:", speakerId);
+
+  // check for logged in attendee
+  const authorization = request.cookies.get("authToken");
+  const attendeeId =
+    authorization && authorization.value && authorization.value.length > 0
+      ? getValuesFromToken(authorization.value).attendeeId
+      : undefined; // or any other default value for the case when the user is not logged in
 
   const requestData = await request.json();
-  // Extract only the specific fields to update
   const {
     firstName,
     lastName,
@@ -83,13 +88,9 @@ export async function PUT(request: NextRequest) {
     favorite,
   };
 
-  const authorization = request.cookies.get("authToken");
-  const attendeeId =
-    authorization && authorization.value && authorization.value.length > 0
-      ? getValuesFromToken(authorization.value).attendeeId
-      : undefined; // or any other default value for the case when the user is not logged in
-
   await sleep(1000);
+  console.log("/api/speakers/[id] PUT", speaker);
+
   try {
     let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
 
@@ -109,14 +110,11 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-
-
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
   { params }: { params: { id: number } },
 ) {
-
   await sleep(1000);
   const id = Number(request.url.split("/").pop());
 

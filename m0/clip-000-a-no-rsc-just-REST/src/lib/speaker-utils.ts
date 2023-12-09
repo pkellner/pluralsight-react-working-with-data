@@ -216,6 +216,7 @@ export async function updateSpeakerRecord(
     attendeeId,
   );
 
+  // update the speaker record
   await prisma.speaker.update({
     where: { id: Number(speakerId) },
     data: {
@@ -231,25 +232,37 @@ export async function updateSpeakerRecord(
     },
   });
 
-  // only update favorite count if there is a logged in user, and if the favorite value has changed
-
   if (attendeeId) {
-    if (favorite !== originalSpeaker?.favorite) {
-      if (favorite) {
-        await prisma.attendeeFavorite.create({
-          data: {
-            attendeeId: attendeeId ?? "",
-            speakerId: Number(speakerId),
-          },
-        });
-      } else {
-        await prisma.attendeeFavorite.deleteMany({
-          where: {
-            attendeeId: attendeeId,
-            speakerId: Number(speakerId),
-          },
-        });
-      }
+    // if attendeeId (meaning logged in), then update attendeeFavorite table
+    console.log(
+      "attendees/[id]/speakers/[id]/route.ts: updateSpeakerRecord: attendeeId found so updating originalSpeaker:",
+      originalSpeaker,
+      "passed in new speaker:",
+      speaker,
+    );
+    if (favorite !== originalSpeaker?.favorite ) {
+
+      console.log("attendees/[id]/speakers/[id]/route.ts: updateSpeakerRecord: favorite changed so updating attendeeFavorite table", favorite, originalSpeaker?.favorite);
+
+        if (attendeeId.length === 0) {
+          throw new Error("attendeeId is undefined, null, or empty string and this should never happen when toggle is changing!!!");
+        }
+
+
+        if (favorite) {
+          console.log("attendees/[id]/speakers/[id]/route.ts:doing upsert")
+
+
+        } else {
+          console.log("attendees/[id]/speakers/[id]/route.ts:doing delete")
+          await prisma.attendeeFavorite.deleteMany({
+            where: {
+              attendeeId: attendeeId,
+              speakerId: Number(speakerId),
+            },
+          });
+        }
+
     }
   }
 

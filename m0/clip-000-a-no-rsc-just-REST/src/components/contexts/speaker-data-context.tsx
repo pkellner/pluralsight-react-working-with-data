@@ -108,6 +108,7 @@ export default function SpeakerDataProvider({
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
+        // cleanup timeSpeaking
         if (
           speaker.timeSpeaking === undefined ||
           speaker.timeSpeaking === null
@@ -115,15 +116,16 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // first get original speaker data so can check and see if favorite has changed
-        const responseSingleSpeaker = await fetch(
+        // get original speaker data so can check and see if favorite has changed
+        const responseOriginalSpeaker = await fetch(
           `/api/speakers/${speaker.id}`,
         );
-        if (!responseSingleSpeaker.ok) {
+        if (!responseOriginalSpeaker.ok) {
           throw new Error(
             `Network response was not ok for fetch /api/speakers/${speaker.id}`,
           );
         }
+        const originalSpeaker = await responseOriginalSpeaker.json();
 
         // now update the speaker
         const response = await fetch(`/api/speakers/${speaker.id}`, {
@@ -138,7 +140,7 @@ export default function SpeakerDataProvider({
         }
 
         // check to see if favorite has changed
-        const originalSpeaker = await responseSingleSpeaker.json();
+
         if (originalSpeaker?.favorite !== speaker?.favorite) {
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
@@ -146,10 +148,6 @@ export default function SpeakerDataProvider({
             (speaker) => speaker.id !== originalSpeaker.id,
           );
 
-          // DO PROPER UPDATE TO PRISMA DB HERE
-          // ..
-
-          // now add the updated speaker to the speakerList
           setSpeakerList([...filteredSpeakerList, speaker]);
         }
 
