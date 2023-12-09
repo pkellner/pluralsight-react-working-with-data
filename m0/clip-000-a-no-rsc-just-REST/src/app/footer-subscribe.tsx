@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {createGUID} from "@/lib/general-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -20,13 +21,7 @@ export default function FooterSubscribe() {
     event.preventDefault();
     setIsSubmitting(true);
 
-    function createGUID(): string {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v = c === "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      });
-    }
+
 
     try {
       const postData = {

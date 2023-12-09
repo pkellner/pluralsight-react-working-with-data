@@ -1,9 +1,6 @@
-// this pulls the data from db.json. That file was created in the admin section of Silicon Valley Code Camp to get real speaker data from the database.
-// The data is then used to seed the database in the course. (attendee data is made up randomly there).
-
 const { PrismaClient } = require("@prisma/client");
 const data = require("../../../db.json");
-
+import {createGUID} from "@/lib/general-utils";
 const prisma = new PrismaClient();
 
 // seed all the tables for all data scenarios in the course
@@ -47,20 +44,11 @@ async function main() {
     }
   }
 
-  function generateSimpleGUID(): string {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      function (c) {
-        const r = (Math.random() * 16) | 0;
-        const v = c == "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      },
-    );
-  }
+
 
   await prisma.attendee.create({
     data: {
-      id: generateSimpleGUID(),
+      id: createGUID(),
       firstName: "admin",
       lastName: "admin",
       email: "admin@siliconvalley-codecamp.com",
