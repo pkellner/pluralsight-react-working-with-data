@@ -11,14 +11,7 @@ export default function Header() {
           <div className="col-lg-6 text-lg-end">
             <img src="/images/svcc-logo.png" alt="SVCC Logo" />
             <h2>
-              <a
-                href="https://www.siliconvalley-codecamp.com/presenter/2019"
-                target="_blank"
-              >
-                <span className="text-black">
-                  Silicon Valley Code Camp 2019
-                </span>
-              </a>
+              <span className="text-black">Silicon Valley Code Camp 2019</span>
             </h2>
           </div>
           <div className="col-lg-6 text-lg-start mt-3 mt-lg-0">

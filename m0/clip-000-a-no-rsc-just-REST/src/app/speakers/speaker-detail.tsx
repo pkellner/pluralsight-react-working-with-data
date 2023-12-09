@@ -1,4 +1,4 @@
-import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
+import SpeakerFavoriteToggle from "@/app/speakers/speaker-favorite-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
@@ -35,7 +35,7 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
               <div className="card-body">
                 <div className="speaker-action d-flex">
                   <div className="favoriteToggleWrapper">
-                    <FavoriteSpeakerToggle speakerId={speakerRec.id} />
+                    <SpeakerFavoriteToggle speakerId={speakerRec.id} />
                   </div>
 
                   {isAdmin && (

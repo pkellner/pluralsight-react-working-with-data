@@ -17,12 +17,12 @@ export default function LoginControl() {
   };
 
   return (
-    <span className="p-2">
+    <span className="">
       {!isLoading ? (
         isLoggedIn ? (
           <div>
-            <span className="p-1">
-              Logged in as <i>{loggedInFirstLast}</i>
+            <span className="">
+              Logged in as <i className="p-2">{loggedInFirstLast}</i>
             </span>
             {/* Using an anchor tag for logout */}
             <a
