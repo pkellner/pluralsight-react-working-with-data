@@ -150,9 +150,6 @@ export default function SpeakerDataProvider({
             (speaker) => speaker.id !== originalSpeaker.id,
           );
 
-          // DO PROPER UPDATE TO PRISMA DB HERE
-          // ..
-
           // now add the updated speaker to the speakerList
           setSpeakerList([...filteredSpeakerList, speaker]);
         }
