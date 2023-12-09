@@ -10,6 +10,50 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
+export async function createSpeakerRecord(speaker: Speaker) {
+  const {
+    firstName,
+    lastName,
+    company,
+    twitterHandle,
+    userBioShort,
+    timeSpeaking,
+  } = speaker;
+
+  const newSpeaker = await prisma.speaker.create({
+    data: {
+      firstName,
+      lastName,
+      company,
+      twitterHandle,
+      userBioShort,
+      timeSpeaking:
+        timeSpeaking === undefined || timeSpeaking === null
+          ? new Date(0)
+          : timeSpeaking,
+    },
+  });
+
+  return newSpeaker;
+}
+
+export async function deleteSpeakerRecord(id: number) {
+  return await prisma.$transaction(async (prisma) => {
+    await prisma.speakerSession.deleteMany({
+      where: { speakerId: Number(id) },
+    });
+
+    await prisma.attendeeFavorite.deleteMany({
+      where: { speakerId: Number(id) },
+    });
+
+    const speakerDeleted = await prisma.speaker.delete({
+      where: { id },
+    });
+    return speakerDeleted;
+  });
+}
+
 export async function getSpeakers(attendeeId: string) {
   try {
     await sleep(2000);

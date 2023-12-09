@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 import { NextRequest } from "next/server";
 import {
+  deleteSpeakerRecord,
   getSpeakerDataById,
   updateSpeakerRecord,
 } from "@/lib/prisma/speaker-utils";
@@ -109,33 +110,19 @@ export async function PUT(request: NextRequest) {
   }
 }
 
+
+
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
   { params }: { params: { id: number } },
 ) {
-  const id = Number(params.id);
+
+  await sleep(1000);
+  const id = Number(request.url.split("/").pop());
+
   try {
-    await sleep(1000);
-    const id = request.url.split("/").pop();
-
-    // Start a transaction
-    await prisma.$transaction(async (prisma) => {
-      // 1. Delete related records in SpeakerSession
-      await prisma.speakerSession.deleteMany({
-        where: { speakerId: Number(id) },
-      });
-
-      // 2. Delete related records in AttendeeFavorite
-      await prisma.attendeeFavorite.deleteMany({
-        where: { speakerId: Number(id) },
-      });
-
-      // 3. Finally, delete the speaker
-      await prisma.speaker.delete({
-        where: { id: Number(id) },
-      });
-    });
+    await deleteSpeakerRecord(id);
 
     return new Response(null, { status: 204 });
   } catch (error) {
