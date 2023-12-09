@@ -17,13 +17,14 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 interface SpeakerDataContextProps {
   speakerList: Speaker[];
   setSpeakerList: (speakerList: Speaker[]) => void;
-  error: string | undefined;
-  setError: (error: string | undefined) => void;
-  loadingStatus: LoadingStatusType;
-  setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
+  // error: string | undefined;
+  // setError: (error: string | undefined) => void;
+  // loadingStatus: LoadingStatusType;
+  // setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
   updateSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
+  //getSpeakerPromise: () => Promise<Speaker[]>;
 }
 
 // Create the context with the defined shape
@@ -33,43 +34,46 @@ const SpeakerDataContext = createContext<SpeakerDataContextProps | undefined>(
 
 export default function SpeakerDataProvider({
   children,
+  speakerListInit,
 }: {
   children: ReactNode;
+  speakerListInit: Speaker[];
 }) {
-  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
-  const [loadingStatus, setLoadingStatus] =
-    useState<LoadingStatusType>("loading");
-  const [error, setError] = useState<string | undefined>();
 
-  useEffect(() => {
-    async function fetchSpeakers() {
-      try {
-        const response = await fetch("/api/speakers");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        await sleep(500);
+  const [speakerList, setSpeakerList] = useState<Speaker[]>(speakerListInit);
+  // const [loadingStatus, setLoadingStatus] =
+  //   useState<LoadingStatusType>("loading");
+  // const [error, setError] = useState<string | undefined>();
 
-        setSpeakerList(
-          data.map((speaker: Speaker) => {
-            return speaker;
-          }),
-        );
-        setLoadingStatus("success");
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error("Error in fetch SpeakersList", err);
-          setError(err.message);
-        } else {
-          console.error("An unexpected error occurred");
-          setError("An unexpected error occurred");
-        }
-        setLoadingStatus("error");
-      }
-    }
-    fetchSpeakers().then(() => {});
-  }, []);
+  // useEffect(() => {
+  //   async function fetchSpeakers() {
+  //     try {
+  //       const response = await fetch("/api/speakers");
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       const data = await response.json();
+  //       await sleep(1000);
+  //
+  //       setSpeakerList(
+  //         data.map((speaker: Speaker) => {
+  //           return speaker;
+  //         }),
+  //       );
+  //       setLoadingStatus("success");
+  //     } catch (err) {
+  //       if (err instanceof Error) {
+  //         console.error("Error in fetch SpeakersList", err);
+  //         setError(err.message);
+  //       } else {
+  //         console.error("An unexpected error occurred");
+  //         setError("An unexpected error occurred");
+  //       }
+  //       setLoadingStatus("error");
+  //     }
+  //   }
+  //   fetchSpeakers().then(() => {});
+  // }, []);
 
   function createSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function create() {
@@ -108,7 +112,10 @@ export default function SpeakerDataProvider({
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
-        if (speaker.timeSpeaking === undefined || speaker.timeSpeaking === null) {
+        if (
+          speaker.timeSpeaking === undefined ||
+          speaker.timeSpeaking === null
+        ) {
           speaker.timeSpeaking = new Date(0);
         }
 
@@ -205,10 +212,6 @@ export default function SpeakerDataProvider({
   const value = {
     speakerList,
     setSpeakerList,
-    loadingStatus,
-    setLoadingStatus,
-    error,
-    setError,
     updateSpeaker,
     createSpeaker,
     deleteSpeaker,

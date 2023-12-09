@@ -91,8 +91,7 @@ export default function FavoriteSpeakerToggle({
             <i className="spinner-border text-dark" role="status" />
           ) : (
             <span className="m-2 text-primary">
-              ({/*{speakerRec?.favoriteCount}*/}
-              <span>FAVORITE COUNT</span>)
+              ({speakerRec?.favoriteCount})
             </span>
           )}
         </button>

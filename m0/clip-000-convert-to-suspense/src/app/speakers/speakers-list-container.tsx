@@ -6,7 +6,7 @@ import SpeakerMenu from "@/app/speakers/speaker-menu";
 import { SpeakerModalProvider } from "@/components/contexts/speaker-modal-context";
 import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 
-export default function SpeakersListContainer() {
+export default function SpeakersListContainer(  ) {
   return (
     <SpeakerMenuProvider>
       <SpeakerModalProvider>

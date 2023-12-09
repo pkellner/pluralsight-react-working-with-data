@@ -12,6 +12,8 @@ function getPrismaOptions(): { log: LogOption[] } {
   const infoLogging = process.env.PRISMA_STDOUT_INFO === "true"; // default false
   const warnLogging = process.env.PRISMA_STDOUT_WARN === "true"; // default false
 
+
+
   const logOptions: LogOption[] = [];
 
   if (queryLogging) {
@@ -64,6 +66,7 @@ if (process.env.NODE_ENV === "production") {
 
 // @ts-ignore
 prisma.$on("query", (e) => {
+
   // @ts-ignore
   if (e.query.includes("UserImage")) {
     return;
@@ -72,7 +75,7 @@ prisma.$on("query", (e) => {
   // @ts-ignore
   if (e.query.toString().includes("SELECT UserImage")) return null;
 
-  if (process.env.LOGSQLSTATEMENT === "true") {
+  if (process.env.LOGSQLSTATEMENT == "true") {
     // @ts-ignore
     console.log("Query: " + e.query);
     // @ts-ignore

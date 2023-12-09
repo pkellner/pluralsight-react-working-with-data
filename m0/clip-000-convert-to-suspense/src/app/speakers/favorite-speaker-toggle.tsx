@@ -20,58 +20,6 @@ export default function FavoriteSpeakerToggle({
   const speakerRec: Speaker =
     speakerList.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
 
-  useEffect(() => {
-    async function fetchSpeaker() {
-      try {
-        // const updatingSpeakerListWithPendingUpdate = speakerList.map(
-        //   (speaker: Speaker) => {
-        //     if (speaker.id === speakerId) {
-        //       const updatedSpeaker: Speaker = {
-        //         ...speaker,
-        //         favoriteCountDisplayStatus: "updating",
-        //       };
-        //       return updatedSpeaker;
-        //     } else {
-        //       return speaker;
-        //     }
-        //   },
-        // );
-        // setSpeakerList(updatingSpeakerListWithPendingUpdate);
-        // const response = await fetch(`/api/speakers/${speakerId}`);
-        // if (!response.ok) {
-        //   throw new Error("Network response was not ok");
-        // }
-        // const data = await response.json();
-        // await sleep(1000 + Math.random() * 2000);
-        // const updatedSpeakerListWithPendingUpdate = speakerList.map(
-        //   (speaker: Speaker) => {
-        //     if (speaker.id === speakerId) {
-        //       return {
-        //         ...speaker,
-        //         favoriteCount: data.favoriteCount,
-        //         favoriteCountDisplayStatus: "updated",
-        //       };
-        //     } else {
-        //       return speaker;
-        //     }
-        //   },
-        // );
-        // setSpeakerList(updatedSpeakerListWithPendingUpdate);
-        //setLoadingStatus("success");
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error("Error in fetch SpeakersList", err);
-          setError(err.message);
-        } else {
-          console.error("An unexpected error occurred");
-          setError("An unexpected error occurred");
-        }
-        setLoadingStatus("error");
-      }
-    }
-    fetchSpeaker().then(() => {});
-  }, []);
-
   if (error) {
     return <div>Error: {error}</div>;
   }

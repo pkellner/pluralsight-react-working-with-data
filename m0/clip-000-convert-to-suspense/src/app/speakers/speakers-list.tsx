@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import useSpeakerSortAndFilter from "@/app/speakers/use-speaker-sort-and-filter";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
 import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
@@ -18,28 +18,31 @@ function ContainerRow({ children }: { children: React.ReactNode }) {
 
 export default function SpeakersList() {
   const { searchText } = useSpeakerMenuContext();
-  const { speakerList, loadingStatus, error } = useSpeakerDataContext();
+  const { speakerList } = useSpeakerDataContext();
+
   const speakerListFiltered = useSpeakerSortAndFilter(speakerList, searchText);
 
-  if (loadingStatus === "loading") {
-    return (
-      <ContainerRow>
-        {[1, 2, 3, 4, 5].map((item) => (
-          <SpeakerDetailPending key={item} />
-        ))}
-      </ContainerRow>
-    );
-  }
-
-  if (loadingStatus === "error") {
-    return <div className="card">Error: {error}</div>;
-  }
+  // if (loadingStatus === "loading") {
+  //   return (
+  //     <ContainerRow>
+  //       {[1, 2, 3, 4, 5].map((item) => (
+  //         <SpeakerDetailPending key={item} />
+  //       ))}
+  //     </ContainerRow>
+  //   );
+  // }
+  //
+  // if (loadingStatus === "error") {
+  //   return <div className="card">Error: {error}</div>;
+  // }
 
   return (
     <ContainerRow>
-      {speakerListFiltered.map(({ id }) => (
-        <SpeakerDetail key={id} speakerId={id} />
-      ))}
+      <Suspense fallback={<div>Loading...</div>}>
+        {speakerListFiltered.map(({ id }) => (
+          <SpeakerDetail key={id} speakerId={id} />
+        ))}
+      </Suspense>
     </ContainerRow>
   );
 }

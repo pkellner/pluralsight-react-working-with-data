@@ -20,10 +20,12 @@ const LocalAuthContext = createContext<LocalAuthContext | undefined>(undefined);
 
 export default function LocalAuthProvider({
   children,
+  loginNameInit,
 }: {
   children: ReactNode;
+  loginNameInit: string | undefined;
 }) {
-  const [loggedInName, setLoggedInNameState] = useState<string>("");
+  const [loggedInName, setLoggedInNameState] = useState<string>(loginNameInit ?? "");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const setLoggedInName = useCallback((name: string) => {
