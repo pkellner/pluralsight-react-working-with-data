@@ -10,6 +10,53 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
+export async function getSpeakerRecords(attendeeId: string) {
+  const speakers = (
+    await prisma.speaker.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        company: true,
+        twitterHandle: true,
+        userBioShort: true,
+        timeSpeaking: true,
+        _count: {
+          select: {
+            favorites: true,
+          },
+        },
+      },
+    })
+  ).map((speaker) => ({
+    ...speaker,
+    favoriteCount: speaker._count.favorites,
+  }));
+
+  if (attendeeId) {
+    const attendeeFavorites = await prisma.attendeeFavorite.findMany({
+      where: {
+        attendeeId: attendeeId ?? "",
+      },
+      select: {
+        attendeeId: true,
+        speakerId: true,
+      },
+    });
+
+    return speakers.map((speaker) => {
+      return {
+        ...speaker,
+        favorite: attendeeFavorites?.some(
+          (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
+        ),
+      };
+    });
+  } else {
+    return speakers;
+  }
+}
+
 export async function createSpeakerRecord(speaker: Speaker) {
   const {
     firstName,
@@ -46,7 +93,7 @@ export async function deleteSpeakerRecord(id: number) {
     });
 
     return prisma.speaker.delete({
-      where: {id},
+      where: { id },
     });
   });
 }

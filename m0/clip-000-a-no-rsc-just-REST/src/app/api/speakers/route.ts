@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma/prisma";
 import { NextRequest } from "next/server";
+import { getSpeakerRecords } from "@/lib/speaker-utils";
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
 function getValuesFromToken(value: string) {
@@ -23,55 +23,7 @@ export async function GET(request: NextRequest) {
     attendeeId = getValuesFromToken(authorization.value).attendeeId;
   }
 
-  const speakers = (
-    await prisma.speaker.findMany({
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        company: true,
-        twitterHandle: true,
-        userBioShort: true,
-        timeSpeaking: true,
-        _count: {
-          select: {
-            favorites: true,
-          },
-        },
-      },
-    })
-  ).map((speaker) => ({
-    ...speaker,
-    favoriteCount: speaker._count.favorites,
-  }));
-
-  if (attendeeId) {
-    const attendeeFavorites = await prisma.attendeeFavorite.findMany({
-      where: {
-        attendeeId: attendeeId ?? "",
-      },
-      select: {
-        attendeeId: true,
-        speakerId: true,
-      },
-    });
-
-    const speakersWithFavorites = speakers.map((speaker) => {
-      return {
-        ...speaker,
-        favorite: attendeeFavorites?.some(
-          (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
-        ),
-      };
-    });
-
-    return new Response(JSON.stringify(speakersWithFavorites, null, 2), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
+  const speakers = await getSpeakerRecords(attendeeId ?? "");
 
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,

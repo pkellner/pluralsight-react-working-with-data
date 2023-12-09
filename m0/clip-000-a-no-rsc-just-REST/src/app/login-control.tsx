@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useLocalAuthContext } from "@/components/contexts/auth-context";
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import {useLocalAuthContext} from "@/components/contexts/auth-context";
 
 export default function LoginControl() {
-  const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } =
-    useLocalAuthContext();
-
+  const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } = useLocalAuthContext();
   const { speakerList, setSpeakerList } = useSpeakerDataContext();
+
+  const handleLogout = (event: any) => {
+    event.preventDefault(); // Prevent default anchor behavior
+    setLoggedInName("");
+    setSpeakerList(
+      speakerList.map((speaker) => ({
+        ...speaker,
+        favorite: false,
+      })),
+    );
+  };
 
   return (
     <span className="p-2">
@@ -16,24 +24,18 @@ export default function LoginControl() {
             <span className="p-1">
               Logged in as <i>{loggedInFirstLast}</i>
             </span>
-            <span
-              className="mt-2"
-              onClick={() => {
-                setLoggedInName("");
-                setSpeakerList(
-                  speakerList.map((speaker) => ({
-                    ...speaker,
-                    favorite: false,
-                  })),
-                );
-              }}
+            {/* Using an anchor tag for logout */}
+            <a
+              href="#logout" // Dummy href, actual navigation is prevented
+              className="mt-2 cursor-pointer"
+              onClick={handleLogout}
             >
-              <b>Logout</b>
-            </span>
+              Logout
+            </a>
           </div>
         ) : (
           <div>
-            <a className="mt-2" href="/attendees">
+            <a className="mt-2 cursor-pointer" href="/attendees">
               Sign-in
             </a>
           </div>
@@ -42,3 +44,4 @@ export default function LoginControl() {
     </span>
   );
 }
+
