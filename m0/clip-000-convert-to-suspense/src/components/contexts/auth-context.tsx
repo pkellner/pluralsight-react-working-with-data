@@ -25,7 +25,9 @@ export default function LocalAuthProvider({
   children: ReactNode;
   loginNameInit: string | undefined;
 }) {
-  const [loggedInName, setLoggedInNameState] = useState<string>(loginNameInit ?? "");
+  const [loggedInName, setLoggedInNameState] = useState<string>(
+    loginNameInit ?? "",
+  );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const setLoggedInName = useCallback((name: string) => {

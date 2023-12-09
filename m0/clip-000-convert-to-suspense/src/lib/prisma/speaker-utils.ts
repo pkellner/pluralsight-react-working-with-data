@@ -1,9 +1,65 @@
 import prisma from "@/lib/prisma/prisma";
-import {Speaker} from "@/lib/general-types";
+import { Speaker } from "@/lib/general-types";
 
 // Define an interface that extends the Speaker type from Prisma
 interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
+}
+
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
+
+export async function getSpeakers(attendeeId: string) {
+  try {
+    await sleep(2000);
+    const speakers = (
+      await prisma.speaker.findMany({
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          company: true,
+          twitterHandle: true,
+          userBioShort: true,
+          timeSpeaking: true,
+          _count: {
+            select: {
+              favorites: true,
+            },
+          },
+        },
+      })
+    ).map((speaker) => ({
+      ...speaker,
+      favoriteCount: speaker._count.favorites,
+    }));
+
+    if (attendeeId) {
+      const attendeeFavorites = await prisma.attendeeFavorite.findMany({
+        where: {
+          attendeeId: attendeeId ?? "",
+        },
+        select: {
+          attendeeId: true,
+          speakerId: true,
+        },
+      });
+
+      const speakersWithFavorites = speakers.map((speaker) => {
+        return {
+          ...speaker,
+          favorite: attendeeFavorites?.some(
+            (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
+          ),
+        };
+      });
+
+      return speakersWithFavorites;
+    }
+  } catch (err) {
+    throw new Error("An unexpected error occurred in getSpeakers");
+  }
 }
 
 export async function getSpeakerDataById(id: number, attendeeId?: string) {

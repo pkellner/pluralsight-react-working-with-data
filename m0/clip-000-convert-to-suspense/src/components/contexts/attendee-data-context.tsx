@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Attendee } from "@/lib/general-types";
 
 type LoadingStatusType = "loading" | "success" | "error";
@@ -28,15 +22,14 @@ const AttendeeDataContext = createContext<AttendeeDataContextProps | undefined>(
   undefined,
 );
 
-
-
 export default function AttendeeDataProvider({
   children,
 }: {
   children: ReactNode;
 }) {
   const [attendeeList, setAttendeeList] = useState<Attendee[]>([]);
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatusType>("loading");
+  const [loadingStatus, setLoadingStatus] =
+    useState<LoadingStatusType>("loading");
   const [error, setError] = useState<string | undefined>();
   // const [loadingStatus, setLoadingStatus] =
   //   useState<LoadingStatusType>("loading");
@@ -69,15 +62,14 @@ export default function AttendeeDataProvider({
   // }, []);
 
   async function getAttendeeListPromise() {
-
-    const sleep = (ms : number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const sleep = (ms: number) =>
+      new Promise((resolve) => setTimeout(resolve, ms));
     //const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     const response = await fetch("http://localhost:4500/api/attendees");
     await sleep(100);
     const json = await response.json();
     console.log(json);
     return json;
-
 
     return new Promise<Attendee[]>((resolve, reject) => {
       async function fetchAttendees() {

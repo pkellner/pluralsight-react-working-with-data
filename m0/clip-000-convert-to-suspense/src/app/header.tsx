@@ -1,17 +1,11 @@
 "use client";
-import { useLocalAuthContext } from "@/components/contexts/auth-context";
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
-export default function Header({
-  speakerListUpdate = false,
-}: {
-  speakerListUpdate?: boolean;
-}) {
-  const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();
+export default function Header() {
+  // const { loggedInName, setLoggedInName, isLoading } = useLocalAuthContext();
 
-  const { speakerList, setSpeakerList } = speakerListUpdate
-    ? useSpeakerDataContext()
-    : { speakerList: [], setSpeakerList: (speakerList: any) => {} };
+  // const { speakerList, setSpeakerList } = speakerListUpdate
+  //   ? useSpeakerDataContext()
+  //   : { speakerList: [], setSpeakerList: (speakerList: any) => {} };
 
   function getFirstLast(loggedInName: string) {
     const firstLast = loggedInName.split("/");
@@ -38,46 +32,45 @@ export default function Header({
           </div>
 
           {/* Login/Logout Section */}
-          <div className="col-lg-4 text-center">
-            {!isLoading ? (
-              loggedInName.length > 0 ? (
-                <div>
-                  <div className="background-text-highlight mb-3">
-                    (ADMIN MODE)
-                  </div>
-                  <div>
-                    Logged in as <b>{getFirstLast(loggedInName)}</b>
-                  </div>
-                  <button
-                    className="btn btn-outline-dark mt-2"
-                    onClick={() => {
-                      setLoggedInName("");
-                      if (speakerListUpdate) {
-                        setSpeakerList(
-                          speakerList.map((speaker) => ({
-                            ...speaker,
-                            favorite: false,
-                          })),
-                        );
-                      }
-                    }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <div className="background-text-highlight mb-3">
-                    (ADMIN MODE)
-                  </div>
-                  <div>Not logged in</div>
-                  <a className="btn btn-secondary mt-2" href="/attendees">
-                    Login
-                  </a>
-                </div>
-              )
-            ) : null}
-          </div>
+          {/*<div className="col-lg-4 text-center">*/}
+          {/*  {!isLoading ? (loggedInName.length > 0 ? (*/}
+          {/*      <div>*/}
+          {/*        <div className="background-text-highlight mb-3">*/}
+          {/*          (ADMIN MODE)*/}
+          {/*        </div>*/}
+          {/*        <div>*/}
+          {/*          /!*Logged in as <b>{getFirstLast(loggedInName)}</b>*!/*/}
+          {/*        </div>*/}
+          {/*        <button*/}
+          {/*          className="btn btn-outline-dark mt-2"*/}
+          {/*          onClick={() => {*/}
+          {/*            // setLoggedInName("");*/}
+          {/*            // if (speakerListUpdate) {*/}
+          {/*            //   setSpeakerList(*/}
+          {/*            //     speakerList.map((speaker) => ({*/}
+          {/*            //       ...speaker,*/}
+          {/*            //       favorite: false,*/}
+          {/*            //     })),*/}
+          {/*            //   );*/}
+          {/*            // }*/}
+          {/*          }}*/}
+          {/*        >*/}
+          {/*          Logout*/}
+          {/*        </button>*/}
+          {/*      </div>*/}
+          {/*    ) : (*/}
+          {/*      <div>*/}
+          {/*        <div className="background-text-highlight mb-3">*/}
+          {/*          (ADMIN MODE)*/}
+          {/*        </div>*/}
+          {/*        <div>Not logged in</div>*/}
+          {/*        <a className="btn btn-secondary mt-2" href="/attendees">*/}
+          {/*          Login*/}
+          {/*        </a>*/}
+          {/*      </div>*/}
+          {/*    )*/}
+          {/*  ) : null}*/}
+          {/*</div>*/}
 
           {/* Date and Location */}
           <div className="col-lg-4 text-lg-start mt-3 mt-lg-0">

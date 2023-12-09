@@ -2,7 +2,10 @@
 import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 import { NextRequest } from "next/server";
-import {getSpeakerDataById, getUpdatedSpeakerBasedOnFields} from "@/lib/prisma/speaker-utils";
+import {
+  getSpeakerDataById,
+  getUpdatedSpeakerBasedOnFields,
+} from "@/lib/prisma/speaker-utils";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");
@@ -15,10 +18,6 @@ function getValuesFromToken(value: string) {
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
-
-
-
-
 
 // This function handles the GET request
 export async function GET(
@@ -55,8 +54,6 @@ export async function GET(
     });
   }
 }
-
-
 
 // This function handles the PUT request (UPDATE)
 export async function PUT(request: NextRequest) {

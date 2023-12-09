@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Speaker } from "@/lib/general-types";
 
 // Define the shape of the context's value
@@ -39,7 +33,6 @@ export default function SpeakerDataProvider({
   children: ReactNode;
   speakerListInit: Speaker[];
 }) {
-
   const [speakerList, setSpeakerList] = useState<Speaker[]>(speakerListInit);
   // const [loadingStatus, setLoadingStatus] =
   //   useState<LoadingStatusType>("loading");

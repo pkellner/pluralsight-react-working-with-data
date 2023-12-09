@@ -1,11 +1,9 @@
 import React, { Suspense, use } from "react";
 import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/app/attendees/use-attendee-sort-and-filter";
-import AttendeeDetailPending from "@/app/attendees/attendee-detail-pending";
-import AttendeeDetail from "@/app/attendees/attendee-detail";
 import { useAttendeeDataContext } from "@/components/contexts/attendee-data-context";
 import { Attendee } from "@/lib/general-types";
-import {AttendeeDetailWithSuspense} from "@/app/attendees/attendee-detail-with-suspense";
+import { AttendeeDetailWithSuspense } from "@/app/attendees/attendee-detail-with-suspense";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,8 +16,6 @@ export default function AttendeesList() {
     </div>
   );
 }
-
-
 
 function AttendeesListInternal() {
   const { searchText } = useAttendeeMenuContext();
@@ -36,8 +32,6 @@ function AttendeesListInternal() {
   // ts-ignore
   const attendeeListPromise = getAttendeeListPromise() as Promise<Attendee[]>;
   const attendeeListTemp = use(attendeeListPromise);
-
-
 
   //return <div>{JSON.stringify(attendeeListTemp)}</div>;
 

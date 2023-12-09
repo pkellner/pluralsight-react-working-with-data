@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Speaker } from "@/lib/general-types";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";

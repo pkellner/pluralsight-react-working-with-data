@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Attendee } from "@/lib/general-types";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import AttendeeForm from "@/app/attendees/attendee-form";
-import {updateAttendeeAction} from "@/app/attendees/actions/update-attendee-action";
+import { updateAttendeeAction } from "@/app/attendees/actions/update-attendee-action";
 
 export function AttendeeDetailWithSuspense({
   attendeeRec,
