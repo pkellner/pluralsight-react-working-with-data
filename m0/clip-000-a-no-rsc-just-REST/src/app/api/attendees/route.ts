@@ -1,17 +1,11 @@
 import prisma from "@/lib/prisma/prisma";
 import { NextRequest } from "next/server";
+import {createAttendeeRecord, getAttendeeRecords} from "@/lib/attendee-utils";
+import {Attendee} from "@/lib/general-types";
 
 export async function GET(request: NextRequest) {
-  const attendees = await prisma.attendee.findMany({
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-      email: true,
-      createdDate: true,
-    },
-    orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
-  });
+
+  const attendees = await getAttendeeRecords();
 
   return new Response(JSON.stringify(attendees, null, 2), {
     status: 200,
@@ -24,11 +18,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const newAttendee = await prisma.attendee.create({
-      data,
-    });
-
-    return new Response(JSON.stringify(newAttendee, null, 2), {
+    const attendee = await createAttendeeRecord(data);
+    return new Response(JSON.stringify(attendee, null, 2), {
       status: 201,
       headers: {
         "Content-Type": "application/json",
