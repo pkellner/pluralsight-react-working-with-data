@@ -25,6 +25,17 @@ export default function SpeakerModalFooter() {
         <button
           onClick={() => {
             setUpdating(true);
+            // console.log(
+            //   "/src/app/speakers/speaker-modal/speaker-modal-footer.tsx: SpeakerModalFooter(): modalSpeakerId, modalSpeakerFirstName, modalSpeakerLastName, modalSpeakerCompany, modalSpeakerTwitterHandle, modalUserBioShort, modalSpeakerTimeSpeaking, modalSpeakerFavorite: ",
+            //   modalSpeakerId,
+            //   modalSpeakerFirstName,
+            //   modalSpeakerLastName,
+            //   modalSpeakerCompany,
+            //   modalSpeakerTwitterHandle,
+            //   modalUserBioShort,
+            //   modalSpeakerTimeSpeaking,
+            //   modalSpeakerFavorite,
+            // );
             updateSpeaker(
               {
                 id: modalSpeakerId,
@@ -36,7 +47,6 @@ export default function SpeakerModalFooter() {
                 timeSpeaking: modalSpeakerTimeSpeaking,
                 favorite: modalSpeakerFavorite,
               },
-              undefined,
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
                 setModalShow(false);

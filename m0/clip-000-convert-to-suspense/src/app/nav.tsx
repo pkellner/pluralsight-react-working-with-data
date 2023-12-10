@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import LoginControl from "@/app/login-control";
 
 enum NavRoutes {
   Home = "/",
@@ -37,7 +38,6 @@ export default function Nav() {
         aria-controls="navbarNav"
         aria-expanded={!isNavCollapsed}
         aria-label="Toggle navigation"
-        // style={{ marginLeft: "auto" }} // Align the button to the far right
       >
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -45,7 +45,7 @@ export default function Nav() {
         className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
         id="navbarNav"
       >
-        <ul className="navbar-nav">
+        <ul className="navbar-nav mr-auto">
           <li
             className={`nav-item ${
               activeNav === NavRoutes.Speakers ? "active" : ""
@@ -73,6 +73,9 @@ export default function Nav() {
             </a>
           </li>
         </ul>
+        <div className="ms-auto d-flex">
+          <LoginControl />
+        </div>
       </div>
     </nav>
   );

@@ -72,7 +72,7 @@ prisma.$on("query", (e) => {
   // @ts-ignore
   if (e.query.toString().includes("SELECT UserImage")) return null;
 
-  if (process.env.LOGSQLSTATEMENT == "true") {
+  if (process.env.LOGSQLSTATEMENT === "true") {
     // @ts-ignore
     console.log("Query: " + e.query);
     // @ts-ignore

@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
 import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";

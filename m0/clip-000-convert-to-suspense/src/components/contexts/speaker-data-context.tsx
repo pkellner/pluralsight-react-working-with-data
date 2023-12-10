@@ -1,12 +1,12 @@
 "use client";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Speaker } from "@/lib/general-types";
-import {
-  createSpeakerAction,
-  deleteSpeakerAction,
-  updateSpeakerAction,
-} from "@/components/contexts/speaker-data-context-actions";
-import {createSpeakerRecord} from "@/lib/prisma/speaker-utils";
 
 // Define the shape of the context's value
 
@@ -17,11 +17,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 interface SpeakerDataContextProps {
   speakerList: Speaker[];
   setSpeakerList: (speakerList: Speaker[]) => void;
-  updateSpeaker: (
-    speakerRec: Speaker,
-    attendeeId: string | undefined,
-    completionFunction: () => void,
-  ) => void;
+  error: string | undefined;
+  setError: (error: string | undefined) => void;
+  loadingStatus: LoadingStatusType;
+  setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
+  updateSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
 }
@@ -33,21 +33,65 @@ const SpeakerDataContext = createContext<SpeakerDataContextProps | undefined>(
 
 export default function SpeakerDataProvider({
   children,
-  speakerListInit,
 }: {
   children: ReactNode;
-  speakerListInit: Speaker[];
 }) {
-  const [speakerList, setSpeakerList] = useState<Speaker[]>(speakerListInit);
+  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
+  const [loadingStatus, setLoadingStatus] =
+    useState<LoadingStatusType>("loading");
+  const [error, setError] = useState<string | undefined>();
+
+  useEffect(() => {
+    async function fetchSpeakers() {
+      try {
+        const response = await fetch("/api/speakers");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        await sleep(500);
+
+        setSpeakerList(
+          data.map((speaker: Speaker) => {
+            return speaker;
+          }),
+        );
+        setLoadingStatus("success");
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error("Error in fetch SpeakersList", err);
+          setError(err.message);
+        } else {
+          console.error("An unexpected error occurred");
+          setError("An unexpected error occurred");
+        }
+        setLoadingStatus("error");
+      }
+    }
+    fetchSpeakers().then(() => {});
+  }, []);
 
   function createSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function create() {
       // make sure no id is passed in
       const speakerToAdd: Speaker = { ...speaker, id: 0 };
       try {
-        // SHOULD BE DOING ZOD THING HERE
-        const newSpeaker = await createSpeakerAction(speakerToAdd);
+        const response = await fetch(`/api/speakers/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(speakerToAdd),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const newSpeaker = await response.json(); // Read the response once
         setSpeakerList([...speakerList, newSpeaker]);
+
+        // No need to call response.json() again, newSpeaker already holds the parsed response
         return newSpeaker;
       } catch (error) {
         console.error("Error creating new speaker:", error);
@@ -61,13 +105,10 @@ export default function SpeakerDataProvider({
 
   // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
-  function updateSpeaker(
-    speaker: Speaker,
-    attendeeId: string | undefined,
-    completionFunction: () => void,
-  ) {
+  function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
+        // cleanup timeSpeaking
         if (
           speaker.timeSpeaking === undefined ||
           speaker.timeSpeaking === null
@@ -75,23 +116,47 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // SHOULD BE DOING ZOD THING HERE
-        const ret = await updateSpeakerAction(speaker.id, speaker, attendeeId);
-        const updatedSpeaker = ret.updatedSpeaker;
-        const originalSpeaker = ret.originalSpeaker;
+        // get original speaker data so can check and see if favorite has changed
+        const responseOriginalSpeaker = await fetch(
+          `/api/speakers/${speaker.id}`,
+        );
+        if (!responseOriginalSpeaker.ok) {
+          throw new Error(
+            `Network response was not ok for fetch /api/speakers/${speaker.id}`,
+          );
+        }
+        const originalSpeaker = await responseOriginalSpeaker.json();
 
-        const tempList: Speaker[] = speakerList.map(function (speaker) {
-          if (
-            speaker.id === originalSpeaker?.id &&
-            updatedSpeaker !== undefined &&
-            updatedSpeaker !== null
-          ) {
-            return updatedSpeaker;
-          } else {
-            return speaker;
-          }
+        // now update the speaker
+        const response = await fetch(`/api/speakers/${speaker.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(speaker),
         });
-        setSpeakerList(tempList);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        // check to see if favorite has changed
+
+        if (originalSpeaker?.favorite !== speaker?.favorite) {
+          // if favorite has changed, then need to update the speakerList
+          // first remove the original speaker from the speakerList
+          const filteredSpeakerList = speakerList.filter(
+            (speaker) => speaker.id !== originalSpeaker.id,
+          );
+
+          setSpeakerList([...filteredSpeakerList, speaker]);
+        }
+
+        const updatedSpeaker = await response.json();
+        setSpeakerList(
+          speakerList.map((speaker) =>
+            speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
+          ),
+        );
 
         return updatedSpeaker;
       } catch (error) {
@@ -107,12 +172,27 @@ export default function SpeakerDataProvider({
   function deleteSpeaker(id: number, completionFunction: () => void) {
     async function deleteSpeakerInternal() {
       try {
-        // SHOULD BE DOING ZOD THING HERE
-        await deleteSpeakerAction(id);
+        const response = await fetch(`/api/speakers/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-        setSpeakerList(
-          speakerList.filter((speaker: Speaker) => speaker.id !== id),
-        );
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        // Check if the response status is 204 (No Content)
+        if (response.status === 204) {
+          setSpeakerList(
+            speakerList.filter((speaker: Speaker) => speaker.id !== id),
+          );
+          return null; // Or a suitable message indicating successful deletion
+        } else {
+          // If response is not 204, then parse the JSON
+          return await response.json();
+        }
       } catch (error) {
         console.error("Error deleting speaker:", error);
         throw error;
@@ -126,6 +206,10 @@ export default function SpeakerDataProvider({
   const value = {
     speakerList,
     setSpeakerList,
+    loadingStatus,
+    setLoadingStatus,
+    error,
+    setError,
     updateSpeaker,
     createSpeaker,
     deleteSpeaker,

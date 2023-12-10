@@ -1,23 +1,13 @@
-import React, { Suspense, use } from "react";
+import React from "react";
 import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/app/attendees/use-attendee-sort-and-filter";
+import AttendeeDetailPending from "@/app/attendees/attendee-detail-pending";
+import AttendeeDetail from "@/app/attendees/attendee-detail";
 import { useAttendeeDataContext } from "@/components/contexts/attendee-data-context";
-import { Attendee } from "@/lib/general-types";
-import { AttendeeDetailWithSuspense } from "@/app/attendees/attendee-detail-with-suspense";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function AttendeesList() {
-  return (
-    <div className="container-fluid">
-      <Suspense fallback={<div>Loading Suspense Boundary</div>}>
-        <AttendeesListInternal />
-      </Suspense>
-    </div>
-  );
-}
-
-function AttendeesListInternal() {
   const { searchText } = useAttendeeMenuContext();
 
   const {
@@ -25,37 +15,29 @@ function AttendeesListInternal() {
     createAttendee,
     deleteAttendee,
     attendeeList,
-    setAttendeeList,
-    getAttendeeListPromise,
+    error,
+    loadingStatus,
   } = useAttendeeDataContext();
 
-  // ts-ignore
-  const attendeeListPromise = getAttendeeListPromise() as Promise<Attendee[]>;
-  const attendeeListTemp = use(attendeeListPromise);
-
-  //return <div>{JSON.stringify(attendeeListTemp)}</div>;
-
-  //setAttendeeList(attendeeListTemp);
-
   const attendeeListFiltered = useAttendeeSortAndFilter(
-    attendeeListTemp,
+    attendeeList,
     searchText,
   );
 
-  // if (loadingStatus === "loading") {
-  //   return (
-  //     <>
-  //       {[1, 2, 3, 4, 5].map((item) => {
-  //         return <AttendeeDetailPending key={item} />;
-  //       })}
-  //       <div className="mt-3"></div>
-  //     </>
-  //   );
-  // }
-  //
-  // if (loadingStatus === "error") {
-  //   return <div className="card">Error: {error}</div>;
-  // }
+  if (loadingStatus === "loading") {
+    return (
+      <>
+        {[1, 2, 3, 4, 5].map((item) => {
+          return <AttendeeDetailPending key={item} />;
+        })}
+        <div className="mt-3"></div>
+      </>
+    );
+  }
+
+  if (loadingStatus === "error") {
+    return <div className="card">Error: {error}</div>;
+  }
 
   return (
     <>
@@ -84,18 +66,23 @@ function AttendeesListInternal() {
 
       {/* Mapping over attendeeListFiltered */}
       {attendeeListFiltered
-        .sort((a, b) => a.lastName.localeCompare(b.lastName))
+        .sort((a, b) => {
+          // Sort 'admin' to the top
+          if (a.lastName.toLowerCase() === "admin") return -1;
+          if (b.lastName.toLowerCase() === "admin") return 1;
+
+          return 0; // sort comes from prisma query
+        })
         .map(function (attendeeRec) {
           return (
             <div className="col-12" key={attendeeRec.id}>
               <div className="card border-0 h-100">
-                <AttendeeDetailWithSuspense attendeeRec={attendeeRec} />
-                {/*<AttendeeDetail*/}
-                {/*  attendeeRec={attendeeRec}*/}
-                {/*  createAttendee={createAttendee}*/}
-                {/*  deleteAttendee={deleteAttendee}*/}
-                {/*  updateAttendee={updateAttendee}*/}
-                {/*/>*/}
+                <AttendeeDetail
+                  attendeeRec={attendeeRec}
+                  createAttendee={createAttendee}
+                  deleteAttendee={deleteAttendee}
+                  updateAttendee={updateAttendee}
+                />
               </div>
             </div>
           );

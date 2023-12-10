@@ -3,7 +3,6 @@ import Header from "@/app/header";
 import Nav from "@/app/nav";
 import Footer from "@/app/footer";
 import Home from "@/app/home";
-//import LocalAuthProvider from "@/components/contexts/auth-context";
 
 export default function Page() {
   return (

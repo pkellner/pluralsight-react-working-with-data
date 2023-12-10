@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Attendee } from "@/lib/general-types";
 
 type LoadingStatusType = "loading" | "success" | "error";
@@ -15,7 +21,6 @@ interface AttendeeDataContextProps {
   updateAttendee: (attendee: Attendee, completionFunction: () => void) => void;
   createAttendee: (attendee: Attendee) => void;
   deleteAttendee: (id: string, completionFunction: () => void) => void;
-  getAttendeeListPromise: () => Promise<Attendee[]>;
 }
 
 const AttendeeDataContext = createContext<AttendeeDataContextProps | undefined>(
@@ -31,65 +36,32 @@ export default function AttendeeDataProvider({
   const [loadingStatus, setLoadingStatus] =
     useState<LoadingStatusType>("loading");
   const [error, setError] = useState<string | undefined>();
-  // const [loadingStatus, setLoadingStatus] =
-  //   useState<LoadingStatusType>("loading");
-  // const [error, setError] = useState<string | undefined>();
-  //
-  // useEffect(() => {
-  //   async function fetchAttendees() {
-  //     try {
-  //       const response = await fetch("/api/attendees");
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       await sleep(500);
-  //
-  //       setAttendeeList(data);
-  //       setLoadingStatus("success");
-  //     } catch (err) {
-  //       if (err instanceof Error) {
-  //         console.error("Error in fetch AttendeeList", err);
-  //         setError(err.message);
-  //       } else {
-  //         console.error("An unexpected error occurred");
-  //         setError("An unexpected error occurred");
-  //       }
-  //       setLoadingStatus("error");
-  //     }
-  //   }
-  //   fetchAttendees().then(() => {});
-  // }, []);
 
-  async function getAttendeeListPromise() {
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-    //const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-    const response = await fetch("http://localhost:4500/api/attendees");
-    await sleep(100);
-    const json = await response.json();
-    console.log(json);
-    return json;
-
-    return new Promise<Attendee[]>((resolve, reject) => {
-      async function fetchAttendees() {
-        try {
-          const response = await fetch("http://localhost:4000/speakers");
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data = await response.json();
-          await sleep(1000);
-
-          setAttendeeList(data);
-          resolve(data);
-        } catch (err) {
-          reject(err);
+  useEffect(() => {
+    async function fetchAttendees() {
+      try {
+        const response = await fetch("/api/attendees");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        const data = await response.json();
+        await sleep(500);
+
+        setAttendeeList(data);
+        setLoadingStatus("success");
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error("Error in fetch AttendeeList", err);
+          setError(err.message);
+        } else {
+          console.error("An unexpected error occurred");
+          setError("An unexpected error occurred");
+        }
+        setLoadingStatus("error");
       }
-      fetchAttendees().then(() => {});
-    });
-  }
+    }
+    fetchAttendees().then(() => {});
+  }, []);
 
   function createAttendee(attendee: Attendee) {
     async function create() {
@@ -119,10 +91,14 @@ export default function AttendeeDataProvider({
   function updateAttendee(attendee: Attendee, completionFunction: () => void) {
     async function update() {
       try {
+        console.log("updateAttendee", attendee);
         const response = await fetch(`/api/attendees/${attendee.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
           },
           body: JSON.stringify(attendee),
         });
@@ -194,7 +170,6 @@ export default function AttendeeDataProvider({
     updateAttendee,
     createAttendee,
     deleteAttendee,
-    getAttendeeListPromise,
   };
 
   return (

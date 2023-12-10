@@ -7,7 +7,6 @@ export default function AttendeeDetail({
   deleteAttendee,
   updateAttendee,
 }: any) {
-  // State to manage edit mode
   const [isEditing, setIsEditing] = useState(false);
   const { loggedInName, setLoggedInName } = useLocalAuthContext();
   const [updating, setUpdating] = useState(false);
@@ -119,24 +118,30 @@ export default function AttendeeDetail({
               </button>
             </>
           ) : (
-            <div className="">
-              <button
-                className="btn btn-outline-primary btn-sm p-1 m-1"
-                onClick={handleEdit}
-              >
-                Edit
-              </button>
-              <button
-                className="btn btn-outline-danger btn-sm p-1 m-1"
-                onClick={() => {
-                  setDeleting(true);
-                  deleteAttendee(attendeeRec.id, () => {
-                    setDeleting(false);
-                  });
-                }}
-              >
-                {deleting ? "Deleting..." : "Delete"}
-              </button>
+            <div>
+              {attendeeRec.firstName != "admin" ? (
+                <>
+                  <button
+                    className="btn btn-outline-primary btn-sm p-1 m-1"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-outline-danger btn-sm p-1 m-1"
+                    onClick={() => {
+                      setDeleting(true);
+                      deleteAttendee(attendeeRec.id, () => {
+                        setDeleting(false);
+                      });
+                    }}
+                  >
+                    {deleting ? "Deleting..." : "Delete"}
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           )}
         </div>

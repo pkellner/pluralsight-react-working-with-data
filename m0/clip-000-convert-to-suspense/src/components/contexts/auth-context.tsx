@@ -11,10 +11,12 @@ import Cookies from "js-cookie";
 
 interface LocalAuthContext {
   loggedInName: string;
-  loggedInAttendeeId: string | undefined;
   setLoggedInName: (name: string) => void;
   isLoading: boolean;
   isLoggedIn: boolean;
+  loggedInAttendeeId: string | undefined;
+  loggedInFirstLast: string | undefined;
+  isAdmin: boolean;
 }
 
 const LocalAuthContext = createContext<LocalAuthContext | undefined>(undefined);
@@ -48,13 +50,16 @@ export default function LocalAuthProvider({
     setIsLoading(false);
   }, []);
 
+  const parts = loggedInName.split("/");
+
   const value = {
     loggedInName,
-    loggedInAttendeeId: loggedInName?.split("/")[2] || undefined,
+    loggedInAttendeeId: parts.length > 2 ? parts[2] : undefined,
+    loggedInFirstLast: parts.length > 1 ? `${parts[0]} ${parts[1]}` : undefined,
     setLoggedInName,
     isLoading,
     isLoggedIn: loggedInName.length > 0,
-    isAdmin: loggedInName === "admin",
+    isAdmin: loggedInName.startsWith("admin"), // not secure! just for demonstration
   };
 
   return (

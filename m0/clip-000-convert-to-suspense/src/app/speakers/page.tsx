@@ -1,43 +1,16 @@
+"use client";
 import Header from "@/app/header";
-import Nav from "@/app/nav";
 import Footer from "@/app/footer";
-import React, { Suspense } from "react";
-import SpeakersListContainer from "@/app/speakers/speakers-list-container";
-import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
+import React from "react";
+import SpeakerPage from "@/app/speakers/speaker-page";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-function ContainerRow({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <div className="container">
-        <div className="row g-4">{children}</div>
-        &nbsp;
-      </div>
-    </>
-  );
-}
-
-function SpeakerPendingList() {
-  return (
-    <ContainerRow>
-      {[1, 2, 3, 4, 5].map((item) => (
-        <SpeakerDetailPending key={item} />
-      ))}
-    </ContainerRow>
-  );
-}
-
-export default async function Speakers() {
+export default function Speakers() {
+  // Header needs to be wrapped by SpeakerDataProvider as it contains login/logout which will need to update the speaker data context (for favorite speakers)
   return (
     <div className="container-fluid">
       <Header />
       <div className="full-page-border app-content-background">
-        <Nav />
-
-        <Suspense fallback={<SpeakerPendingList />}>
-          <SpeakersListContainer />
-        </Suspense>
+        <SpeakerPage />
       </div>
       <Footer />
     </div>

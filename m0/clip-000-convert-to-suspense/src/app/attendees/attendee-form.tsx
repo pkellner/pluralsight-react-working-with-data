@@ -1,12 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 
-interface Attendee {
-  firstName: string;
-  lastName: string;
-  email: string;
-  id: string;
-}
+
 
 interface AttendeeFormProps {
   formData: { firstName: string; lastName: string; email: string };
