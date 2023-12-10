@@ -70,15 +70,12 @@ export default function AttendeesList() {
           // Sort 'admin' to the top
           if (a.lastName.toLowerCase() === "admin") return -1;
           if (b.lastName.toLowerCase() === "admin") return 1;
-          // Alphabetical sort for the rest
-          return a.lastName
-            .toUpperCase()
-            .localeCompare(b.lastName.toUpperCase());
+
+          return 0; // sort comes from prisma query
         })
         .map(function (attendeeRec) {
           return (
             <div className="col-12" key={attendeeRec.id}>
-              {attendeeRec.lastName}
               <div className="card border-0 h-100">
                 <AttendeeDetail
                   attendeeRec={attendeeRec}

@@ -15,9 +15,14 @@ export async function getAttendeeRecords() {
 }
 
 export async function updateAttendeeRecord(attendee: Attendee) {
+  const { id, firstName, lastName, email } = attendee;
   return prisma.attendee.update({
-    where: { id: attendee.id },
-    data,
+    where: { id },
+    data: {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    },
   });
 }
 

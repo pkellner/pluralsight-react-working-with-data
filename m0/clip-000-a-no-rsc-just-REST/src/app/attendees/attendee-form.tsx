@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Attendee {
   firstName: string;

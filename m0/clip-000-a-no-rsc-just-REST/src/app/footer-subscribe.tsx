@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {createGUID} from "@/lib/general-utils";
+import { createGUID } from "@/lib/general-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -21,8 +21,6 @@ export default function FooterSubscribe() {
     event.preventDefault();
     setIsSubmitting(true);
 
-
-
     try {
       const postData = {
         id: createGUID(),
@@ -35,6 +33,9 @@ export default function FooterSubscribe() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
         body: JSON.stringify(postData),
       });
