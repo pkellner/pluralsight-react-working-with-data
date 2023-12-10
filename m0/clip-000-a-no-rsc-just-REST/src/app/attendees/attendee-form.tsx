@@ -1,11 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 
-interface Attendee {
-  firstName: string;
-  lastName: string;
-  email: string;
-  id: string;
-}
+
 
 interface AttendeeFormProps {
   formData: { firstName: string; lastName: string; email: string };
