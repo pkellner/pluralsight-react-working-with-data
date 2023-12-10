@@ -1,12 +1,11 @@
-'use client';
-import React, { useState } from 'react';
-import LoginControl from '@/app/login-control';
-import { useLocalAuthContext } from '@/components/contexts/auth-context';
+"use client";
+import React, { useState } from "react";
+import LoginControl from "@/app/login-control";
 
 enum NavRoutes {
-  Home = '/',
-  Speakers = '/speakers',
-  Attendees = '/attendees',
+  Home = "/",
+  Speakers = "/speakers",
+  Attendees = "/attendees",
 }
 
 export default function Nav() {
@@ -43,13 +42,13 @@ export default function Nav() {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div
-        className={`collapse navbar-collapse ${!isNavCollapsed ? 'show' : ''}`}
+        className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
         id="navbarNav"
       >
         <ul className="navbar-nav mr-auto">
           <li
             className={`nav-item ${
-              activeNav === NavRoutes.Speakers ? 'active' : ''
+              activeNav === NavRoutes.Speakers ? "active" : ""
             }`}
           >
             <a
@@ -62,7 +61,7 @@ export default function Nav() {
           </li>
           <li
             className={`nav-item ${
-              activeNav === NavRoutes.Attendees ? 'active' : ''
+              activeNav === NavRoutes.Attendees ? "active" : ""
             }`}
           >
             <a

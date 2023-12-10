@@ -20,7 +20,7 @@ export default function EditSpeakerDialog({
     twitterHandle,
     userBioShort,
     timeSpeaking,
-    favorite
+    favorite,
   }: Speaker = speakerRec;
 
   const {

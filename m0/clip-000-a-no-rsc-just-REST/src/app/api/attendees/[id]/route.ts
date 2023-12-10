@@ -1,9 +1,11 @@
-
 // This function handles the GET request
-import {deleteAttendeeRecord, getOneAttendeeRecord, updateAttendeeRecord} from "@/lib/attendee-utils";
+import {
+  deleteAttendeeRecord,
+  getOneAttendeeRecord,
+  updateAttendeeRecord,
+} from "@/lib/attendee-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 
 export async function GET(
   request: Request,
@@ -31,7 +33,6 @@ export async function GET(
   }
 }
 
-
 // This function handles the PUT request
 export async function PUT(request: Request) {
   await sleep(1000);
@@ -40,7 +41,6 @@ export async function PUT(request: Request) {
     const data = await request.json();
 
     const updatedAttendee = await updateAttendeeRecord(data);
-
 
     return new Response(JSON.stringify(updatedAttendee, null, 2), {
       status: 200,

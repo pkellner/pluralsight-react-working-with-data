@@ -1,8 +1,9 @@
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function LoginControl() {
-  const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } = useLocalAuthContext();
+  const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } =
+    useLocalAuthContext();
   const { speakerList, setSpeakerList } = useSpeakerDataContext();
 
   const handleLogout = (event: any) => {
@@ -44,4 +45,3 @@ export default function LoginControl() {
     </span>
   );
 }
-

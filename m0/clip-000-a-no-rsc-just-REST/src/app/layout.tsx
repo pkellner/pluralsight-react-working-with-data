@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-                                           children,
-                                         }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   const nextCookies = cookies(); // Get cookies object
@@ -22,11 +22,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-    <body>
-    <LocalAuthProvider loginNameInit={token?.value}>
-      <div className="container-fluid">{children}</div>
-    </LocalAuthProvider>
-    </body>
+      <body>
+        <LocalAuthProvider loginNameInit={token?.value}>
+          <div className="container-fluid">{children}</div>
+        </LocalAuthProvider>
+      </body>
     </html>
   );
 }

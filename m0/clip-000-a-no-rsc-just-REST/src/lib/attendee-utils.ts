@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma/prisma";
-import { Attendee, Speaker } from "@/lib/general-types";
+import { Attendee } from "@/lib/general-types";
 
 export async function getAttendeeRecords() {
   return prisma.attendee.findMany({

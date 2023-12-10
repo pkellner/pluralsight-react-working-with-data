@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const data = require("../../../db.json");
-import {createGUID} from "@/lib/general-utils";
+import { createGUID } from "@/lib/general-utils";
+
 const prisma = new PrismaClient();
 
 // seed all the tables for all data scenarios in the course
@@ -43,8 +44,6 @@ async function main() {
       });
     }
   }
-
-
 
   await prisma.attendee.create({
     data: {

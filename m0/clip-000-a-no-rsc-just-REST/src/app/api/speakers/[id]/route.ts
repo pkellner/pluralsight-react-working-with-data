@@ -78,7 +78,7 @@ export async function PUT(request: NextRequest) {
     favorite,
   } = requestData;
 
-const speaker: Speaker = {
+  const speaker: Speaker = {
     id,
     firstName,
     lastName,
@@ -93,8 +93,6 @@ const speaker: Speaker = {
 
   try {
     let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
-
-
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {
       status: 200,

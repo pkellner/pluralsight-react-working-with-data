@@ -1,10 +1,7 @@
-import prisma from "@/lib/prisma/prisma";
 import { NextRequest } from "next/server";
-import {createAttendeeRecord, getAttendeeRecords} from "@/lib/attendee-utils";
-import {Attendee} from "@/lib/general-types";
+import { createAttendeeRecord, getAttendeeRecords } from "@/lib/attendee-utils";
 
 export async function GET(request: NextRequest) {
-
   const attendees = await getAttendeeRecords();
 
   return new Response(JSON.stringify(attendees, null, 2), {

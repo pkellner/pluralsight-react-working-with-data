@@ -22,9 +22,9 @@ interface LocalAuthContext {
 const LocalAuthContext = createContext<LocalAuthContext | undefined>(undefined);
 
 export default function LocalAuthProvider({
-                                            children,
-                                            loginNameInit,
-                                          }: {
+  children,
+  loginNameInit,
+}: {
   children: ReactNode;
   loginNameInit: string | undefined;
 }) {
