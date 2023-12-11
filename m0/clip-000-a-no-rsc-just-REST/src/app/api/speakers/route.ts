@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { createSpeakerRecord, getSpeakerRecords } from "@/lib/speaker-utils";
+import { createSpeakerRecord, getSpeakers } from "@/lib/speaker-utils";
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
 function getValuesFromToken(value: string) {
@@ -23,7 +23,8 @@ export async function GET(request: NextRequest) {
     attendeeId = getValuesFromToken(authorization.value).attendeeId;
   }
 
-  const speakers = await getSpeakerRecords(attendeeId ?? "");
+  const speakers = await getSpeakers(attendeeId ?? "");
+  console.log("/api/speakers", speakers);
 
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,

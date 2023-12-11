@@ -10,53 +10,6 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-export async function getSpeakerRecords(attendeeId: string) {
-  const speakers = (
-    await prisma.speaker.findMany({
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        company: true,
-        twitterHandle: true,
-        userBioShort: true,
-        timeSpeaking: true,
-        _count: {
-          select: {
-            favorites: true,
-          },
-        },
-      },
-    })
-  ).map((speaker) => ({
-    ...speaker,
-    favoriteCount: speaker._count.favorites,
-  }));
-
-  if (attendeeId) {
-    const attendeeFavorites = await prisma.attendeeFavorite.findMany({
-      where: {
-        attendeeId: attendeeId ?? "",
-      },
-      select: {
-        attendeeId: true,
-        speakerId: true,
-      },
-    });
-
-    return speakers.map((speaker) => {
-      return {
-        ...speaker,
-        favorite: attendeeFavorites?.some(
-          (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
-        ),
-      };
-    });
-  } else {
-    return speakers;
-  }
-}
-
 export async function createSpeakerRecord(speaker: Speaker) {
   const {
     firstName,
@@ -100,7 +53,7 @@ export async function deleteSpeakerRecord(id: number) {
 
 export async function getSpeakers(attendeeId: string) {
   try {
-    await sleep(2000);
+    await sleep(1000);
     const speakers = (
       await prisma.speaker.findMany({
         select: {
@@ -142,6 +95,8 @@ export async function getSpeakers(attendeeId: string) {
           ),
         };
       });
+    } else {
+      return speakers;
     }
   } catch (err) {
     throw new Error("An unexpected error occurred in getSpeakers");
@@ -200,24 +155,6 @@ export async function updateSpeakerRecord(
   speaker: Speaker,
   attendeeId?: string | undefined,
 ) {
-  // const speakerId = speaker.id;
-  // const {
-  //   firstName,
-  //   lastName,
-  //   company,
-  //   twitterHandle,
-  //   userBioShort,
-  //   timeSpeaking,
-  //   favorite,
-  // } = speaker;
-  //
-  // const originalSpeaker = await getSpeakerDataById(
-  //   Number(speakerId),
-  //   attendeeId,
-  // );
-
-  // update the speaker record
-
   await prisma.speaker.update({
     where: { id: Number(speaker.id) },
     data: {
