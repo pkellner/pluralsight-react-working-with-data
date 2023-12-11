@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import AttendeeForm from "@/app/attendees/attendee-form";
+import { Attendee } from "@/lib/general-types";
 
 export default function AttendeeDetail({
   attendeeRec,
   deleteAttendee,
   updateAttendee,
-}: any) {
+}: {
+  attendeeRec: Attendee;
+  deleteAttendee: (id: string, completionFunction: () => void) => void;
+  updateAttendee: (attendee: Attendee, completionFunction: () => void) => void;
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const { loggedInName, setLoggedInName } = useLocalAuthContext();
   const [updating, setUpdating] = useState(false);
@@ -38,9 +43,6 @@ export default function AttendeeDetail({
     attendeeRec.lastName,
     attendeeRec.id,
   );
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
 
   const validateEmail = (email: string): boolean => {
     return /\S+@\S+\.\S+/.test(email);
