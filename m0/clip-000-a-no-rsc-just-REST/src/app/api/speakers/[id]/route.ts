@@ -92,6 +92,7 @@ export async function PUT(request: NextRequest) {
   await sleep(1000);
 
   try {
+    console.log("/api/speakers/[id] PUT: speaker:", speaker,"\nattendeeId:",attendeeId);
     let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {

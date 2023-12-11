@@ -241,6 +241,7 @@ export async function updateSpeakerRecord(
           attendeeId: attendeeId,
         },
       });
+      console.log("/api/speakers/[id] PUT: count:", count,"\nattendeeId:","attendeeId","\nspeaker.id:",speaker.id,"\nspeaker.id:",speaker.id,"\nattendeeId:",attendeeId);
 
       if (count === 0) {
         await prisma.attendeeFavorite.create({

@@ -1,20 +1,12 @@
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function LoginControl() {
   const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } =
     useLocalAuthContext();
-  const { speakerList, setSpeakerList } = useSpeakerDataContext();
 
   const handleLogout = (event: any) => {
     event.preventDefault(); // Prevent default anchor behavior
     setLoggedInName("");
-    setSpeakerList(
-      speakerList.map((speaker) => ({
-        ...speaker,
-        favorite: false,
-      })),
-    );
   };
 
   return (

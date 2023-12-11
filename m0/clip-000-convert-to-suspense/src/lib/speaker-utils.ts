@@ -100,7 +100,7 @@ export async function deleteSpeakerRecord(id: number) {
 
 export async function getSpeakers(attendeeId: string) {
   try {
-    await sleep(2000);
+    await sleep(1000);
     const speakers = (
       await prisma.speaker.findMany({
         select: {
@@ -134,6 +134,8 @@ export async function getSpeakers(attendeeId: string) {
         },
       });
 
+      console.log("/api/speakers attendeeFavorites: speakers:", speakers, "\nattendeeFavorites:", attendeeFavorites);
+
       return speakers.map((speaker) => {
         return {
           ...speaker,
@@ -142,6 +144,8 @@ export async function getSpeakers(attendeeId: string) {
           ),
         };
       });
+    } else {
+      return speakers;
     }
   } catch (err) {
     throw new Error("An unexpected error occurred in getSpeakers");

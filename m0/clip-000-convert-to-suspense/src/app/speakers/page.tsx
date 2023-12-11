@@ -1,7 +1,6 @@
-"use client";
 import Header from "@/app/header";
 import Footer from "@/app/footer";
-import React from "react";
+import React, { Suspense } from "react";
 import SpeakerPage from "@/app/speakers/speaker-page";
 
 export default function Speakers() {
@@ -10,7 +9,9 @@ export default function Speakers() {
     <div className="container-fluid">
       <Header />
       <div className="full-page-border app-content-background">
-        <SpeakerPage />
+        <Suspense fallback={<div>Loading......</div>}>
+          <SpeakerPage />
+        </Suspense>
       </div>
       <Footer />
     </div>
