@@ -14,7 +14,9 @@ export default function Speakers() {
           <AttendeesListContainer />
         </Suspense>
       </div>
-      <Footer />
+      <div className="p-4">
+        <i>No Footer Page (this page is admin only)</i>
+      </div>
     </div>
   );
 }

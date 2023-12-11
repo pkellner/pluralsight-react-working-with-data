@@ -46,7 +46,7 @@ export async function deleteSpeakerRecord(id: number) {
     });
 
     return prisma.speaker.delete({
-      where: { id },
+      where: { id } as any // not sure why we need this cast
     });
   });
 }

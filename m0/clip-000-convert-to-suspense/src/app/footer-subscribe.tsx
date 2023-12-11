@@ -1,83 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { createGUID } from "@/lib/general-utils";
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+"use client";
+import React from "react";
+import addAttendeeAction from "@/app/footer-subscribe-action";
+import { useFormState, useFormStatus } from "react-dom";
 
 export default function FooterSubscribe() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  const handleEmailChange = (event: any) => {
-    setEmail(event.target.value);
+  const initialState = {
+    message: "",
   };
 
-  useEffect(() => {
-    const isValidEmail = email.match(/\S+@\S+\.\S+/);
-    setIsButtonDisabled(!isValidEmail);
-  }, [email]);
+  const [state, formAction] = useFormState(addAttendeeAction, initialState);
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    setIsSubmitting(true);
+  const { pending } = useFormStatus();
 
-    try {
-      const postData = {
-        id: createGUID(),
-        email: email,
-        firstName: "_firstName_",
-        lastName: "_lastName_",
-        createdDate: new Date(),
-      };
-      const response = await fetch("/api/attendees", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-        body: JSON.stringify(postData),
-      });
-      await sleep(1000);
-
-      if (response.ok) {
-        alert(
-          `${email} has been subscribed. You should get an email confirming that.`,
-        );
-      } else {
-        alert(`Failed to subscribe ${email}. Please try again.`);
-      }
-    } catch (error) {
-      alert("An error occurred. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
-      setEmail("");
-    }
-  };
+  console.log("// Path: src/app/footer-subscribe.tsx: pending:",pending)
 
   return (
-    <>
+    <div>
       <h5 className="text-uppercase mb-4">Stay Updated</h5>
-      <form onSubmit={handleSubmit}>
-        <div className="d-flex">
+      <form action={formAction}>
+        <div className="d-flex align-items-center">
           <input
             type="email"
             className="form-control me-2 speaker-rounded-corners"
             placeholder="Email address"
-            value={email}
-            onChange={handleEmailChange}
             required
+            id="email"
+            name="email"
           />
           <button
             type="submit"
             className="btn btn-outline-dark speaker-rounded-corners"
-            disabled={isButtonDisabled || isSubmitting}
           >
-            {isSubmitting ? "Subscribing..." : "Subscribe"}
+            {pending ? "Subscribing..." : "Subscribe"}
           </button>
         </div>
+        {state?.message && (
+          <div
+            className={`mt-3 text-${
+              state.message.startsWith("error:") ? "danger" : "primary"
+            }`}
+          >
+            {state.message}
+          </div>
+        )}
       </form>
-    </>
+    </div>
   );
 }

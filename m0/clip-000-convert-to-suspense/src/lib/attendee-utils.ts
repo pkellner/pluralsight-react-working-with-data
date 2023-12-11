@@ -32,9 +32,8 @@ export async function deleteAttendeeRecord(id: string) {
     await prisma.attendeeFavorite.deleteMany({
       where: { attendeeId: id },
     });
-
     attendeeRecordDeleted = await prisma.attendee.delete({
-      where: { id },
+      where: { id } as any // not sure why we need this cast
     });
   });
   return attendeeRecordDeleted;
