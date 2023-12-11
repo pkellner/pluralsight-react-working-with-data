@@ -1,18 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const data = require("../../../db.json");
-
-// import { createGUID } from "@/lib/general-utils";
-// const { createGUID } = require("@/lib/general-utils");
-// const createGUID = require("@/lib/general-utils").createGUID;
 const prisma = new PrismaClient();
-
-function createGUID(): string {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 // seed all the tables for all data scenarios in the course
 async function main() {
@@ -57,7 +45,7 @@ async function main() {
 
   await prisma.attendee.create({
     data: {
-      id: createGUID(),
+      id: "3d5b5db2-2c5d-4a82-8e56-7e38dd5c43d5", // arbitrary id
       firstName: "admin",
       lastName: "admin",
       email: "admin@siliconvalley-codecamp.com",
