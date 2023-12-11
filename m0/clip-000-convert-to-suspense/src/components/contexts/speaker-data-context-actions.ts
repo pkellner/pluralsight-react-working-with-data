@@ -11,9 +11,7 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-export async function createSpeakerAction(
-  speakerData: Speaker,
-) {
+export async function createSpeakerAction(speakerData: Speaker) {
   await sleep(1000);
   return await createSpeakerRecord(speakerData);
 }
@@ -29,9 +27,7 @@ export async function updateSpeakerAction(
   return { originalSpeaker, updatedSpeaker };
 }
 
-export async function deleteSpeakerAction(
-  speakerId: number,
-) {
+export async function deleteSpeakerAction(speakerId: number) {
   await sleep(1000);
   return await deleteSpeakerRecord(speakerId);
 }

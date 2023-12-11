@@ -134,7 +134,12 @@ export async function getSpeakers(attendeeId: string) {
         },
       });
 
-      console.log("/api/speakers attendeeFavorites: speakers:", speakers, "\nattendeeFavorites:", attendeeFavorites);
+      console.log(
+        "/api/speakers attendeeFavorites: speakers:",
+        speakers,
+        "\nattendeeFavorites:",
+        attendeeFavorites,
+      );
 
       return speakers.map((speaker) => {
         return {

@@ -1,7 +1,7 @@
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 import { useState } from "react";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
-import {useLocalAuthContext} from "@/components/contexts/auth-context";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function SpeakerModalFooter() {
   const {
@@ -37,7 +37,8 @@ export default function SpeakerModalFooter() {
                 userBioShort: modalUserBioShort,
                 timeSpeaking: modalSpeakerTimeSpeaking,
                 favorite: modalSpeakerFavorite,
-              },loggedInAttendeeId,
+              },
+              loggedInAttendeeId,
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
                 setModalShow(false);

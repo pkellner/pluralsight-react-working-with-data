@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
 
-
-
 interface AttendeeFormProps {
   formData: { firstName: string; lastName: string; email: string };
   setFormData: (formData: {

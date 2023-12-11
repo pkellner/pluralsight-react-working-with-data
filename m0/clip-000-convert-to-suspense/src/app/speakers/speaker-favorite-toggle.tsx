@@ -50,7 +50,7 @@ export default function SpeakerFavoriteToggle({
             favorite: !speakerRec?.favorite,
           };
           setLoadingStatus("loading");
-          updateSpeaker(newSpeakerRec,loggedInAttendeeId, function () {
+          updateSpeaker(newSpeakerRec, loggedInAttendeeId, function () {
             setLoadingStatus("success");
           });
         }}

@@ -6,7 +6,7 @@ import {
   deleteSpeakerAction,
   updateSpeakerAction,
 } from "@/components/contexts/speaker-data-context-actions";
-import {createSpeakerRecord} from "@/lib/speaker-utils";
+import { createSpeakerRecord } from "@/lib/speaker-utils";
 
 // Define the shape of the context's value
 
@@ -32,9 +32,9 @@ const SpeakerDataContext = createContext<SpeakerDataContextProps | undefined>(
 );
 
 export default function SpeakerDataProvider({
-                                              children,
-                                              speakerListInit,
-                                            }: {
+  children,
+  speakerListInit,
+}: {
   children: ReactNode;
   speakerListInit: Speaker[];
 }) {
