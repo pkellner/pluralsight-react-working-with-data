@@ -2,7 +2,7 @@ import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-cont
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
-export default function EditSpeakerDialog({
+export default function SpeakerDialogEdit({
   speakerId,
 }: {
   speakerId: number;

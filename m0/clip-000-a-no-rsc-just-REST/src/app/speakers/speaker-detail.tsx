@@ -1,5 +1,5 @@
 import SpeakerFavoriteToggle from "@/app/speakers/speaker-favorite-toggle";
-import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
+import SpeakerDialogEdit from "@/app/speakers/speaker-dialog-edit";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
@@ -40,7 +40,7 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
                   {isAdmin && (
                     <div className="modifyWrapper">
-                      <EditSpeakerDialog speakerId={speakerRec.id} />
+                      <SpeakerDialogEdit speakerId={speakerRec.id} />
                       <DeleteSpeakerButton speakerId={speakerRec.id} />
                     </div>
                   )}

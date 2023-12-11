@@ -1,5 +1,5 @@
 import React from "react";
-import useSpeakerSortAndFilter from "@/app/speakers/use-speaker-sort-and-filter";
+import useSpeakerSortAndFilter from "@/components/hooks/use-speaker-sort-and-filter";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
 import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
 import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";

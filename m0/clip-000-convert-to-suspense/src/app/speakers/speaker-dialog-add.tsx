@@ -1,6 +1,6 @@
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 
-export default function AddSpeakerDialog() {
+export default function SpeakerDialogAdd() {
   const {
     setModalShow,
     setModalSpeakerId,
