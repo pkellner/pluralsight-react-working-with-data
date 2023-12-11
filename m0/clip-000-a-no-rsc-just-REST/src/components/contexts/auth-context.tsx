@@ -37,7 +37,9 @@ export default function LocalAuthProvider({
     setLoggedInNameState(name);
 
     const setAuthToken = (authToken: string) => {
-      Cookies.set("authToken", authToken, { expires: 7 }); // Set the auth token as a cookie
+      return authToken && authToken.length > 0
+        ? Cookies.set("authToken", authToken, { expires: 7 })
+        : Cookies.remove("authToken");
     };
     setAuthToken(name);
   }, []);

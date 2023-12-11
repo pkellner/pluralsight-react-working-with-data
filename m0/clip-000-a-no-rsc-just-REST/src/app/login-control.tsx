@@ -1,20 +1,12 @@
-import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function LoginControl() {
   const { isLoggedIn, setLoggedInName, isLoading, loggedInFirstLast } =
     useLocalAuthContext();
-  const { speakerList, setSpeakerList } = useSpeakerDataContext();
 
   const handleLogout = (event: any) => {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     setLoggedInName("");
-    setSpeakerList(
-      speakerList.map((speaker) => ({
-        ...speaker,
-        favorite: false,
-      })),
-    );
   };
 
   return (
@@ -25,7 +17,6 @@ export default function LoginControl() {
             <span className="">
               Logged in as <i className="p-2">{loggedInFirstLast}</i>
             </span>
-            {/* Using an anchor tag for logout */}
             <a
               href="#logout" // Dummy href, actual navigation is prevented
               className="mt-2 cursor-pointer"
