@@ -13,7 +13,7 @@ export default function SpeakerFavoriteToggle({
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
   const { isLoggedIn, loggedInAttendeeId } = useLocalAuthContext();
 
-  const { speakerList, setSpeakerList, updateSpeaker } =
+  const { speakerList, updateSpeaker } =
     useSpeakerDataContext();
 
   const speakerRec: Speaker =
