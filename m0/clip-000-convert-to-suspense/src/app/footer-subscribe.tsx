@@ -3,16 +3,26 @@ import React from "react";
 import addAttendeeAction from "@/app/footer-subscribe-action";
 import { useFormState, useFormStatus } from "react-dom";
 
+
+// for pending to work, this must be a child component of a form, not in the form itself
+function SubmitButton() {
+
+  const { pending } = useFormStatus();
+
+  return <button
+    type="submit"
+    className="btn btn-outline-dark speaker-rounded-corners"
+  >
+    {pending ? "Subscribing..." : "Subscribe"}
+  </button>;
+}
+
 export default function FooterSubscribe() {
   const initialState = {
     message: "",
   };
 
   const [state, formAction] = useFormState(addAttendeeAction, initialState);
-
-  const { pending } = useFormStatus();
-
-  console.log("// Path: src/app/footer-subscribe.tsx: pending:",pending)
 
   return (
     <div>
@@ -27,12 +37,7 @@ export default function FooterSubscribe() {
             id="email"
             name="email"
           />
-          <button
-            type="submit"
-            className="btn btn-outline-dark speaker-rounded-corners"
-          >
-            {pending ? "Subscribing..." : "Subscribe"}
-          </button>
+          <SubmitButton />
         </div>
         {state?.message && (
           <div
