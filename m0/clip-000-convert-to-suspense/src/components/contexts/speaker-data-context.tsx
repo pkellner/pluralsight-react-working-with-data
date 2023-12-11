@@ -7,12 +7,6 @@ import {
   updateSpeakerAction,
 } from "@/components/contexts/speaker-data-context-actions";
 
-// Define the shape of the context's value
-
-type LoadingStatusType = "loading" | "success" | "error";
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 interface SpeakerDataContextProps {
   speakerList: Speaker[];
   setSpeakerList: (speakerList: Speaker[]) => void;
@@ -67,31 +61,21 @@ export default function SpeakerDataProvider({
   ) {
     async function update() {
       try {
-        if (
-          speaker.timeSpeaking === undefined ||
-          speaker.timeSpeaking === null
-        ) {
-          speaker.timeSpeaking = new Date(0);
-        }
+        speaker.timeSpeaking ??= new Date(0);
 
-        // SHOULD BE DOING ZOD THING HERE
-        const ret = await updateSpeakerAction(speaker.id, speaker, attendeeId);
-        const updatedSpeaker = ret.updatedSpeaker;
-        const originalSpeaker = ret.originalSpeaker;
+        // implement zod here
+        const { originalSpeaker, updatedSpeaker } = await updateSpeakerAction(
+          speaker,
+          attendeeId,
+        );
 
-        const tempList: Speaker[] = speakerList.map(function (speaker) {
-          if (
-            speaker.id === originalSpeaker?.id &&
-            updatedSpeaker !== undefined &&
-            updatedSpeaker !== null
-          ) {
-            return updatedSpeaker;
-          } else {
-            return speaker;
-          }
-        });
-        setSpeakerList(tempList);
-
+        setSpeakerList(
+          speakerList.map((speaker) =>
+            speaker.id === originalSpeaker?.id
+              ? updatedSpeaker ?? speaker
+              : speaker,
+          ),
+        );
         return updatedSpeaker;
       } catch (error) {
         console.error("Error updating speaker:", error);

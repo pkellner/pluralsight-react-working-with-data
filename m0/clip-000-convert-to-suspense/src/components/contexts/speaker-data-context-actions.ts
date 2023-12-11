@@ -17,12 +17,11 @@ export async function createSpeakerAction(speakerData: Speaker) {
 }
 
 export async function updateSpeakerAction(
-  speakerId: number,
   speakerData: Speaker,
   attendeeId?: string | undefined,
 ) {
   await sleep(1000);
-  const originalSpeaker = await getSpeakerDataById(speakerId, attendeeId);
+  const originalSpeaker = await getSpeakerDataById(speakerData.id, attendeeId);
   const updatedSpeaker = await updateSpeakerRecord(speakerData, attendeeId);
   return { originalSpeaker, updatedSpeaker };
 }

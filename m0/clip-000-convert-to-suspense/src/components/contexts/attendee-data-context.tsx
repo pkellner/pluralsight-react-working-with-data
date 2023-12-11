@@ -1,25 +1,22 @@
+'use client';
 import React, {
   createContext,
   ReactNode,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import { Attendee } from "@/lib/general-types";
-
-type LoadingStatusType = "loading" | "success" | "error";
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import {Attendee, Speaker} from "@/lib/general-types";
+import {
+  createAttendeeAction,
+  deleteAttendeeAction,
+  updateAttendeeAction
+} from "@/components/contexts/attendee-data-context-actions";
 
 interface AttendeeDataContextProps {
   attendeeList: Attendee[];
   setAttendeeList: (attendeeList: Attendee[]) => void;
-  error: string | undefined;
-  setError: (error: string | undefined) => void;
-  loadingStatus: LoadingStatusType;
-  setLoadingStatus: (loadingStatus: LoadingStatusType) => void;
   updateAttendee: (attendee: Attendee, completionFunction: () => void) => void;
-  createAttendee: (attendee: Attendee) => void;
+  createAttendee: (attendee: Attendee, completionFunction: () => void) => void;
   deleteAttendee: (id: string, completionFunction: () => void) => void;
 }
 
@@ -29,85 +26,34 @@ const AttendeeDataContext = createContext<AttendeeDataContextProps | undefined>(
 
 export default function AttendeeDataProvider({
   children,
+  attendeeListInit,
 }: {
   children: ReactNode;
+  attendeeListInit: Attendee[];
 }) {
-  const [attendeeList, setAttendeeList] = useState<Attendee[]>([]);
-  const [loadingStatus, setLoadingStatus] =
-    useState<LoadingStatusType>("loading");
-  const [error, setError] = useState<string | undefined>();
+  const [attendeeList, setAttendeeList] = useState<Attendee[]>(attendeeListInit);
 
-  useEffect(() => {
-    async function fetchAttendees() {
-      try {
-        const response = await fetch("/api/attendees");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        await sleep(500);
-
-        setAttendeeList(data);
-        setLoadingStatus("success");
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error("Error in fetch AttendeeList", err);
-          setError(err.message);
-        } else {
-          console.error("An unexpected error occurred");
-          setError("An unexpected error occurred");
-        }
-        setLoadingStatus("error");
-      }
-    }
-    fetchAttendees().then(() => {});
-  }, []);
-
-  function createAttendee(attendee: Attendee) {
+  function createAttendee(attendee: Attendee, completionFunction: () => void) {
     async function create() {
       try {
-        const response = await fetch(`/api/attendees/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(attendee),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        const newAttendee = await response.json();
+        const newAttendee = await createAttendeeAction(attendee);
         setAttendeeList([...attendeeList, newAttendee]);
       } catch (error) {
         console.error("Error creating new attendee:", error);
         throw error;
       }
     }
-    create().then(() => {});
+    create().then(() => {
+      completionFunction();
+    });
   }
 
   function updateAttendee(attendee: Attendee, completionFunction: () => void) {
     async function update() {
       try {
-        console.log("updateAttendee", attendee);
-        const response = await fetch(`/api/attendees/${attendee.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-          },
-          body: JSON.stringify(attendee),
-        });
+        const ret = await updateAttendeeAction(attendee.id,attendee);
+        const updatedAttendee = ret.updatedAttendee;
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        const updatedAttendee = await response.json();
         setAttendeeList(
           attendeeList.map((existingAttendee) =>
             existingAttendee.id === updatedAttendee.id
@@ -127,28 +73,12 @@ export default function AttendeeDataProvider({
 
   function deleteAttendee(id: string, completionFunction: () => void) {
     async function deleteAttendeeInternal() {
-      await sleep(1000);
+
       try {
-        const response = await fetch(`/api/attendees/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        if (response.status === 204) {
-          setAttendeeList(
-            attendeeList.filter(
-              (existingAttendee) => existingAttendee.id !== id,
-            ),
-          );
-        } else {
-          await response.json();
-        }
+        await deleteAttendeeAction(id);
+        setAttendeeList(
+          attendeeList.filter((attendee: Attendee) => attendee.id !== id),
+        );
       } catch (error) {
         console.error("Error deleting attendee:", error);
         throw error;
@@ -163,10 +93,6 @@ export default function AttendeeDataProvider({
   const value = {
     attendeeList,
     setAttendeeList,
-    loadingStatus,
-    setLoadingStatus,
-    error,
-    setError,
     updateAttendee,
     createAttendee,
     deleteAttendee,

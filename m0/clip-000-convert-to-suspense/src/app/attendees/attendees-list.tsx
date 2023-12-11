@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/components/hooks/use-attendee-sort-and-filter";
@@ -15,29 +16,12 @@ export default function AttendeesList() {
     createAttendee,
     deleteAttendee,
     attendeeList,
-    error,
-    loadingStatus,
   } = useAttendeeDataContext();
 
   const attendeeListFiltered = useAttendeeSortAndFilter(
     attendeeList,
     searchText,
   );
-
-  if (loadingStatus === "loading") {
-    return (
-      <>
-        {[1, 2, 3, 4, 5].map((item) => {
-          return <AttendeeDetailPending key={item} />;
-        })}
-        <div className="mt-3"></div>
-      </>
-    );
-  }
-
-  if (loadingStatus === "error") {
-    return <div className="card">Error: {error}</div>;
-  }
 
   return (
     <>

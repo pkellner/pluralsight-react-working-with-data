@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
   }
 
   const speakers = await getSpeakers(attendeeId ?? "");
-  console.log("/api/speakers", speakers);
 
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,
@@ -43,10 +42,6 @@ export async function POST(request: Request) {
     delete data.favorite; // this will confuse prisma and it's virtual field
 
     const newSpeaker = await createSpeakerRecord(data);
-
-    // const newSpeaker = await prisma.speaker.create({
-    //   data,
-    // });
 
     return new Response(JSON.stringify(newSpeaker, null, 2), {
       status: 201,
