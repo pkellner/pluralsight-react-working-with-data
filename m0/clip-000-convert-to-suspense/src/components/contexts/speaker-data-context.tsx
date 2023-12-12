@@ -1,5 +1,12 @@
 "use client";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useOptimistic,
+  startTransition,
+} from "react";
 import { Speaker } from "@/lib/general-types";
 import {
   createSpeakerAction,
@@ -9,6 +16,7 @@ import {
 
 interface SpeakerDataContextProps {
   speakerList: Speaker[];
+  speakerListOptimistic: Speaker[];
   setSpeakerList: (speakerList: Speaker[]) => void;
   updateSpeaker: (
     speakerRec: Speaker,
@@ -32,6 +40,8 @@ export default function SpeakerDataProvider({
   speakerListInit: Speaker[];
 }) {
   const [speakerList, setSpeakerList] = useState<Speaker[]>(speakerListInit);
+  const [speakerListOptimistic, setSpeakerListOptimistic] =
+    useOptimistic(speakerList);
 
   function createSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function create() {
@@ -63,6 +73,26 @@ export default function SpeakerDataProvider({
       try {
         speaker.timeSpeaking ??= new Date(0);
 
+        startTransition(() => {
+          setSpeakerListOptimistic(
+            speakerListOptimistic.map((speakerRec: Speaker) => {
+              if (speakerRec.id === speaker.id) {
+                const favoriteCount = speakerRec.favoriteCount ?? 0;
+                const speakerOptimistic = {
+                  ...speakerRec,
+                  favorite: !speakerRec.favorite,
+                  favoriteCount: speakerRec.favorite
+                    ? favoriteCount - 1
+                    : favoriteCount + 1,
+                };
+                return speakerOptimistic;
+              } else {
+                return speakerRec;
+              }
+            }),
+          );
+        });
+
         // implement zod here
         const { originalSpeaker, updatedSpeaker } = await updateSpeakerAction(
           speaker,
@@ -70,10 +100,10 @@ export default function SpeakerDataProvider({
         );
 
         setSpeakerList(
-          speakerList.map((speaker) =>
-            speaker.id === originalSpeaker?.id
-              ? updatedSpeaker ?? speaker
-              : speaker,
+          speakerList.map((speakerRec) =>
+            speakerRec.id === originalSpeaker?.id
+              ? updatedSpeaker ?? speakerRec
+              : speakerRec,
           ),
         );
         return updatedSpeaker;
@@ -108,6 +138,7 @@ export default function SpeakerDataProvider({
 
   const value = {
     speakerList,
+    speakerListOptimistic,
     setSpeakerList,
     updateSpeaker,
     createSpeaker,

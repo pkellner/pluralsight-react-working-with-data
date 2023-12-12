@@ -7,13 +7,16 @@ import { useSpeakerDataContext } from "@/components/contexts/speaker-data-contex
 
 export default function SpeakersList() {
   const { searchText } = useSpeakerMenuContext();
-  const { speakerList } = useSpeakerDataContext();
-  const speakerListFiltered = useSpeakerSortAndFilter(speakerList, searchText);
+  const { speakerListOptimistic } = useSpeakerDataContext();
+  const speakerListFiltered = useSpeakerSortAndFilter(
+    speakerListOptimistic,
+    searchText,
+  );
 
   return (
     <div className="container">
       <div className="row g-4">
-        {speakerListFiltered.map(({ id }) => (
+        {[...speakerListFiltered].map(({ id }) => (
           <SpeakerDetail key={id} speakerId={id} />
         ))}
       </div>

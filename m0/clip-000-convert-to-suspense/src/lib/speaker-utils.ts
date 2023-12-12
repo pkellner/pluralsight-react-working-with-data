@@ -155,6 +155,9 @@ export async function updateSpeakerRecord(
   speaker: Speaker,
   attendeeId?: string | undefined,
 ) {
+
+  await sleep(1000);
+
   await prisma.speaker.update({
     where: { id: Number(speaker.id) },
     data: {

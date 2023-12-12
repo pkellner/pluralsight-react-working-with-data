@@ -6,14 +6,15 @@ import { useSpeakerDataContext } from "@/components/contexts/speaker-data-contex
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
-  const { speakerList } = useSpeakerDataContext();
+  const { speakerListOptimistic } = useSpeakerDataContext();
   const { isAdmin } = useLocalAuthContext();
 
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };
   const speakerRec: Speaker =
-    speakerList.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
+    speakerListOptimistic.find((value: Speaker) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   return (
     <>

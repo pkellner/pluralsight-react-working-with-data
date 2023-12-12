@@ -3,8 +3,6 @@ import { Speaker } from "@/lib/general-types";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export default function SpeakerFavoriteToggle({
   speakerId,
 }: {
@@ -13,11 +11,10 @@ export default function SpeakerFavoriteToggle({
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
   const { isLoggedIn, loggedInAttendeeId } = useLocalAuthContext();
 
-  const { speakerList, updateSpeaker } =
-    useSpeakerDataContext();
+  const { speakerListOptimistic, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
-    speakerList.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
+    speakerListOptimistic.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
 
   if (!isLoggedIn) {
     return (
@@ -55,13 +52,10 @@ export default function SpeakerFavoriteToggle({
           });
         }}
       >
+        <span className="m-2 text-primary">({speakerRec?.favoriteCount})</span>
         {loadingStatus === "loading" ? (
           <i className="spinner-border text-dark" role="status" />
-        ) : (
-          <span className="m-2 text-primary">
-            ({speakerRec?.favoriteCount})
-          </span>
-        )}
+        ) : null}
       </button>
     </div>
   );
