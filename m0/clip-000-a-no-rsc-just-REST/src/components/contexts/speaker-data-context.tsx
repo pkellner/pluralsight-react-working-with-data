@@ -116,7 +116,7 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // get original speaker data so can check and see if favorite has changed
+        // get original speaker data so can check and see if favorite has changed and have some hope of getting latest favoriteCount
         const responseOriginalSpeaker = await fetch(
           `/api/speakers/${speaker.id}`,
         );
@@ -145,7 +145,7 @@ export default function SpeakerDataProvider({
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
           const filteredSpeakerList = speakerList.filter(
-            (speaker) => speaker.id !== originalSpeaker.id,
+            (speakerRec) => speakerRec.id !== speaker.id,
           );
 
           setSpeakerList([...filteredSpeakerList, speaker]);

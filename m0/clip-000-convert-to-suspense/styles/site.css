@@ -88,9 +88,6 @@ a:focus {
   --bs-spinner-width: 1rem;
   --bs-spinner-height: 1rem;
   --bs-spinner-border-width: 0.18em;
-  position: absolute;
-  top: 24px;
-  left: 2px;
 }
 
 .spinner-grow,
@@ -98,9 +95,6 @@ a:focus {
   --bs-spinner-width: 1.5rem;
   --bs-spinner-height: 1.5rem;
   --bs-spinner-border-width: 0.18em;
-  position: absolute;
-  top: 0px;
-  left: 35px;
 }
 
 .spinner-height {
