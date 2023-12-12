@@ -46,7 +46,7 @@ export async function deleteSpeakerRecord(id: number) {
     });
 
     return prisma.speaker.delete({
-      where: { id } as any // not sure why we need this cast
+      where: { id } as any, // not sure why we need this cast
     });
   });
 }
@@ -155,7 +155,6 @@ export async function updateSpeakerRecord(
   speaker: Speaker,
   attendeeId?: string | undefined,
 ) {
-
   await sleep(1000);
 
   await prisma.speaker.update({

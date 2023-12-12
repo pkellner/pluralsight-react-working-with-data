@@ -4,9 +4,8 @@ import {
   createAttendeeRecord,
   deleteAttendeeRecord,
   getOneAttendeeRecord,
-  updateAttendeeRecord
+  updateAttendeeRecord,
 } from "@/lib/attendee-utils";
-
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));

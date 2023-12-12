@@ -1,7 +1,6 @@
 "use client";
 import Header from "@/app/header";
 import Nav from "@/app/nav";
-import Footer from "@/app/footer";
 import React from "react";
 import AttendeesListContainer from "@/app/attendees/attendees-list-container";
 import SpeakerDataProvider from "@/components/contexts/speaker-data-context";

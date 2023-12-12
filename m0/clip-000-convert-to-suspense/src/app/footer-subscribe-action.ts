@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma/prisma";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
+};
 
 export default async function addAttendeeAction(
   prevState: any,
@@ -23,7 +23,6 @@ export default async function addAttendeeAction(
   };
 
   try {
-
     await sleep(3000);
 
     const count = await prisma.attendee.count({

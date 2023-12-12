@@ -14,7 +14,8 @@ export default function SpeakerFavoriteToggle({
   const { speakerListOptimistic, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
-    speakerListOptimistic.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
+    speakerListOptimistic.find((value) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   if (!isLoggedIn) {
     return (

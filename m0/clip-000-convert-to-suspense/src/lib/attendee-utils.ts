@@ -33,7 +33,7 @@ export async function deleteAttendeeRecord(id: string) {
       where: { attendeeId: id },
     });
     attendeeRecordDeleted = await prisma.attendee.delete({
-      where: { id } as any // not sure why we need this cast
+      where: { id } as any, // not sure why we need this cast
     });
   });
   return attendeeRecordDeleted;

@@ -1,15 +1,10 @@
-'use client';
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
-import {Attendee, Speaker} from "@/lib/general-types";
+"use client";
+import React, { createContext, ReactNode, useContext, useState } from "react";
+import { Attendee } from "@/lib/general-types";
 import {
   createAttendeeAction,
   deleteAttendeeAction,
-  updateAttendeeAction
+  updateAttendeeAction,
 } from "@/components/contexts/attendee-data-context-actions";
 
 interface AttendeeDataContextProps {
@@ -31,7 +26,8 @@ export default function AttendeeDataProvider({
   children: ReactNode;
   attendeeListInit: Attendee[];
 }) {
-  const [attendeeList, setAttendeeList] = useState<Attendee[]>(attendeeListInit);
+  const [attendeeList, setAttendeeList] =
+    useState<Attendee[]>(attendeeListInit);
 
   function createAttendee(attendee: Attendee, completionFunction: () => void) {
     async function create() {
@@ -51,7 +47,7 @@ export default function AttendeeDataProvider({
   function updateAttendee(attendee: Attendee, completionFunction: () => void) {
     async function update() {
       try {
-        const ret = await updateAttendeeAction(attendee.id,attendee);
+        const ret = await updateAttendeeAction(attendee.id, attendee);
         const updatedAttendee = ret.updatedAttendee;
 
         setAttendeeList(
@@ -73,7 +69,6 @@ export default function AttendeeDataProvider({
 
   function deleteAttendee(id: string, completionFunction: () => void) {
     async function deleteAttendeeInternal() {
-
       try {
         await deleteAttendeeAction(id);
         setAttendeeList(

@@ -1,7 +1,7 @@
 import { useSpeakerModalContext } from "@/components/contexts/speaker-modal-context";
 import { useState } from "react";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
- import { useLocalAuthContext } from "@/components/contexts/auth-context";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function SpeakerModalFooter() {
   const {

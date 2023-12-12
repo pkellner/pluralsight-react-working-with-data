@@ -1,8 +1,7 @@
-'use client';
+"use client";
 import React from "react";
 import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 import useAttendeeSortAndFilter from "@/components/hooks/use-attendee-sort-and-filter";
-import AttendeeDetailPending from "@/app/attendees/attendee-detail-pending";
 import AttendeeDetail from "@/app/attendees/attendee-detail";
 import { useAttendeeDataContext } from "@/components/contexts/attendee-data-context";
 
@@ -11,12 +10,8 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export default function AttendeesList() {
   const { searchText } = useAttendeeMenuContext();
 
-  const {
-    updateAttendee,
-    createAttendee,
-    deleteAttendee,
-    attendeeList,
-  } = useAttendeeDataContext();
+  const { updateAttendee, createAttendee, deleteAttendee, attendeeList } =
+    useAttendeeDataContext();
 
   const attendeeListFiltered = useAttendeeSortAndFilter(
     attendeeList,

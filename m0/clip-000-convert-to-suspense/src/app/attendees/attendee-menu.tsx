@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import { useAttendeeMenuContext } from "@/components/contexts/attendee-menu-context";
 
