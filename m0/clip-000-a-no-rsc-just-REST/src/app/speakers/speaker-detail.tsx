@@ -3,10 +3,7 @@ import SpeakerDialogEdit from "@/app/speakers/speaker-dialog-edit";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
-<<<<<<< HEAD
-=======
 import { useLocalAuthContext } from "@/components/contexts/auth-context";
->>>>>>> update-to-new-rsc-friendly-code
 
 export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
   const { speakerList } = useSpeakerDataContext();
@@ -21,7 +18,6 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
   return (
     <>
       <div className="col-xl-6 col-md-12">
-        {speakerRec && <SpeakerModal />}
         <div className="card border-0 h-100">
           <div className="row g-0">
             <div className="col-4">
@@ -70,7 +66,7 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
                 {speakerRec.timeSpeaking &&
                   new Date(speakerRec.timeSpeaking).getTime() !==
-                    new Date(0).getTime() && (
+                  new Date(0).getTime() && (
                     <small>
                       <strong>Time Speaking:</strong>{" "}
                       {new Date(speakerRec.timeSpeaking).toLocaleString()}
