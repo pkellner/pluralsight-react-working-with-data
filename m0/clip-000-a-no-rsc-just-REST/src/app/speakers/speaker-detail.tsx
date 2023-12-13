@@ -2,8 +2,8 @@ import SpeakerModal from "@/app/speakers/speaker-modal/speaker-modal";
 import FavoriteSpeakerToggle from "@/app/speakers/favorite-speaker-toggle";
 import EditSpeakerDialog from "@/app/speakers/edit-speaker-dialog";
 import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
-import {Speaker} from "@/lib/general-types";
-import {useSpeakerDataContext} from "@/components/contexts/speaker-data-context";
+import { Speaker } from "@/lib/general-types";
+import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 
 export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
   const { speakerList } = useSpeakerDataContext();
@@ -16,8 +16,8 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
   return (
     <>
-      {speakerRec && <SpeakerModal />}
       <div className="col-xl-6 col-md-12">
+        {speakerRec && <SpeakerModal />}
         <div className="card border-0 h-100">
           <div className="row g-0">
             <div className="col-4">
