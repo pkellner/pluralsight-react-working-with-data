@@ -1,38 +1,26 @@
-// Import prisma from the prisma client
-import prisma from "@/lib/prisma/prisma";
-
 // This function handles the GET request
+import {
+  deleteAttendeeRecord,
+  getOneAttendeeRecord,
+  updateAttendeeRecord,
+} from "@/lib/attendee-utils";
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: { id: string } },
 ) {
-  const id = Number(params.id);
   try {
-    const speaker = await prisma.speaker.findUnique({
-      where: { id: Number(id) },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        company: true,
-        twitterHandle: true,
-        userBioShort: true,
-        // Use an aggregate query on the favorites relation
-        _count: {
-          select: {
-            favorites: true, // Counts the number of entries in the favorites relation
-          },
-        },
-      },
-    });
+    const attendee = await getOneAttendeeRecord(params.id);
 
-    if (!speaker) {
-      return new Response(JSON.stringify({ message: "Speaker not found" }), {
+    if (!attendee) {
+      return new Response(JSON.stringify({ message: "Attendee not found" }), {
         status: 404,
       });
     }
 
-    return new Response(JSON.stringify(speaker, null, 2), {
+    return new Response(JSON.stringify(attendee, null, 2), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -47,15 +35,14 @@ export async function GET(
 
 // This function handles the PUT request
 export async function PUT(request: Request) {
+  await sleep(1000);
   try {
-    const id = request.url.split("/").pop();
+    // const id = request.url.split("/").pop();
     const data = await request.json();
-    const updatedSpeaker = await prisma.speaker.update({
-      where: { id: parseInt(id ?? "0") },
-      data,
-    });
 
-    return new Response(JSON.stringify(updatedSpeaker, null, 2), {
+    const updatedAttendee = await updateAttendeeRecord(data);
+
+    return new Response(JSON.stringify(updatedAttendee, null, 2), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -65,41 +52,32 @@ export async function PUT(request: Request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error updating speaker" }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ message: "Error updating attendee" }),
+      {
+        status: 500,
+      },
+    );
   }
 }
 
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: { id: string } },
 ) {
-  const id = Number(params.id);
+  const id = params.id;
   try {
     // Start a transaction
-    await prisma.$transaction(async (prisma) => {
-      // 1. Delete related records in SpeakerSession
-      await prisma.speakerSession.deleteMany({
-        where: { speakerId: Number(id) },
-      });
-
-      // 2. Delete related records in AttendeeFavorite
-      await prisma.attendeeFavorite.deleteMany({
-        where: { speakerId: Number(id) },
-      });
-
-      // 3. Finally, delete the speaker
-      await prisma.speaker.delete({
-        where: { id: Number(id) },
-      });
-    });
+    const attendeeDeleted = await deleteAttendeeRecord(id);
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Error deleting speaker" }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ message: "Error deleting attendee" }),
+      {
+        status: 500,
+      },
+    );
   }
 }

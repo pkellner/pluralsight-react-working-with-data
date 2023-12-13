@@ -1,6 +1,12 @@
 "use client";
-import React, {createContext, ReactNode, useContext, useEffect, useState,} from "react";
-import {Speaker} from "@/lib/general-types";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Speaker } from "@/lib/general-types";
 
 // Define the shape of the context's value
 
@@ -43,26 +49,13 @@ export default function SpeakerDataProvider({
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await sleep(1000);
+        await sleep(500);
 
         setSpeakerList(
           data.map((speaker: Speaker) => {
             return speaker;
           }),
         );
-
-        // setSpeakerList(
-        //   data.map((speaker: Speaker) => {
-        //
-        //     const newSpeaker : Speaker = {
-        //       ...speaker,
-        //       favoriteCountDisplayStatus: "updating",
-        //     };
-        //     console.log("speaker-data-context: newSpeaker", newSpeaker);
-        //     return (newSpeaker);
-        //   }),
-        // );
-        // console.log(speakerList);
         setLoadingStatus("success");
       } catch (err) {
         if (err instanceof Error) {
@@ -82,7 +75,6 @@ export default function SpeakerDataProvider({
     async function create() {
       // make sure no id is passed in
       const speakerToAdd: Speaker = { ...speaker, id: 0 };
-      console.log("createSpeaker: speakerToAdd:",speakerToAdd);
       try {
         const response = await fetch(`/api/speakers/`, {
           method: "POST",
@@ -111,20 +103,29 @@ export default function SpeakerDataProvider({
     });
   }
 
-  // this is included here because it is used in the SpeakerMenu component from add-speaker-dialog.tsx.
+  // this is included here because it is used in the SpeakerMenu component from speaker-dialog-add.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
   function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
     async function update() {
       try {
-        // first get original speaker data so can check and see if favorite has changed
-        const responseSingleSpeaker = await fetch(
+        // cleanup timeSpeaking
+        if (
+          speaker.timeSpeaking === undefined ||
+          speaker.timeSpeaking === null
+        ) {
+          speaker.timeSpeaking = new Date(0);
+        }
+
+        // get original speaker data so can check and see if favorite has changed and have some hope of getting latest favoriteCount
+        const responseOriginalSpeaker = await fetch(
           `/api/speakers/${speaker.id}`,
         );
-        if (!responseSingleSpeaker.ok) {
+        if (!responseOriginalSpeaker.ok) {
           throw new Error(
             `Network response was not ok for fetch /api/speakers/${speaker.id}`,
           );
         }
+        const originalSpeaker = await responseOriginalSpeaker.json();
 
         // now update the speaker
         const response = await fetch(`/api/speakers/${speaker.id}`, {
@@ -139,19 +140,14 @@ export default function SpeakerDataProvider({
         }
 
         // check to see if favorite has changed
-        const originalSpeaker = await responseSingleSpeaker.json();
+
         if (originalSpeaker?.favorite !== speaker?.favorite) {
-          console.log("speaker-data-context: favorite has changed", originalSpeaker, speaker);
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
           const filteredSpeakerList = speakerList.filter(
-            (speaker) => speaker.id !== originalSpeaker.id,
+            (speakerRec) => speakerRec.id !== speaker.id,
           );
 
-          // DO PROPER UPDATE TO PRISMA DB HERE
-          // ..
-
-          // now add the updated speaker to the speakerList
           setSpeakerList([...filteredSpeakerList, speaker]);
         }
 

@@ -1,9 +1,11 @@
 import React from "react";
-import {useSpeakerMenuContext} from "@/components/contexts/speaker-menu-context";
-import AddSpeakerDialog from "@/app/speakers/add-speaker-dialog";
+import { useSpeakerMenuContext } from "@/components/contexts/speaker-menu-context";
+import SpeakerDialogAdd from "@/app/speakers/speaker-dialog-add";
+import { useLocalAuthContext } from "@/components/contexts/auth-context";
 
 export default function SpeakerMenu() {
   const { searchText, setSearchText } = useSpeakerMenuContext();
+  const { isLoggedIn } = useLocalAuthContext();
 
   return (
     <div
@@ -23,9 +25,11 @@ export default function SpeakerMenu() {
             placeholder="Search"
           />
         </div>
-        <div className="input-group">
-            <AddSpeakerDialog />
-        </div>
+        {isLoggedIn && (
+          <div className="input-group">
+            <SpeakerDialogAdd />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma/prisma";
-import {NextRequest} from "next/server";
+import { NextRequest } from "next/server";
+import { createSpeakerRecord, getSpeakers } from "@/lib/speaker-utils";
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
 function getValuesFromToken(value: string) {
@@ -23,73 +23,7 @@ export async function GET(request: NextRequest) {
     attendeeId = getValuesFromToken(authorization.value).attendeeId;
   }
 
-  // get all speakers from the sqlite database with prisma
-  // const speakers = await prisma.speaker.findMany({
-  //   select: {
-  //     id: true,
-  //     firstName: true,
-  //     lastName: true,
-  //     company: true,
-  //     twitterHandle: true,
-  //     userBioShort: true,
-  //     timeSpeaking: true,
-  //     _count: {
-  //       select: {
-  //         favorites: true,
-  //       },
-  //     },
-  //   },
-  // });
-
-  const speakers = (await prisma.speaker.findMany({
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-      company: true,
-      twitterHandle: true,
-      userBioShort: true,
-      timeSpeaking: true,
-      _count: {
-        select: {
-          favorites: true,
-        },
-      },
-    },
-  })).map(speaker => ({
-    ...speaker,
-    favoriteCount: speaker._count.favorites,
-  }));
-
-  if (attendeeId) {
-    const attendeeFavorites = await prisma.attendeeFavorite.findMany({
-      where: {
-        attendeeId: attendeeId ?? "",
-      },
-      select: {
-        attendeeId: true,
-        speakerId: true,
-      },
-    });
-
-    // console.log("api/speakers/route.ts: attendeeFavorites: ", attendeeFavorites);
-
-    const speakersWithFavorites = speakers.map((speaker) => {
-      return {
-        ...speaker,
-        favorite: attendeeFavorites?.some(
-          (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
-        ),
-      };
-    });
-
-    return new Response(JSON.stringify(speakersWithFavorites, null, 2), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
+  const speakers = await getSpeakers(attendeeId ?? "");
 
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,
@@ -97,8 +31,6 @@ export async function GET(request: NextRequest) {
       "Content-Type": "application/json",
     },
   });
-
-  // return new Response(null, { status: 404 });
 }
 
 // This function handles the POST request (INSERT)
@@ -108,9 +40,8 @@ export async function POST(request: Request) {
     const data = await request.json();
     delete data.id; // let the database handle assigning the id
     delete data.favorite; // this will confuse prisma and it's virtual field
-    const newSpeaker = await prisma.speaker.create({
-      data,
-    });
+
+    const newSpeaker = await createSpeakerRecord(data);
 
     return new Response(JSON.stringify(newSpeaker, null, 2), {
       status: 201,

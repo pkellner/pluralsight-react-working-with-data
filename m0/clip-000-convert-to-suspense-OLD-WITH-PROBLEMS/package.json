@@ -1,0 +1,32 @@
+{
+  "name": "react-with-data-demo-app",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "ts-node prisma/seed.ts",
+    "restonly": "next dev -p 4500"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "bootstrap": "^5.3.2",
+    "js-cookie": "^3.0.5",
+    "json-server": "^0.17.4",
+    "next": "^14.0.5-canary.1",
+    "react": "^18.3.0-canary-b36ae8d7a-20231207",
+    "react-dom": "^18.3.0-canary-b36ae8d7a-20231207"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "14.0.3",
+    "prisma": "^5.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}

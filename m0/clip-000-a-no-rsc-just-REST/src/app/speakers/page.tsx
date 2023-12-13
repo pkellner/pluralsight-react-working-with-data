@@ -1,8 +1,8 @@
 "use client";
 import Header from "@/app/header";
-import Nav from "@/app/nav";
 import Footer from "@/app/footer";
 import React from "react";
+import Nav from "@/app/nav";
 import SpeakersListContainer from "@/app/speakers/speakers-list-container";
 
 export default function Speakers() {
