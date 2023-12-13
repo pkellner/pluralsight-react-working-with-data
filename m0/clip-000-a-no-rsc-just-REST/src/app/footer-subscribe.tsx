@@ -1,15 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { createGUID } from "@/lib/general-utils";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// Types for the wizard steps
+type Step = "STEP1" | "STEP2";
 
+// FooterSubscribe component
 export default function FooterSubscribe() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [email, setEmail] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [attendeeIdGuid, setAttendeeIdGuid] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [currentStep, setCurrentStep] = useState<Step>("STEP1");
 
-  const handleEmailChange = (event: any) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+  };
+
+  const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
   };
 
   useEffect(() => {
@@ -17,66 +31,140 @@ export default function FooterSubscribe() {
     setIsButtonDisabled(!isValidEmail);
   }, [email]);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const postData = {
-        id: createGUID(),
-        email: email,
-        firstName: "_firstName_",
-        lastName: "_lastName_",
-        createdDate: new Date(),
-      };
-      const response = await fetch("/api/attendees", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-        body: JSON.stringify(postData),
-      });
-      await sleep(1000);
-
-      if (response.ok) {
-        alert(
-          `${email} has been subscribed. You should get an email confirming that.`,
-        );
-      } else {
-        alert(`Failed to subscribe ${email}. Please try again.`);
+    if (currentStep === "STEP1") {
+      try {
+        const postData = {
+          id: createGUID(),
+          email: email,
+          firstName: "",
+          lastName: "",
+          createdDate: new Date(),
+        };
+        const response = await fetch("/api/attendees", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        });
+        const data = await response.json();
+        setAttendeeIdGuid(data.id);
+        if (response.ok) {
+          setCurrentStep("STEP2");
+        } else {
+          alert(`Failed to subscribe ${email}. Please try again.`);
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (error) {
-      alert("An error occurred. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
-      setEmail("");
+    } else if (currentStep === "STEP2") {
+      try {
+        const putData = {
+          id: attendeeIdGuid,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+        };
+        const response = await fetch(`/api/attendees/${attendeeIdGuid}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(putData),
+        });
+
+        if (response.ok) {
+          alert("Subscription updated successfully.");
+          setCurrentStep("STEP1");
+          setEmail("");
+          setFirstName("");
+          setLastName("");
+        } else {
+          alert("Failed to update subscription. Please try again.");
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
+  };
+
+  const handleCancel = () => {
+    setCurrentStep("STEP1");
+    setEmail("");
+    setFirstName("");
+    setLastName("");
   };
 
   return (
     <>
       <h5 className="text-uppercase mb-4">Stay Updated</h5>
       <form onSubmit={handleSubmit}>
-        <div className="d-flex">
-          <input
-            type="email"
-            className="form-control me-2 speaker-rounded-corners"
-            placeholder="Email address"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-          <button
-            type="submit"
-            className="btn btn-outline-dark speaker-rounded-corners"
-            disabled={isButtonDisabled || isSubmitting}
-          >
-            {isSubmitting ? "Subscribing..." : "Subscribe"}
-          </button>
-        </div>
+        {currentStep === "STEP1" && (
+          <div className="d-flex">
+            <input
+              type="email"
+              className="form-control me-2"
+              placeholder="Email address"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+            <button
+              type="submit"
+              className="btn btn-outline-dark"
+              disabled={isButtonDisabled || isSubmitting}
+            >
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
+            </button>
+          </div>
+        )}
+        {currentStep === "STEP2" && (
+          <>
+            <div className="mb-3">
+              <div className="text">Email: {email}</div>
+            </div>
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="First Name"
+                value={firstName}
+                onChange={handleFirstNameChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={handleLastNameChange}
+                required
+              />
+            </div>
+            <div className="d-flex justify-content-start gap-2">
+              <button
+                type="submit"
+                className="btn btn-outline-dark"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Updating..." : "Update"}
+              </button>
+              <button onClick={handleCancel} className="btn btn-outline-dark">
+                Cancel
+              </button>
+            </div>
+          </>
+        )}
       </form>
     </>
   );
