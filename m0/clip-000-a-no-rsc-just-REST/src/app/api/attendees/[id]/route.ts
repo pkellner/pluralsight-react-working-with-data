@@ -35,7 +35,7 @@ export async function GET(
 
 // This function handles the PUT request
 export async function PUT(request: Request) {
-  await sleep(1000);
+  await sleep(3000);
   try {
     // const id = request.url.split("/").pop();
     const data = await request.json();

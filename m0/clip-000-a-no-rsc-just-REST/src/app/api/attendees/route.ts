@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import { createAttendeeRecord, getAttendeeRecords } from "@/lib/attendee-utils";
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export async function GET(request: NextRequest) {
   const attendees = await getAttendeeRecords();
 
@@ -14,6 +16,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   try {
+    await sleep(3000);
     const data = await request.json();
     const attendee = await createAttendeeRecord(data);
     return new Response(JSON.stringify(attendee, null, 2), {

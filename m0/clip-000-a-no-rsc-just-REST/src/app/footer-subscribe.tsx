@@ -4,6 +4,8 @@ import { createGUID } from "@/lib/general-utils";
 // Types for the wizard steps
 type Step = "STEP1" | "STEP2";
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // FooterSubscribe component
 export default function FooterSubscribe() {
   const [email, setEmail] = useState<string>("");

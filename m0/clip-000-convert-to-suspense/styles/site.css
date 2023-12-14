@@ -15,11 +15,11 @@ html {
   font-family: "Roboto", sans-serif;
   color: var(--dark);
   background: linear-gradient(
-      0deg,
-      rgba(250, 250, 250, 0.5),
-      rgba(250, 250, 250, 0.5)
-    ),
-    #fff;
+          0deg,
+          rgba(250, 250, 250, 0.5),
+          rgba(250, 250, 250, 0.5)
+  ),
+  #fff;
   padding-bottom: 1rem;
 }
 
@@ -36,11 +36,11 @@ html {
 
 .theme-light:before {
   background: linear-gradient(
-      0deg,
-      rgba(250, 250, 250, 0.5),
-      rgba(250, 250, 250, 0.5)
-    ),
-    #fff;
+          0deg,
+          rgba(250, 250, 250, 0.5),
+          rgba(250, 250, 250, 0.5)
+  ),
+  #fff;
 }
 .theme-dark::before {
   background: #ccc;
@@ -95,6 +95,7 @@ a:focus {
   --bs-spinner-width: 1.5rem;
   --bs-spinner-height: 1.5rem;
   --bs-spinner-border-width: 0.18em;
+  margin-left: .75rem;
 }
 
 .spinner-height {
@@ -199,8 +200,6 @@ header ul li button:focus {
   justify-content: center;
   position: relative;
   z-index: 1;
-
-
 
   /* Uncomment below code when the toolbar need to be sticky onScroll */
   /* position: sticky;
@@ -361,7 +360,7 @@ header ul li button:focus {
 .heart-dark-button,
 .heart-red-button {
   display: inline-block;
-  font-family: "Font Awesome 5 Free";
+  /* font-family: "Font Awesome 5 Free"; */
   font-weight: 900;
   font-size: inherit;
   text-rendering: auto;
@@ -376,6 +375,7 @@ header ul li button:focus {
 .heart-dark-button::before,
 .heart-red-button::before {
   content: "\f004";
+  font-family: "Font Awesome 5 Free";
 }
 
 .heart-dark-button::before {
@@ -472,9 +472,9 @@ header ul li button:focus {
 
 .header-footer-gradient {
   background: linear-gradient(
-    to right,
-    #ffd1a4,
-    #a4d4ff
+          to right,
+          #ffd1a4,
+          #a4d4ff
   ); /* subtle gradient from pastel orange to pastel blue */
   color: #333333; /* dark grey text for contrast */
   padding: 20px; /* Adjust the padding as needed */
@@ -527,7 +527,7 @@ header ul li button:focus {
 
 .has-backdrop:before {
   content: "";
-  background: rgb(24 26 29 / 77%);
+  background: rgb(0 0 0 / 5%);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -552,7 +552,7 @@ header ul li button:focus {
 
 .bg-gradient-pending-text {
   /* Applying the linear gradient */
-  background: linear-gradient(to right, #FFD1A4, #A4D4FF);
+  background: linear-gradient(to right, #ffd1a4, #a4d4ff);
 
   /* Padding around the text */
   padding: 10px;
@@ -579,8 +579,6 @@ header ul li button:focus {
     opacity: 0.7;
   }
 }
-
-
 
 @media screen and (max-width: 768px) {
   .flex-grow-04 {
