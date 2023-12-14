@@ -8,7 +8,7 @@ export default function Speakers() {
     <div className="container-fluid">
       <Header />
       <div className="full-page-border app-content-background">
-       <Nav />
+        <Nav />
         <Suspense fallback={<div>Loading Attendees...</div>}>
           <AttendeesListContainer />
         </Suspense>

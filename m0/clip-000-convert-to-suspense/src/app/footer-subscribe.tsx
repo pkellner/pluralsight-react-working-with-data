@@ -1,34 +1,31 @@
 "use client";
-import React, { useEffect, useState, ChangeEvent } from "react";
-import { createGUID } from "@/lib/general-utils";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import addAttendeeAction from "@/app/footer-subscribe-action";
-import {useFormState, useFormStatus} from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 // Types for the wizard steps
 type Step = "STEP1" | "STEP2";
 
-
-
-function ButtonSubmitStep1({buttonDisabled}: {buttonDisabled: boolean}) {
+function ButtonSubmitStep1({ buttonDisabled }: { buttonDisabled: boolean }) {
   const { pending } = useFormStatus();
-  return <button
-    type="submit"
-    className="btn btn-outline-dark"
-    disabled={buttonDisabled}
-  >
-    {pending ? "Subscribing..." : "Subscribe"}
-  </button>;
+  return (
+    <button
+      type="submit"
+      className="btn btn-outline-dark"
+      disabled={buttonDisabled}
+    >
+      {pending ? "Subscribing..." : "Subscribe"}
+    </button>
+  );
 }
 
 function ButtonSubmitStep2() {
   const { pending } = useFormStatus();
-  return <button
-    type="submit"
-    className="btn btn-outline-dark"
-    disabled={pending}
-  >
-    {pending ? "Updating..." : "Update"}
-  </button>;
+  return (
+    <button type="submit" className="btn btn-outline-dark" disabled={pending}>
+      {pending ? "Updating..." : "Update"}
+    </button>
+  );
 }
 
 // FooterSubscribe component
@@ -37,7 +34,6 @@ export default function FooterSubscribe() {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-
 
   const initialState = {
     step: "STEP1",
@@ -68,7 +64,6 @@ export default function FooterSubscribe() {
 
   const [state, formAction] = useFormState(addAttendeeAction, initialState);
 
-
   const whichStep = state.step;
 
   return (
@@ -91,7 +86,7 @@ export default function FooterSubscribe() {
         )}
         {whichStep === "STEP2" && (
           <>
-            <input type="hidden" name="id" value={state.id}/>
+            <input type="hidden" name="id" value={state.id} />
             <div className="mb-3">
               <div className="text">Email: {email}</div>
             </div>
@@ -119,7 +114,11 @@ export default function FooterSubscribe() {
             </div>
             <div className="d-flex justify-content-start gap-2">
               <ButtonSubmitStep2 />
-              <button onClick={handleCancel} type="button" className="btn btn-outline-dark">
+              <button
+                onClick={handleCancel}
+                type="button"
+                className="btn btn-outline-dark"
+              >
                 Cancel
               </button>
             </div>

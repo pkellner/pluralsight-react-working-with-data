@@ -66,7 +66,7 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
                 {speakerRec.timeSpeaking &&
                   new Date(speakerRec.timeSpeaking).getTime() !==
-                  new Date(0).getTime() && (
+                    new Date(0).getTime() && (
                     <small>
                       <strong>Time Speaking:</strong>{" "}
                       {new Date(speakerRec.timeSpeaking).toLocaleString()}

@@ -36,7 +36,6 @@ export default async function addAttendeeAction(
       message: "Updated attendee " + email,
       step: "DONE",
     };
-
   }
 
   const attendee = {
@@ -63,7 +62,9 @@ export default async function addAttendeeAction(
     revalidatePath("/");
     // when we pass back an id, it will be used to update the attendee in step2.
     return {
-      message: `The email ${email ?? "unknown"} has been subscribed for updates.`,
+      message: `The email ${
+        email ?? "unknown"
+      } has been subscribed for updates.`,
       step: "STEP2",
       id: newAttendee.id,
     };
