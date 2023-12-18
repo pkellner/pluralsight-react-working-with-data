@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {Speaker} from "@/lib/general-types";
+import { Speaker } from "@/lib/general-types";
 
 // Define the shape of the context's value
 

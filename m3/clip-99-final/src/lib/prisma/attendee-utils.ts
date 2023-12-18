@@ -1,6 +1,5 @@
-import {Attendee} from "../general-types";
+import { Attendee } from "../general-types";
 import prisma from "./prisma";
-
 
 export async function getAttendeeRecords() {
   return prisma.attendee.findMany({
@@ -29,13 +28,13 @@ export async function updateAttendeeRecord(attendee: Attendee) {
 
 export async function deleteAttendeeRecord(id: string) {
   let attendeeRecordDeleted;
-  await prisma.$transaction(async function (prisma : any) {
+  await prisma.$transaction(async function (prisma: any) {
     await prisma.attendeeFavorite.deleteMany({
-      where: {attendeeId: id},
+      where: { attendeeId: id },
     });
 
     attendeeRecordDeleted = await prisma.attendee.delete({
-      where: {id},
+      where: { id },
     });
   });
   return attendeeRecordDeleted;

@@ -1,8 +1,6 @@
-
-
 // Define an interface that extends the Speaker type from Prisma
-import {AttendeeFavorite, Speaker} from "../general-types";
 import prisma from "./prisma";
+import {AttendeeFavorite, Speaker} from "@/lib/general-types";
 
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
@@ -38,7 +36,7 @@ export async function createSpeakerRecord(speaker: Speaker) {
 }
 
 export async function deleteSpeakerRecord(id: number) {
-  return await prisma.$transaction(async (prisma : any) => {
+  return await prisma.$transaction(async (prisma: any) => {
     await prisma.speakerSession.deleteMany({
       where: { speakerId: Number(id) },
     });
@@ -73,7 +71,7 @@ export async function getSpeakers(attendeeId: string) {
           },
         },
       })
-    ).map((speaker : Speaker) => ({
+    ).map((speaker: Speaker) => ({
       ...speaker,
       favoriteCount: speaker._count.favorites,
     }));
@@ -89,11 +87,12 @@ export async function getSpeakers(attendeeId: string) {
         },
       });
 
-      return speakers.map((speaker : Speaker) => {
+      return speakers.map((speaker: Speaker) => {
         return {
           ...speaker,
           favorite: attendeeFavorites?.some(
-            (attendeeFavorite : AttendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
+            (attendeeFavorite: AttendeeFavorite) =>
+              attendeeFavorite.speakerId === speaker.id,
           ),
         };
       });

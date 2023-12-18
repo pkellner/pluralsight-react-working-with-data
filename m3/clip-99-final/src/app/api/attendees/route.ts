@@ -1,5 +1,8 @@
 import { NextRequest } from "next/server";
-import {createAttendeeRecord, getAttendeeRecords} from "@/lib/prisma/attendee-utils";
+import {
+  createAttendeeRecord,
+  getAttendeeRecords,
+} from "@/lib/prisma/attendee-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

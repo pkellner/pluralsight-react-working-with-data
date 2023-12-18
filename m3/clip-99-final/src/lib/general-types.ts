@@ -1,4 +1,3 @@
-
 type FavoriteStatusEnum =
   | "favored"
   | "not-favored"
@@ -7,7 +6,6 @@ type FavoriteStatusEnum =
   | "errored";
 
 export interface Speaker {
-
   id: number;
   firstName: string;
   lastName: string;
