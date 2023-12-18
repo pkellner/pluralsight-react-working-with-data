@@ -4,7 +4,7 @@ import {
   deleteAttendeeRecord,
   getOneAttendeeRecord,
   updateAttendeeRecord,
-} from "../../../../../lib/attendee-utils";
+} from "@/lib/prisma/attendee-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

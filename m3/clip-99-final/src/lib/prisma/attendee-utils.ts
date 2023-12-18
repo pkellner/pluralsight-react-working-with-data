@@ -1,5 +1,5 @@
-import {Attendee} from "./general-types";
-import prisma from "./prisma/prisma";
+import {Attendee} from "../general-types";
+import prisma from "./prisma";
 
 
 export async function getAttendeeRecords() {

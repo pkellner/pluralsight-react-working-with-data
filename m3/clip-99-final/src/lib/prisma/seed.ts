@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const data = require("../../db.json");
+const data = require("./db.json");
 const prisma = new PrismaClient();
 
 // seed all the tables for all data scenarios in the course
