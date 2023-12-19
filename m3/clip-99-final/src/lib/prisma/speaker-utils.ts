@@ -1,6 +1,7 @@
 // Define an interface that extends the Speaker type from Prisma
 import prisma from "./prisma";
-import {AttendeeFavorite, Speaker} from "@/lib/general-types";
+import { AttendeeFavorite, Speaker } from "@/lib/general-types";
+import { Prisma } from "@prisma/client";
 
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
@@ -71,10 +72,16 @@ export async function getSpeakers(attendeeId: string) {
           },
         },
       })
-    ).map((speaker: Speaker) => ({
-      ...speaker,
-      favoriteCount: speaker._count.favorites,
-    }));
+    )
+      .sort(
+        (a, b) =>
+          a.lastName.localeCompare(b.lastName) ||
+          a.firstName.localeCompare(b.firstName),
+      )
+      .map((speaker: Speaker) => ({
+        ...speaker,
+        favoriteCount: speaker._count.favorites,
+      }));
 
     if (attendeeId) {
       const attendeeFavorites = await prisma.attendeeFavorite.findMany({
