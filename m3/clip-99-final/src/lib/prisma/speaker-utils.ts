@@ -1,7 +1,6 @@
 // Define an interface that extends the Speaker type from Prisma
 import prisma from "./prisma";
-import { AttendeeFavorite, Speaker } from "@/lib/general-types";
-import { Prisma } from "@prisma/client";
+import {AttendeeFavorite, Speaker} from "@/lib/general-types";
 
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
