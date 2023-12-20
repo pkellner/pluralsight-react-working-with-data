@@ -1,5 +1,11 @@
-export default function SpeakerDetail({ speaker }: any) {
-  const handleImageError = (e: any) => {
+import { Speaker } from "@/lib/general-types";
+
+export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
+
+  interface HTMLImageElementEvent extends React.SyntheticEvent<HTMLImageElement> {
+    target: HTMLImageElement;
+  }
+  const handleImageError = (e: HTMLImageElementEvent) => {
     e.target.src = "/images/speaker-pending.png"; // default speaker
   };
 
