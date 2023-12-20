@@ -1,6 +1,10 @@
 // This function handles the GET request
 
-import {deleteAttendeeRecord, getOneAttendeeRecord, updateAttendeeRecord,} from "@/lib/prisma/attendee-utils";
+import {
+  deleteAttendeeRecord,
+  getOneAttendeeRecord,
+  updateAttendeeRecord,
+} from "@/lib/prisma/attendee-utils";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

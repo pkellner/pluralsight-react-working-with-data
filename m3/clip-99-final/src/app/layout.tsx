@@ -1,5 +1,5 @@
 import React from "react";
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "/styles/site.css";
 import "/styles/fontawesome/css/all.css";

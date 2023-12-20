@@ -1,7 +1,6 @@
-import {AttendeeFavorite, Speaker, SpeakerSession} from "@/lib/general-types";
+import { AttendeeFavorite, Speaker, SpeakerSession } from "@/lib/general-types";
 
-export default function SpeakerDetail({speaker} : {speaker: Speaker}) {
-
+export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
   type Speaker = {
     id: number;
     firstName: string;
@@ -10,22 +9,20 @@ export default function SpeakerDetail({speaker} : {speaker: Speaker}) {
     twitterHandle: string;
     userBioShort: string;
     timeSpeaking: string;
-  }
+  };
 
- const speaker1 : Speaker = {
-     "id": 187,
-     "firstName": "Dave",
-     "lastName": "Nielsen",
-     "company": "Intel",
-     "twitterHandle": "@davenielsen",
-     "userBioShort": "As Head of Ecosystem Programs, Dave uses emerging technologies and open source projects like Microservices, Serverless & Kubernetes to bring the magic of Redis to the broader community.",
-     "timeSpeaking": "1970-01-01T00:00:00.000Z",
+  const speaker1: Speaker = {
+    id: 187,
+    firstName: "Dave",
+    lastName: "Nielsen",
+    company: "Intel",
+    twitterHandle: "@davenielsen",
+    userBioShort:
+      "As Head of Ecosystem Programs, Dave uses emerging technologies and open source projects like Microservices, Serverless & Kubernetes to bring the magic of Redis to the broader community.",
+    timeSpeaking: "1970-01-01T00:00:00.000Z",
+  };
 
-   };
-
- const name = `${speaker1.firstName} ${speaker1.lastName}`;
-
-
+  const name = `${speaker1.firstName} ${speaker1.lastName}`;
 
   const handleImageError = (e: any) => {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
