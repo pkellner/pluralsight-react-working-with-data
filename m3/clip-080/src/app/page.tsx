@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 export default function Home() {
+
   const [counter, setCounter] = useState(100);
   return (
     <div>

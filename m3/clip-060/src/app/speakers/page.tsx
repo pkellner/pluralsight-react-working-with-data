@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import SpeakerDetail from "./speaker-detail";
-
 export default function Speakers() {
   const speakers = [
     {
@@ -35,8 +33,8 @@ export default function Speakers() {
       timeSpeaking: new Date("1970-01-01T00:00:00.000Z"),
     },
   ];
-  const [speakerList, setSpeakerList] = useState<any>([]);
 
+  const [speakerList, setSpeakerList] = useState<any>([]);
   useEffect(() => {
     const sleep = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
@@ -48,12 +46,14 @@ export default function Speakers() {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row g-4">
-        {speakerList.map(function (speaker: any) {
-          return <SpeakerDetail key={speaker.id} speaker={speaker} />;
-        })}
-      </div>
-    </div>
+    <ul>
+      {speakerList.map(function (speaker: any) {
+        return (
+          <li key={speaker.id}>
+            {speaker.firstName} {speaker.lastName} - {speaker.id}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
