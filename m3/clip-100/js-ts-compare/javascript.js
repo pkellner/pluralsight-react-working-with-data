@@ -1,10 +1,9 @@
 let i = 100;
-i = 'abcd';
+i = "abcd";
 
 const speaker = {
-  first: 'John',
-  last: 'Doe',
+  first: "John",
+  last: "Doe",
 };
 
-const nameStr =
-  `${speaker.first} ${speaker.last}`;
+const nameStr = `${speaker.first} ${speaker.last}`;
