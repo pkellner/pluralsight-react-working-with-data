@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 type LoadingStatusType = "loading" | "success" | "error";
 
 export default function Speakers() {
@@ -16,11 +15,7 @@ export default function Speakers() {
     async function fetchSpeakers() {
       try {
         const response = await fetch("/api/speakers");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
         const data = await response.json();
-        await sleep(1000);
         setSpeakerList(data);
         setLoadingStatus("success");
       } catch (err) {
