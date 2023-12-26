@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
+import { Speaker } from "@/lib/general-types";
+
 
 export default function Speakers() {
-  const speakers = [
+  const speakers : Speaker[] = [
     {
       id: 1124,
       firstName: "Douglas",
@@ -35,7 +37,7 @@ export default function Speakers() {
       timeSpeaking: new Date("1970-01-01T00:00:00.000Z"),
     },
   ];
-  const [speakerList, setSpeakerList] = useState<any>([]);
+  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
 
   useEffect(() => {
     const sleep = (ms: number) =>
