@@ -1,5 +1,5 @@
 let i = 100;
-i = "abcd";
+//i = "abcd";
 
 type Speaker = {
   first: string;

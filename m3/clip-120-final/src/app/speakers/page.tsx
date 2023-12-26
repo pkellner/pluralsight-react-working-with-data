@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
+import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
 
 type LoadingStatusType = "loading" | "success" | "error";
 
@@ -44,6 +45,22 @@ export default function Speakers() {
     }
     fetchSpeakers().then(() => {});
   }, []);
+
+  if (loadingStatus === "loading") {
+    return (
+      <div className="container">
+        <div className="row g-4">
+          {[1, 2, 3, 4, 5].map((item) => (
+            <SpeakerDetailPending key={item} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (loadingStatus === "error") {
+    return <div className="card">Error: {error}</div>;
+  }
 
 
   return (
