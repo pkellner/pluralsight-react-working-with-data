@@ -136,6 +136,8 @@ dev.db-journal
 migration_lock.toml
 migrations
 
+npmCheck
+
 
 
 
