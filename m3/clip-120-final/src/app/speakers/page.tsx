@@ -2,19 +2,15 @@
 import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
-import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
-
-type LoadingStatusType = "loading" | "success" | "error";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
+type LoadingStatusType = "loading" | "success" | "error";
 
 export default function Speakers() {
-
   const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
   const [loadingStatus, setLoadingStatus] =
     useState<LoadingStatusType>("loading");
-  const [error, setError] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function fetchSpeakers() {
@@ -24,44 +20,29 @@ export default function Speakers() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await sleep(500);
-
-        setSpeakerList(
-          data.map((speaker: Speaker) => {
-            return speaker;
-          }),
-        );
+        await sleep(1000);
+        setSpeakerList(data);
         setLoadingStatus("success");
       } catch (err) {
+        setLoadingStatus("error");
         if (err instanceof Error) {
-          console.error("Error in fetch SpeakersList", err);
-          setError(err.message);
+          const errorMessage = err.message || "An unexpected error occurred";
+          setError(errorMessage);
         } else {
-          console.error("An unexpected error occurred");
           setError("An unexpected error occurred");
         }
-        setLoadingStatus("error");
       }
     }
     fetchSpeakers().then(() => {});
   }, []);
 
-  if (loadingStatus === "loading") {
-    return (
-      <div className="container">
-        <div className="row g-4">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <SpeakerDetailPending key={item} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   if (loadingStatus === "error") {
     return <div className="card">Error: {error}</div>;
   }
 
+  if (loadingStatus === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container">

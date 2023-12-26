@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
-
 export default function Speakers() {
-  const speakers : Speaker[] = [
+  const speakers: Speaker[] = [
     {
       id: 1124,
       firstName: "Douglas",
