@@ -39,7 +39,7 @@ export default function AttendeeDataProvider({
   const [attendeeState, setAttendeeState] =
     useState<AttendeeState>(initialState);
 
-  function handleError(location: string,err: Error | unknown) {
+  function handleError(location: string, err: Error | unknown) {
     if (err instanceof Error) {
       const errorMessage = err.message || "An unexpected error occurred";
       setAttendeeState((prevState) => ({
@@ -67,7 +67,7 @@ export default function AttendeeDataProvider({
           loadingStatus: "success",
         }));
       } catch (err) {
-        handleError("attendee fetch",err);
+        handleError("attendee fetch", err);
       }
     }
     fetchAttendees().then(() => {});
@@ -100,7 +100,7 @@ export default function AttendeeDataProvider({
           attendeeList: [...prevState.attendeeList, newAttendee],
         }));
       } catch (error) {
-        handleError("error creating attendee",error);
+        handleError("error creating attendee", error);
       }
     }
     create().then(() => {});
@@ -130,7 +130,7 @@ export default function AttendeeDataProvider({
           ),
         }));
       } catch (error) {
-        handleError("Error updating attendee",error);
+        handleError("Error updating attendee", error);
       }
     }
     update().then(() => {
@@ -158,7 +158,7 @@ export default function AttendeeDataProvider({
           await response.json();
         }
       } catch (error) {
-        handleError("Error deleting attendee",error);
+        handleError("Error deleting attendee", error);
       }
     }
 

@@ -139,7 +139,7 @@ export default function SpeakerDataProvider({
           body: JSON.stringify(speaker),
         });
 
-        // now that we've updated the data, let's work on state. check to see if favorite has changed
+        // check to see if favorite has changed
         if (originalSpeaker?.favorite !== speaker?.favorite) {
           // if favorite has changed, then need to update the speakerList
           // first remove the original speaker from the speakerList
@@ -151,29 +151,20 @@ export default function SpeakerDataProvider({
             ...prevState,
             speakerList: [...filteredSpeakerList, speaker],
           }));
-          ``;
         }
 
-        // if (originalSpeaker?.favorite !== speaker?.favorite) {
-        //   // if favorite has changed, then need to update the speakerList
-        //   // first remove the original speaker from the speakerList
-        //   const filteredSpeakerList = speakerList.filter(
-        //     (speakerRec) => speakerRec.id !== speaker.id,
-        //   );
-        //
-        //   setSpeakerList([...filteredSpeakerList, speaker]);
-        // }
-        //
-        // const updatedSpeaker = await response.json();
-        // setSpeakerList(
-        //   speakerList.map((speaker) =>
-        //     speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
-        //   ),
-        // );
-
-        return speaker; // this is the one we set it to
+        const updatedSpeaker = await response.json();
+        setSpeakerState((prevState) => ({
+          ...prevState,
+          speakerList: prevState.speakerList.map((speaker) =>
+            speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
+          ),
+        }));
+        return updatedSpeaker;
       } catch (error) {
-        handleError("error updating speaker", error);
+        console.error("Error updating speaker:", error);
+        completionFunction();
+        throw error;
       }
     }
     update().then(() => {
