@@ -1,5 +1,6 @@
 import { Attendee } from "../general-types";
 import prisma from "./prisma";
+import { randomUUID } from "node:crypto";
 
 export async function getAttendeeRecords() {
   return prisma.attendee.findMany({
@@ -45,7 +46,7 @@ export async function createAttendeeRecord(attendee: Attendee) {
 
   return prisma.attendee.create({
     data: {
-      id: id,
+      id: id ?? randomUUID(),
       firstName: firstName,
       lastName: lastName,
       email: email,
