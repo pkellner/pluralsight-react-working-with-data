@@ -14,7 +14,7 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 export async function GET(request: NextRequest) {
-  await sleep(1000);
+  await sleep(2000);
 
   // DANGER: This authentication is purely for demo purpose and is absolutely not secure. Do not use this in any kind of production app.
   let attendeeId;
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 
 // This function handles the POST request (INSERT)
 export async function POST(request: Request) {
-  await sleep(1000);
+  await sleep(2000);
   try {
     const data = await request.json();
     delete data.id; // let the database handle assigning the id

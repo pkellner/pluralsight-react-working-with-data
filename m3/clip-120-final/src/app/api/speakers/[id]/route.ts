@@ -27,7 +27,7 @@ export async function GET(
 ) {
   const id = Number(params.id);
   try {
-    await sleep(500);
+    await sleep(2000);
 
     let speaker = await getSpeakerDataById(id);
 
@@ -114,7 +114,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: number } },
 ) {
-  await sleep(1000);
+  await sleep(2000);
   const id = Number(request.url.split("/").pop());
 
   try {
