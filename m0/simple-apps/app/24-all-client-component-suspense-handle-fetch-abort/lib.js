@@ -4,9 +4,9 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchAttendee(id, signal) {
   try {
-    console.log("fetchAttendee: starting to fetch data")
+    console.log("fetchAttendee: starting to fetch data");
     const response = await fetch(`http://localhost:3000/api/attendee/${id}`, {
-      signal:signal,
+      signal: signal,
     });
 
     const randomNumberBetween1000And5000 =
@@ -15,10 +15,10 @@ export async function fetchAttendee(id, signal) {
     await sleep(randomNumberBetween1000And5000);
 
     const data = await response.json();
-    console.log("fetchAttendee: done fetching data",data);
+    console.log("fetchAttendee: done fetching data", data);
     return data;
   } catch (e) {
-    console.log("fetchAttendee: e:",e);
+    console.log("fetchAttendee: e:", e);
     throw e;
   }
 }

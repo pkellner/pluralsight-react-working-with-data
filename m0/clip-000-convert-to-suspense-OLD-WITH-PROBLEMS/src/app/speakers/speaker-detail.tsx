@@ -11,7 +11,8 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
     e.target.src = "/images/speaker-pending.png"; // Path to your default image
   };
   const speakerRec: Speaker =
-    speakerList.find((value: Speaker) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
+    speakerList.find((value: Speaker) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   return (
     <>

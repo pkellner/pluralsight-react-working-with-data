@@ -1,17 +1,12 @@
 "use client";
 
-import {use, useState} from "react";
+import { use, useState } from "react";
 
 export default function Message({ messagePromise }) {
-
   const messageContent = use(messagePromise);
   const { id, firstName, lastName, email, created } = messageContent;
 
-  return (
-    <div>
-      {id}
-    </div>
-  );
+  return <div>{id}</div>;
 
   // return (
   //   <tr key={id.toString()}>

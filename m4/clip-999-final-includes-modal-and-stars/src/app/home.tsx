@@ -1,4 +1,4 @@
-'use client';
+"use client";
 export default function Home() {
   return (
     <div className="container d-flex justify-content-center">

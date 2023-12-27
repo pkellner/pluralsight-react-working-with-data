@@ -1,8 +1,6 @@
-
-
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
-import {NextRequest} from "next/server";
-import {createSpeakerRecord, getSpeakers} from "@/lib/prisma/speaker-utils";
+import { NextRequest } from "next/server";
+import { createSpeakerRecord, getSpeakers } from "@/lib/prisma/speaker-utils";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");

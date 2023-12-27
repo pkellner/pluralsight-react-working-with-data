@@ -1,5 +1,4 @@
-import {useSpeakerModalContext} from "@/contexts/speaker-modal-context";
-
+import { useSpeakerModalContext } from "@/contexts/speaker-modal-context";
 
 export default function SpeakerDialogAdd() {
   const {

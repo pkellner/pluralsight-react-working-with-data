@@ -5,7 +5,6 @@ import { useAttendeeDataContext } from "@/components/contexts/attendee-data-cont
 import { Attendee } from "@/lib/general-types";
 import { AttendeeDetailWithSuspense } from "@/app/attendees/attendee-detail-with-suspense";
 
-
 export default function AttendeesList() {
   return (
     <div className="container-fluid">

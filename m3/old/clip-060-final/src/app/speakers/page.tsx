@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
 import { Speaker } from "@/app/lib/general-types";

@@ -1,5 +1,4 @@
 // Import prisma from the prisma client
-import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 import { NextRequest } from "next/server";
 import {
@@ -110,14 +109,11 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-
-
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
   { params }: { params: { id: number } },
 ) {
-
   await sleep(1000);
   const id = Number(request.url.split("/").pop());
 

@@ -1,4 +1,4 @@
-import {useSpeakerMenuContext} from "@/contexts/speaker-menu-context";
+import { useSpeakerMenuContext } from "@/contexts/speaker-menu-context";
 import SpeakerDialogAdd from "@/app/speakers/speaker-dialog-add";
 
 export default function SpeakerMenu() {
@@ -23,9 +23,9 @@ export default function SpeakerMenu() {
           />
         </div>
 
-          <div className="input-group">
-            <SpeakerDialogAdd />
-          </div>
+        <div className="input-group">
+          <SpeakerDialogAdd />
+        </div>
       </div>
     </div>
   );

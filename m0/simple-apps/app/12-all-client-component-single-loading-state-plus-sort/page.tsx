@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Attendee } from "@prisma/client";
 
 type LoadingStatus = "loading" | "success" | "error";
@@ -20,7 +20,7 @@ function AttendeeList() {
         data.sort(
           (a, b) =>
             a.lastName.localeCompare(b.lastName) ||
-            a.firstName.localeCompare(b.firstName)
+            a.firstName.localeCompare(b.firstName),
         );
         setAttendees(data);
         setLoadingStatus("success");

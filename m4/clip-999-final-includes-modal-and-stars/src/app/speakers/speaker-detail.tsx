@@ -30,20 +30,16 @@ export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
 
           <div className="col-8 d-flex flex-column flex-nowrap">
             <div className="card-body">
-
               <div className="speaker-action d-flex">
                 <div className="favoriteToggleWrapper">
-                  <SpeakerFavoriteToggle speakerId={speaker.id}/>
+                  <SpeakerFavoriteToggle speakerId={speaker.id} />
                 </div>
 
-
-                  <div className="modifyWrapper">
-                    <SpeakerDialogEdit speakerId={speaker.id}/>
-                    <SpeakerDeleteButton speakerId={speaker.id}/>
-                  </div>
-
+                <div className="modifyWrapper">
+                  <SpeakerDialogEdit speakerId={speaker.id} />
+                  <SpeakerDeleteButton speakerId={speaker.id} />
+                </div>
               </div>
-
 
               <h4 className="card-title">
                 {speaker.firstName} {speaker.lastName}

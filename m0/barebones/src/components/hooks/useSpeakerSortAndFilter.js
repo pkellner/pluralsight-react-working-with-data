@@ -1,14 +1,11 @@
-export default function useSpeakerSortAndFilter(
-  speakerList,
-  searchText
-) {
+export default function useSpeakerSortAndFilter(speakerList, searchText) {
   return speakerList
     ? speakerList
         .filter(({ firstName, lastName }) => {
           return (
             searchText?.length === 0 ||
             (firstName?.toLowerCase() + lastName?.toLowerCase()).includes(
-              searchText?.toLowerCase()
+              searchText?.toLowerCase(),
             )
           );
         })

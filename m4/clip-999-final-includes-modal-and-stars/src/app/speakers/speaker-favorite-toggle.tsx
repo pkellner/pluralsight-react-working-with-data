@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Speaker } from "@/lib/general-types";
-import {useSpeakerDataContext} from "@/contexts/speaker-data-context";
+import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 
 export default function SpeakerFavoriteToggle({
   speakerId,
@@ -12,7 +12,8 @@ export default function SpeakerFavoriteToggle({
   const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
-    speakerState.speakerList.find((value) => value.id === speakerId) ?? ({} as Speaker); // this should always be a real speaker
+    speakerState.speakerList.find((value) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   return (
     <div>

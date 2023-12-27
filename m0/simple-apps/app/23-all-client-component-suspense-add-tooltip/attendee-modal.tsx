@@ -19,9 +19,7 @@ export default function AttendeeModal({
       >
         {children}
       </div>
-      {showPopup && (
-        <AttendeeModalDetail attendee={attendee} />
-      )}
+      {showPopup && <AttendeeModalDetail attendee={attendee} />}
     </div>
   );
 }

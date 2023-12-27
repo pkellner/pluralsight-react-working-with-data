@@ -8,7 +8,7 @@ export default function DeleteAttendee() {
   const handleDeleteConfirmation = (event: any) => {
     // Show confirmation dialog
     const isConfirmed = window.confirm(
-      "Are you sure you want to delete all info for this attendee?"
+      "Are you sure you want to delete all info for this attendee?",
     );
 
     // If not confirmed, prevent the form from submitting

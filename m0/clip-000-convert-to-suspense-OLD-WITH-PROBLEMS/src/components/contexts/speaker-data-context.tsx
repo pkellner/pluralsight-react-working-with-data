@@ -6,7 +6,6 @@ import {
   deleteSpeakerAction,
   updateSpeakerAction,
 } from "@/components/contexts/speaker-data-context-actions";
-import {createSpeakerRecord} from "@/lib/prisma/speaker-utils";
 
 // Define the shape of the context's value
 

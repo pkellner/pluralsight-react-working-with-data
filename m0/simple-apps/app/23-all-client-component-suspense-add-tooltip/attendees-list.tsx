@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, use } from "react";
+import React, { use } from "react";
 import AttendeeModal from "@/app/23-all-client-component-suspense-add-tooltip/attendee-modal";
 
 export default function AttendeesList({

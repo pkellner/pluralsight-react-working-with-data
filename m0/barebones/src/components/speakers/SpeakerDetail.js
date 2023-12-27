@@ -3,7 +3,6 @@ import EditSpeakerDialog from "./EditSpeakerDialog";
 import FavoriteSpeakerToggle from "./FavoriteSpeakerToggle";
 import { SpeakerModalProvider } from "../contexts/SpeakerModalContext";
 import SpeakerModal from "../speakerModal/SpeakerModal";
-import Image from "next/image";
 
 export default function SpeakerDetail({ speakerRec, showDetails }) {
   const { setRoute } = {
@@ -19,7 +18,9 @@ export default function SpeakerDetail({ speakerRec, showDetails }) {
           <div className="row g-0">
             <div className="col-4">
               <img
-                src={`/images/Speaker-${speakerRec.id}.jpg`} width={200} height={200}
+                src={`/images/Speaker-${speakerRec.id}.jpg`}
+                width={200}
+                height={200}
                 className="img-fluid speaker-rounded-corners speaker-image"
                 alt={`${speakerRec?.firstName} ${speakerRec?.lastName}`}
               />

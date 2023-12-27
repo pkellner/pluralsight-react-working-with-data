@@ -81,7 +81,7 @@ function List({ state, dispatch }) {
               updating={updatingId === speakerRec.id ? updatingId : 0}
               toggleFavoriteSpeaker={useCallback(
                 () => toggleFavoriteSpeaker(speakerRec),
-                [speakerRec.favorite]
+                [speakerRec.favorite],
               )}
               highlight={highlight}
             />
@@ -110,7 +110,7 @@ const SpeakerList = () => {
         };
       case "updateSpeaker":
         const speakersUpdated = state.speakers.map((rec) =>
-          action.speaker.id === rec.id ? action.speaker : rec
+          action.speaker.id === rec.id ? action.speaker : rec,
         );
         return {
           ...state,

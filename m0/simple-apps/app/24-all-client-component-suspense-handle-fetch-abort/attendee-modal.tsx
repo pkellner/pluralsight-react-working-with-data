@@ -1,9 +1,8 @@
 "use client";
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AttendeeModalDetail from "@/app/24-all-client-component-suspense-handle-fetch-abort/attendee-modal-detail";
-import { abortController } from "@/app/24-all-client-component-suspense-handle-fetch-abort/attendees-list";
 import { ErrorBoundary } from "react-error-boundary";
-import {fetchAttendee} from "@/app/24-all-client-component-suspense-handle-fetch-abort/lib";
+import { fetchAttendee } from "@/app/24-all-client-component-suspense-handle-fetch-abort/lib";
 
 function fallbackRender({
   error,
@@ -36,14 +35,11 @@ export default function AttendeeModal({
     // Cleanup function to abort fetch when the component is unmounted
     return () => {
       if (abortControllerRef.current) {
-
         // @ts-ignore
         abortControllerRef.current.abort();
       }
     };
   }, []);
-
-
 
   // @ts-ignore
   const attendeePromise = fetchAttendee(attendee.id, abortControllerRef.signal);
@@ -58,14 +54,12 @@ export default function AttendeeModal({
       <div className="position-relative d-inline-block">
         <div
           onMouseEnter={() => {
-
             // @ts-ignore
             abortControllerRef.current = new AbortController();
             setShowPopup(true);
           }}
           onMouseLeave={() => {
             if (abortControllerRef.current) {
-
               // @ts-ignore
               abortControllerRef.current.abort();
             }
@@ -75,7 +69,12 @@ export default function AttendeeModal({
         >
           {children}
         </div>
-        {showPopup && <AttendeeModalDetail attendee={attendee} attendeePromise={attendeePromise} />}
+        {showPopup && (
+          <AttendeeModalDetail
+            attendee={attendee}
+            attendeePromise={attendeePromise}
+          />
+        )}
       </div>
     </ErrorBoundary>
   );

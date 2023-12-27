@@ -1,4 +1,4 @@
-import {useSpeakerModalContext} from "@/contexts/speaker-modal-context";
+import { useSpeakerModalContext } from "@/contexts/speaker-modal-context";
 
 function prismaDateToIsoString(
   incomingPrismaDate: any,

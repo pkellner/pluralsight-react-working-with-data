@@ -1,6 +1,6 @@
-const { PrismaClient } = require('@prisma/client');
-const { faker } = require('@faker-js/faker');
-const prisma = new PrismaClient()
+const { PrismaClient } = require("@prisma/client");
+const { faker } = require("@faker-js/faker");
+const prisma = new PrismaClient();
 
 async function main() {
   // Create an array of promises for creating attendees
@@ -17,7 +17,7 @@ async function main() {
   // Execute all the promises
   await Promise.all(attendeePromises);
 
-  console.log('Seeded: 1000 attendees');
+  console.log("Seeded: 1000 attendees");
 }
 
 main()

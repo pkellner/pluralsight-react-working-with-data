@@ -1,5 +1,5 @@
 "use client";
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 
 const Footer = () => {
   const [email, setEmail] = React.useState("");
@@ -23,7 +23,9 @@ const Footer = () => {
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4">Keep up to date on social media</h5>
+            <h5 className="text-uppercase mb-4">
+              Keep up to date on social media
+            </h5>
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">

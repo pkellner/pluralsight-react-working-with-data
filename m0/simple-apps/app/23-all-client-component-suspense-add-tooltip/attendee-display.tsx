@@ -2,15 +2,15 @@ import React from "react";
 
 export default function AttendeeDisplay({ attendee }: { attendee: any }) {
   const formatDate = (date: Date) => {
-    return date ? new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-    }).format(new Date(date)) : null;
+    return date
+      ? new Intl.DateTimeFormat("en-US", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        }).format(new Date(date))
+      : null;
   };
 
-  const DataPlaceholder = () => (
-    <div className="data-placeholder"></div>
-  );
+  const DataPlaceholder = () => <div className="data-placeholder"></div>;
 
   return (
     <>
@@ -61,9 +61,9 @@ export default function AttendeeDisplay({ attendee }: { attendee: any }) {
           transform: "translateX(-50%)",
           zIndex: "1060",
           backgroundColor: "lightblue",
-          width: '24rem',
-          padding: '2rem',
-          boxSizing: 'border-box',
+          width: "24rem",
+          padding: "2rem",
+          boxSizing: "border-box",
         }}
       >
         <div className="card-body">
@@ -71,17 +71,29 @@ export default function AttendeeDisplay({ attendee }: { attendee: any }) {
 
           <div className="data-row">
             <strong>Email:</strong>
-            {attendee.email ? <span>{attendee.email}</span> : <DataPlaceholder />}
+            {attendee.email ? (
+              <span>{attendee.email}</span>
+            ) : (
+              <DataPlaceholder />
+            )}
           </div>
 
           <div className="data-row">
             <strong>Created:</strong>
-            {formatDate(attendee.created) ? <span>{formatDate(attendee.created)}</span> : <DataPlaceholder />}
+            {formatDate(attendee.created) ? (
+              <span>{formatDate(attendee.created)}</span>
+            ) : (
+              <DataPlaceholder />
+            )}
           </div>
 
           <div className="data-row">
             <strong>Updated:</strong>
-            {formatDate(attendee.updatedAt) ? <span>{formatDate(attendee.updatedAt)}</span> : <DataPlaceholder />}
+            {formatDate(attendee.updatedAt) ? (
+              <span>{formatDate(attendee.updatedAt)}</span>
+            ) : (
+              <DataPlaceholder />
+            )}
           </div>
         </div>
       </div>

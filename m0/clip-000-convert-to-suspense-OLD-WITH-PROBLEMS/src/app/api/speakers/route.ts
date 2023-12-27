@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma/prisma";
 import { NextRequest } from "next/server";
-import {createSpeakerRecord} from "@/lib/prisma/speaker-utils";
+import { createSpeakerRecord } from "@/lib/prisma/speaker-utils";
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
 function getValuesFromToken(value: string) {
@@ -89,7 +89,6 @@ export async function POST(request: Request) {
     const data = await request.json();
     delete data.id; // let the database handle assigning the id
     delete data.favorite; // this will confuse prisma and it's virtual field
-
 
     const newSpeaker = await createSpeakerRecord(data);
 

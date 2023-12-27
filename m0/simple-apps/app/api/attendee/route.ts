@@ -1,6 +1,6 @@
 // /app/attendee/route.ts
-import { PrismaClient } from '@prisma/client';
-import { type NextRequest } from 'next/server';
+import { PrismaClient } from "@prisma/client";
+import { type NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -13,10 +13,10 @@ export async function GET() {
   return new Response(JSON.stringify(attendees, null, 2), {
     status: 200,
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 }
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   return new Response(JSON.stringify(newAttendee, null, 2), {
     status: 201,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 }

@@ -38,15 +38,15 @@ export async function createSpeakerRecord(speaker: Speaker) {
 export async function deleteSpeakerRecord(id: number) {
   return prisma.$transaction(async (prisma) => {
     await prisma.speakerSession.deleteMany({
-      where: {speakerId: Number(id)},
+      where: { speakerId: Number(id) },
     });
 
     await prisma.attendeeFavorite.deleteMany({
-      where: {speakerId: Number(id)},
+      where: { speakerId: Number(id) },
     });
 
     return prisma.speaker.delete({
-      where: {id},
+      where: { id },
     });
   });
 }
