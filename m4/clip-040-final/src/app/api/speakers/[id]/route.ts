@@ -1,12 +1,7 @@
 // Import prisma from the prisma client
-
-import { NextRequest } from "next/server";
-import {
-  deleteSpeakerRecord,
-  getSpeakerDataById,
-  updateSpeakerRecord,
-} from "@/lib/prisma/speaker-utils";
 import { Speaker } from "@/lib/general-types";
+import { NextRequest } from "next/server";
+import {deleteSpeakerRecord, getSpeakerDataById, updateSpeakerRecord} from "@/lib/prisma/speaker-utils";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");
@@ -58,19 +53,14 @@ export async function GET(
 
 // This function handles the PUT request (UPDATE)
 export async function PUT(request: NextRequest) {
+  const speakerId = request.url.split("/").pop();
+
   // check for logged in attendee
   const authorization = request.cookies.get("authToken");
-
-  let attendeeId =
+  const attendeeId =
     authorization && authorization.value && authorization.value.length > 0
       ? getValuesFromToken(authorization.value).attendeeId
       : undefined; // or any other default value for the case when the user is not logged in
-
-  // if no attendeeId, use a default value which is first entry in db.json file
-  // this code needs to be removed (next 3 lines) when adding the mock auth to app
-  if (!attendeeId) {
-    attendeeId = "d06bc605-a1ef-47c0-9956-d2dc7f98f8c7";
-  }
 
   const requestData = await request.json();
   const {

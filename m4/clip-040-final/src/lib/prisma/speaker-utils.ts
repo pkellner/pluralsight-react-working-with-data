@@ -1,7 +1,7 @@
-// Define an interface that extends the Speaker type from Prisma
-import prisma from "./prisma";
-import { AttendeeFavorite, Speaker } from "@/lib/general-types";
+import prisma from "@/lib/prisma/prisma";
+import { Speaker } from "@/lib/general-types";
 
+// Define an interface that extends the Speaker type from Prisma
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
@@ -36,17 +36,17 @@ export async function createSpeakerRecord(speaker: Speaker) {
 }
 
 export async function deleteSpeakerRecord(id: number) {
-  return prisma.$transaction(async (prisma: any) => {
+  return prisma.$transaction(async (prisma) => {
     await prisma.speakerSession.deleteMany({
-      where: { speakerId: Number(id) },
+      where: {speakerId: Number(id)},
     });
 
     await prisma.attendeeFavorite.deleteMany({
-      where: { speakerId: Number(id) },
+      where: {speakerId: Number(id)},
     });
 
     return prisma.speaker.delete({
-      where: { id },
+      where: {id},
     });
   });
 }
@@ -71,18 +71,10 @@ export async function getSpeakers(attendeeId: string) {
           },
         },
       })
-    )
-      .sort(
-        (a, b) =>
-          a.lastName.localeCompare(b.lastName) ||
-          a.firstName.localeCompare(b.firstName),
-      )
-      .map((speaker: Speaker) => ({
-        ...speaker,
-        favoriteCount: speaker._count?.favorites,
-      }));
-
-    console.log("speakers", speakers);
+    ).map((speaker) => ({
+      ...speaker,
+      favoriteCount: speaker._count.favorites,
+    }));
 
     if (attendeeId) {
       const attendeeFavorites = await prisma.attendeeFavorite.findMany({
@@ -95,12 +87,11 @@ export async function getSpeakers(attendeeId: string) {
         },
       });
 
-      return speakers.map((speaker: Speaker) => {
+      return speakers.map((speaker) => {
         return {
           ...speaker,
           favorite: attendeeFavorites?.some(
-            (attendeeFavorite: AttendeeFavorite) =>
-              attendeeFavorite.speakerId === speaker.id,
+            (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
           ),
         };
       });

@@ -1,7 +1,9 @@
-import { NextRequest } from "next/server";
-import { createSpeakerRecord, getSpeakers } from "@/lib/prisma/speaker-utils";
+
 
 // Splits a token into first name, last name, and attendee ID, throwing an error if the format is invalid.
+import {NextRequest} from "next/server";
+import {createSpeakerRecord, getSpeakers} from "@/lib/prisma/speaker-utils";
+
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");
   if (!firstName || !lastName || !attendeeId) {
@@ -22,14 +24,6 @@ export async function GET(request: NextRequest) {
   if (authorization && authorization.value && authorization.value.length > 0) {
     attendeeId = getValuesFromToken(authorization.value).attendeeId;
   }
-
-  // if no attendeeId, use a default value which is first entry in db.json file
-  // this code needs to be removed (next 3 lines) when adding the mock auth to app
-  if (!attendeeId) {
-    attendeeId = "d06bc605-a1ef-47c0-9956-d2dc7f98f8c7";
-  }
-
-
 
   const speakers = await getSpeakers(attendeeId ?? "");
 
