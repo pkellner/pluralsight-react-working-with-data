@@ -3,50 +3,47 @@ import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
-export default function Speakers() {
-  const speakers: Speaker[] = [
-    {
-      id: 1124,
-      firstName: "Douglas",
-      lastName: "Crockford",
-      company: "Virgule-Solidus",
-      twitterHandle: "douglas-does-not-tweet",
-      userBioShort:
-        "Douglas Crockford discovered the JSON Data Interchange Format.",
-      timeSpeaking: new Date("1970-01-01T00:00:00.000Z"),
-    },
-    {
-      id: 1269,
-      firstName: "Arun",
-      lastName: "Gupta",
-      company: "Couchbase",
-      twitterHandle: "arungupta",
-      userBioShort:
-        "Arun Gupta is a Principal Open Source Technologist at Amazon Web Services.",
-      timeSpeaking: new Date("1970-01-01T00:00:00.000Z"),
-    },
-    {
-      id: 187,
-      firstName: "Dave",
-      lastName: "Nielsen",
-      company: "Intel",
-      twitterHandle: "@davenielsen",
-      userBioShort:
-        "As Head of Ecosystem Programs, Dave uses emerging technologies and open source projects like Microservices, Serverless & Kubernetes to bring the magic of Redis to the broader community.",
-      timeSpeaking: new Date("1970-01-01T00:00:00.000Z"),
-    },
-  ];
-  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
+type LoadingStatusType =
+  "loading" | "success" | "error";
 
+export default function Speakers() {
+  
+  const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
+  const [loadingStatus, setLoadingStatus] =
+    useState<LoadingStatusType>("loading");
+  const [error, setError] =
+    useState<string | undefined>(undefined);
   useEffect(() => {
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
     async function go() {
-      await sleep(3000);
-      setSpeakerList(speakers);
+      try {
+        const response = await fetch("/api/speakers");
+        const data = await response.json();
+        setSpeakerList(data);
+        setLoadingStatus("success");
+      } catch (error) {
+        setLoadingStatus("error");
+        if (error instanceof Error) {
+          const errorMessage = error.message || "an unexpected error happened";
+          setError(errorMessage);
+        } else {
+          setError("an unexpected error happened");
+        }
+      }
     }
     go();
   }, []);
+
+  if (loadingStatus === "error") {
+    return (
+      <div className="card">
+        Error: {error}
+      </div>
+    );
+  }
+
+  if (loadingStatus === "loading") {
+    return <div>Loading ...</div>;
+  }
 
   return (
     <div className="container">

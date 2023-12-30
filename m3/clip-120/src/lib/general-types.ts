@@ -1,4 +1,5 @@
 export interface Speaker {
+
   id: number;
   firstName: string;
   lastName: string;
@@ -11,7 +12,7 @@ export interface Speaker {
   favoriteStatus?: FavoriteStatusEnum;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
-  _count?: { favorites: number };
+  //_count?: { favorites: number };
 }
 
 export interface Session {
@@ -52,3 +53,4 @@ type FavoriteStatusEnum =
   | "updating"
   | "hidden"
   | "errored";
+

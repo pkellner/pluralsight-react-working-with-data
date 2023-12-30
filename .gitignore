@@ -135,6 +135,7 @@ dev.db-journal
 .idea
 migration_lock.toml
 migrations
+clip-lengths.xlsx
 
 npmCheck
 
