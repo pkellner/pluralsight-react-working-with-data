@@ -99,7 +99,6 @@ export async function getSpeakers(attendeeId: string) {
             value.speakerId === speaker.id),
         };
       });
-      return speakers;
     } else {
       return speakers;
     }

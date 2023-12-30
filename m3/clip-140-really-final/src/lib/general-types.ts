@@ -12,7 +12,7 @@ export interface Speaker {
   favoriteStatus?: FavoriteStatusEnum;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
-  _count?: { favorites: number };
+  //_count?: { favorites: number };
 }
 
 export interface Session {
