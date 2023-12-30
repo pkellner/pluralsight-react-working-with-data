@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
-type LoadingStatusType =
-  "loading" | "success" | "error";
-
 export default function Speakers() {
 
   const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
+  type LoadingStatusType = "loading" | "success" | "error";
   const [loadingStatus, setLoadingStatus] =
     useState<LoadingStatusType>("loading");
   const [error, setError] =
