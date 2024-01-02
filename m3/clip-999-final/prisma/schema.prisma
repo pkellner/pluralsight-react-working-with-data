@@ -57,10 +57,3 @@ model SpeakerSession {
 
   @@id([speakerId, sessionId])
 }
-
-
-
-
-
-
-

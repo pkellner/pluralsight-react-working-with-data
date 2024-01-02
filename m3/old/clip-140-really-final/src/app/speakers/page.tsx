@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
-type LoadingStatusType =
-  "loading" | "success" | "error";
+type LoadingStatusType = "loading" | "success" | "error";
 
 export default function Speakers() {
-  
   const [speakerList, setSpeakerList] = useState<Speaker[]>([]);
   const [loadingStatus, setLoadingStatus] =
     useState<LoadingStatusType>("loading");
-  const [error, setError] =
-    useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
   useEffect(() => {
     async function go() {
       try {
@@ -34,11 +31,7 @@ export default function Speakers() {
   }, []);
 
   if (loadingStatus === "error") {
-    return (
-      <div className="card">
-        Error: {error}
-      </div>
-    );
+    return <div className="card">Error: {error}</div>;
   }
 
   if (loadingStatus === "loading") {

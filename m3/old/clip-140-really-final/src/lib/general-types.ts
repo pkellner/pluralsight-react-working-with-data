@@ -1,5 +1,4 @@
 export interface Speaker {
-
   id: number;
   firstName: string;
   lastName: string;
@@ -53,4 +52,3 @@ type FavoriteStatusEnum =
   | "updating"
   | "hidden"
   | "errored";
-

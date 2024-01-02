@@ -22,8 +22,6 @@
 //   https://www.prisma.io/docs/concepts/components/prisma-client
 //
 
-
-
 import { PrismaClient } from "@prisma/client";
 
 type LogOption = {
@@ -90,7 +88,6 @@ if (process.env.NODE_ENV === "production") {
 
 // @ts-ignore
 prisma.$on("query", (e) => {
-  
   // @ts-ignore
   if (e.query.toString().includes("SELECT UserImage")) return null;
 

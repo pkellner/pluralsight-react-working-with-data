@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
-import { createSpeakerRecord, getSpeakers }
-  from "@/lib/prisma/speaker-utils";
+import { createSpeakerRecord, getSpeakers } from "@/lib/prisma/speaker-utils";
 
 function getValuesFromToken(value: string) {
   const [firstName, lastName, attendeeId] = value.split("/");

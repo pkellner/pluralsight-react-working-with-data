@@ -95,8 +95,10 @@ export async function getSpeakers(attendeeId: string) {
       speakers.map((speaker: Speaker) => {
         return {
           ...speaker,
-          favorite: attendeeFavorites?.some((value: { attendeeId: string; speakerId: number }) =>
-            value.speakerId === speaker.id),
+          favorite: attendeeFavorites?.some(
+            (value: { attendeeId: string; speakerId: number }) =>
+              value.speakerId === speaker.id,
+          ),
         };
       });
       return speakers;

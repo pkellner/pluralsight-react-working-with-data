@@ -88,7 +88,6 @@ if (process.env.NODE_ENV === "production") {
 
 // @ts-ignore
 prisma.$on("query", (e) => {
-
   // @ts-ignore
   if (e.query.toString().includes("SELECT UserImage")) return null;
 
