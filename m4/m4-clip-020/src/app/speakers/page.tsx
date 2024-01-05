@@ -4,7 +4,6 @@ import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 
 export default function Speakers() {
-
   type SpeakerState = {
     speakerList: Speaker[];
     loadingStatus: "loading" | "success" | "error";
