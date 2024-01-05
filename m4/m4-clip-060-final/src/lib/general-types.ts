@@ -11,7 +11,6 @@ export interface Speaker {
   favoriteStatus?: FavoriteStatusEnum;
   sessions?: SpeakerSession[];
   favorites?: AttendeeFavorite[];
-  _count?: { favorites: number };
 }
 
 export interface Session {

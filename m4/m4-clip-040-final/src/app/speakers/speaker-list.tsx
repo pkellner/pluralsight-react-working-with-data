@@ -12,7 +12,7 @@ export default function SpeakerList() {
 
   if (speakerState.loadingStatus === "loading") {
     return (
-      <div className="container pb-4">
+      <div className="container">
         <div className="row g-4">
           {[1, 2, 3, 4, 5].map((item) => (
             <SpeakerDetailPending key={item} />
@@ -23,7 +23,7 @@ export default function SpeakerList() {
   }
 
   return (
-    <div className="container pb-4">
+    <div className="container">
       <div className="row g-4">
         {speakerState.speakerList.map(function (speaker: Speaker) {
           return <SpeakerDetail key={speaker.id} speaker={speaker} />;

@@ -1,6 +1,6 @@
 import { Speaker } from "@/lib/general-types";
 import React from "react";
- 
+
 export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
   interface HTMLImageElementEvent
     extends React.SyntheticEvent<HTMLImageElement> {
