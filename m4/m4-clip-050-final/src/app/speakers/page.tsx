@@ -14,7 +14,7 @@ export default function Speakers() {
   // );
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <Header />
       <div className="full-page-border app-content-background">
         <Nav />

@@ -14,7 +14,7 @@ export default function SpeakerList() {
   }
 
   return (
-    <div className="container">
+    <div className="container pb-4">
       <div className="row g-4">
         {speakerState.speakerList.map(function (speaker: Speaker) {
           return <SpeakerDetail key={speaker.id} speaker={speaker} />;
