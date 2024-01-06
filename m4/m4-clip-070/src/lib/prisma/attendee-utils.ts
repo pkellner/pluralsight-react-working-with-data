@@ -11,7 +11,11 @@ export async function getAttendeeRecords() {
       email: true,
       createdDate: true,
     },
-    orderBy: [{createdDate: "desc"},{ lastName: "asc" }, { firstName: "asc" }],
+    orderBy: [
+      { createdDate: "desc" },
+      { lastName: "asc" },
+      { firstName: "asc" },
+    ],
   });
 }
 

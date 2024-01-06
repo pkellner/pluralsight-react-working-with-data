@@ -2,7 +2,6 @@
 import React from "react";
 
 const Footer = () => {
-
   return (
     <footer className="header-footer-gradient home-rounded-corners-bottom-right">
       <div className="container p-4">

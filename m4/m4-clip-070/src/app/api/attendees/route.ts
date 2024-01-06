@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.log("POST:ERROR",error);
+    console.log("POST:ERROR", error);
     return new Response(
       JSON.stringify({ message: "Error creating attendee" }),
       { status: 500 },

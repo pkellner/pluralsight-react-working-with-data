@@ -3,7 +3,6 @@ import React from "react";
 import FooterSubscribe from "@/app/footer-subscribe";
 
 const Footer = () => {
-
   return (
     <footer className="header-footer-gradient home-rounded-corners-bottom-right">
       <div className="container p-4">
