@@ -1,16 +1,8 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import FooterSubscribe from "@/app/footer-subscribe";
 
 const Footer = () => {
-  const [email, setEmail] = React.useState("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
-
-  function handleEmailChange(event: ChangeEvent<HTMLInputElement>) {
-    setEmail(event.target.value);
-  }
-
   return (
     <footer className="header-footer-gradient home-rounded-corners-bottom-right">
       <div className="container p-4">

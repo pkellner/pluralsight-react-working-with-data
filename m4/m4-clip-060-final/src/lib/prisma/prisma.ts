@@ -1,3 +1,27 @@
+// Prisma client to be used in the application for all database queries
+//
+// If you want logging of SQL statements, set the following environment variables:
+//   LOGSQLSTATEMENT=true
+//
+// If you want logging of SQL execution time, set the following environment variables:
+//   LOGSQLMS=true
+//
+// If you want information about the SQL statements to be logged to the console, set the following environment variables:
+//   PRISMA_EVENT_QUERY=true
+//   PRISMA_STDOUT_ERROR=true
+//   PRISMA_STDOUT_INFO=true
+//   PRISMA_STDOUT_WARN=true
+//
+// Example usage:
+//   import prisma from "@/lib/prisma";
+//   ...
+//   const speakers = await prisma.speaker.findMany();
+//   ...
+//
+// For more information, see the Prisma documentation:
+//   https://www.prisma.io/docs/concepts/components/prisma-client
+//
+
 import { PrismaClient } from "@prisma/client";
 
 type LogOption = {
@@ -64,11 +88,6 @@ if (process.env.NODE_ENV === "production") {
 
 // @ts-ignore
 prisma.$on("query", (e) => {
-  // @ts-ignore
-  if (e.query.includes("UserImage")) {
-    return;
-  }
-
   // @ts-ignore
   if (e.query.toString().includes("SELECT UserImage")) return null;
 

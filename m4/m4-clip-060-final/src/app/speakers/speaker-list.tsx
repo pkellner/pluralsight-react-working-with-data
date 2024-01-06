@@ -1,7 +1,6 @@
-import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
-import SpeakerDetailPending from "@/app/speakers/speaker-detail-pending";
 import { Speaker } from "@/lib/general-types";
+import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 
 export default function SpeakerList() {
   const { speakerState } = useSpeakerDataContext();
@@ -11,15 +10,7 @@ export default function SpeakerList() {
   }
 
   if (speakerState.loadingStatus === "loading") {
-    return (
-      <div className="container pb-4">
-        <div className="row g-4">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <SpeakerDetailPending key={item} />
-          ))}
-        </div>
-      </div>
-    );
+    return <div>Loading ...</div>;
   }
 
   return (

@@ -1,7 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 // FooterSubscribe component
 export default function FooterSubscribe() {
   const [email, setEmail] = useState<string>("");
