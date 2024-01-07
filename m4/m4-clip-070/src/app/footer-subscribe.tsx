@@ -1,9 +1,11 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent }
+  from "react";
 
 export default function FooterSubscribe() {
   const [email, setEmail] = useState<string>("");
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange =
+    (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
@@ -26,7 +28,7 @@ export default function FooterSubscribe() {
         alert("Subscription updated successfully");
         setEmail("");
       } else {
-        alert("Failed to update subscription. Try again later");
+        alert("Failed to update subscription. Try again later.");
       }
     } catch (error) {
       console.log("Error in fetch:", error);

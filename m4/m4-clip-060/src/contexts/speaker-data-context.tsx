@@ -57,7 +57,7 @@ export default function SpeakerDataProvider({
       }
     }
     go();
-  }, []);
+  }, [speakerState]);
 
   return (
     <SpeakerDataContext.Provider value={{ speakerState }}>

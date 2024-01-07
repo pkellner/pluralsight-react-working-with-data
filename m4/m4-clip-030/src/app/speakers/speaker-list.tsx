@@ -39,7 +39,7 @@ export default function SpeakerList() {
       }
     }
     go();
-  }, []);
+  }, [speakerState]);
 
   if (speakerState.loadingStatus === "error") {
     return <div className="card">Error: {speakerState.error}</div>;
