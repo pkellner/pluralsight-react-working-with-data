@@ -5,6 +5,7 @@ enum NavRoutes {
   Home = "/",
   SpeakersWithLoadingStatus = "/speakers-with-loading-status",
   SpeakersWithSuspense = "/speakers-with-suspense",
+  SpeakersWithSuspenseServerOnly = "/speakers-with-suspense-server-only",
 }
 
 export default function Nav() {
@@ -72,6 +73,20 @@ export default function Nav() {
               onClick={() => handleNavClick(NavRoutes.SpeakersWithSuspense)}
             >
               Speakers With Suspense
+            </a>
+          </li>
+          <li
+            className={`nav-item ${
+              activeNav == NavRoutes.SpeakersWithSuspenseServerOnly ? "active" : ""
+            }
+          }`}
+          >
+            <a
+              className="nav-link"
+              href={NavRoutes.SpeakersWithSuspenseServerOnly}
+              onClick={() => handleNavClick(NavRoutes.SpeakersWithSuspenseServerOnly)}
+            >
+              Speakers With Suspense Server Only
             </a>
           </li>
         </ul>

@@ -7,16 +7,15 @@ import { Suspense } from "react";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchSpeakers() {
-  console.log("fetchSpeakers start");
-  await sleep(2000);
-  const response = await fetch("http://localhost:3000/api/speakers");
-  return await response.json();
-}
-
-const speakerListPromise = fetchSpeakers();
-
 export default function Speakers() {
+  async function fetchSpeakers() {
+    await sleep(2000);
+    const response = await fetch("http://localhost:3000/api/speakers");
+    return await response.json();
+  }
+
+  const speakerListPromise = fetchSpeakers();
+
   return (
     <div className="container">
       <Header />

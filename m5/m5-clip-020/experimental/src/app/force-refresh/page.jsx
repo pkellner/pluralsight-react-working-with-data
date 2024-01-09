@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // Custom hook to fetch data
 function useCustomFetch(dataDependency) {
   const fetchData = async () => {
-    // Your fetch logic here
+    // Fetch logic here
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Fetched data: " + dataDependency);
