@@ -16,7 +16,6 @@ function getValuesFromToken(value: string) {
   return { firstName, lastName, attendeeId };
 }
 
-
 // This function handles the GET request
 export async function GET(
   request: Request,

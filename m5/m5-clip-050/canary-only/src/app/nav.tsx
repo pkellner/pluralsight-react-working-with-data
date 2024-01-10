@@ -77,14 +77,18 @@ export default function Nav() {
           </li>
           <li
             className={`nav-item ${
-              activeNav == NavRoutes.SpeakersWithSuspenseServerOnly ? "active" : ""
+              activeNav == NavRoutes.SpeakersWithSuspenseServerOnly
+                ? "active"
+                : ""
             }
           }`}
           >
             <a
               className="nav-link"
               href={NavRoutes.SpeakersWithSuspenseServerOnly}
-              onClick={() => handleNavClick(NavRoutes.SpeakersWithSuspenseServerOnly)}
+              onClick={() =>
+                handleNavClick(NavRoutes.SpeakersWithSuspenseServerOnly)
+              }
             >
               Speakers With Suspense Server Only
             </a>

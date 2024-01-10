@@ -1,5 +1,4 @@
 import { Speaker } from "@/lib/general-types";
-import React from "react";
 import SpeakerFavoriteCount from "@/app/speakers-with-suspense/speaker-favorite-count";
 
 export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {

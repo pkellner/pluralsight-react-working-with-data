@@ -1,5 +1,5 @@
 import { Speaker } from "@/lib/general-types";
-import React from "react";
+import SpeakerFavoriteCount from "@/app/speakers-with-loading-status/speaker-favorite-count";
 
 export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
   interface HTMLImageElementEvent
@@ -7,7 +7,7 @@ export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
     target: HTMLImageElement;
   }
   const handleImageError = (e: HTMLImageElementEvent) => {
-    e.target.src = "/images/speaker-pending.png"; // default speaker
+    e.target.src = "/images/speaker-pending.png";
   };
 
   return (
@@ -27,6 +27,11 @@ export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
 
           <div className="col-8 d-flex flex-column flex-nowrap">
             <div className="card-body">
+              <div className="speaker-action d-flex">
+                <div className="favoriteToggleWrapper">
+                  <SpeakerFavoriteCount speakerId={speaker.id} />
+                </div>
+              </div>
               <h4 className="card-title">
                 {speaker.firstName} {speaker.lastName}
               </h4>

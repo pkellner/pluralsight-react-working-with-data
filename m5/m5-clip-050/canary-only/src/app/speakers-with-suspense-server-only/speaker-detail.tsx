@@ -3,7 +3,6 @@ import React from "react";
 import SpeakerFavoriteCount from "@/app/speakers-with-suspense-server-only/speaker-favorite-count";
 
 export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
-
   return (
     <div className="col-xl-6 col-ms-12">
       <div className="card border-0 h-100">

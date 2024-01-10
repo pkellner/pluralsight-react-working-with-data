@@ -6,20 +6,17 @@ import ErrorBoundary from "@/app/error-boundary";
 function SuspenseFallback() {
   return (
     <div>
-
-      <button disabled
-              className="btn btn-primary m-3"
-      >
+      <button disabled className="btn btn-primary m-3">
         Refresh
       </button>
-       <span className="text-muted">Favorite Count: *</span>
+      <span className="text-muted">Favorite Count: *</span>
     </div>
-  )
+  );
 }
 
 export default function SpeakerFavoriteCount({
-                                               speakerId,
-                                             }: {
+  speakerId,
+}: {
   speakerId: number;
 }) {
   const sleep = (ms: number) =>
@@ -47,7 +44,6 @@ export default function SpeakerFavoriteCount({
 
   // <Suspense fallback={<div className="text-muted">Favorite Count: *</div>}>
 
-
   return (
     <ErrorBoundary
       fallback={
@@ -67,7 +63,6 @@ export default function SpeakerFavoriteCount({
           <SpeakerFavoriteCountDisplay
             favoriteCountPromise={favoriteCountPromise}
           />
-
         </div>
       </Suspense>
     </ErrorBoundary>

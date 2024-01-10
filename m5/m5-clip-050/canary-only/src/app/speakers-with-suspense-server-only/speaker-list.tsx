@@ -3,7 +3,6 @@ import SpeakerDetail from "@/app/speakers-with-suspense-server-only/speaker-deta
 import { Speaker } from "@/lib/general-types";
 
 export default async function SpeakerList() {
-
   async function fetchSpeakers() {
     const response = await fetch("http://localhost:3000/api/speakers");
     return await response.json();

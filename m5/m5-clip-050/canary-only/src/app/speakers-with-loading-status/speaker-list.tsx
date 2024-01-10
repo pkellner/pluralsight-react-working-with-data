@@ -39,7 +39,7 @@ export default function SpeakerList() {
       }
     }
     go();
-  }, [speakerState]);
+  }, []);
 
   if (speakerState.loadingStatus === "error") {
     return <div className="card">Error: {speakerState.error}</div>;
@@ -50,7 +50,7 @@ export default function SpeakerList() {
   }
 
   return (
-    <div className="container pb-4">xxx
+    <div className="container pb-4">
       <div className="row g-4">
         {speakerState.speakerList.map(function (speaker: Speaker) {
           return <SpeakerDetail key={speaker.id} speaker={speaker} />;

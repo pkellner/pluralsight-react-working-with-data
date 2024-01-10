@@ -1,7 +1,8 @@
-import {use, useMemo, useState} from "react";
-
-export default async function SpeakerFavoriteCountDisplay({speakerId}: {speakerId: number}) {
-
+export default async function SpeakerFavoriteCountDisplay({
+  speakerId,
+}: {
+  speakerId: number;
+}) {
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -16,7 +17,6 @@ export default async function SpeakerFavoriteCountDisplay({speakerId}: {speakerI
     const data = await response.json();
     return data.favoriteCount;
   }
-
 
   // const favoriteCountPromise = fetchFavoriteCount();
   const favoriteCount = await fetchFavoriteCount();

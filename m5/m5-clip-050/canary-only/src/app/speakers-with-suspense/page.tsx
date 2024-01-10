@@ -1,9 +1,10 @@
 "use client";
+import { Suspense } from "react";
 import SpeakerList from "@/app/speakers-with-suspense/speaker-list";
 import Footer from "@/app/footer";
 import Nav from "@/app/nav";
 import Header from "@/app/header";
-import { Suspense } from "react";
+import ErrorBoundary from "@/app/error-boundary";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -21,9 +22,11 @@ export default function Speakers() {
       <Header />
       <div className="full-page-border app-content-background">
         <Nav />
-        <Suspense fallback={<div>Loading......</div>}>
-          <SpeakerList speakerListPromise={speakerListPromise} />
-        </Suspense>
+        <ErrorBoundary fallback={<div>Error Retrieving Speakers Data</div>}>
+          <Suspense fallback={<div>Loading......</div>}>
+            <SpeakerList speakerListPromise={speakerListPromise} />
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <Footer />
     </div>
