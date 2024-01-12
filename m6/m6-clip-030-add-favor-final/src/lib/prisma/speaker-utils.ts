@@ -1,6 +1,7 @@
-import prisma from "./prisma";
+import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 
+// Define an interface that extends the Speaker type from Prisma
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
@@ -35,7 +36,7 @@ export async function createSpeakerRecord(speaker: Speaker) {
 }
 
 export async function deleteSpeakerRecord(id: number) {
-  return prisma.$transaction(async (prisma: any) => {
+  return await prisma.$transaction(async (prisma) => {
     await prisma.speakerSession.deleteMany({
       where: { speakerId: Number(id) },
     });
@@ -70,16 +71,10 @@ export async function getSpeakers(attendeeId: string) {
           },
         },
       })
-    )
-      .sort(
-        (a, b) =>
-          a.lastName.localeCompare(b.lastName) ||
-          a.firstName.localeCompare(b.firstName),
-      )
-      .map((speaker: Speaker) => ({
-        ...speaker,
-        favoriteCount: speaker?._count?.favorites,
-      }));
+    ).map((speaker) => ({
+      ...speaker,
+      favoriteCount: speaker._count.favorites,
+    }));
 
     if (attendeeId) {
       const attendeeFavorites = await prisma.attendeeFavorite.findMany({
@@ -92,16 +87,14 @@ export async function getSpeakers(attendeeId: string) {
         },
       });
 
-      speakers.map((speaker: Speaker) => {
+      return speakers.map((speaker) => {
         return {
           ...speaker,
           favorite: attendeeFavorites?.some(
-            (value: { attendeeId: string; speakerId: number }) =>
-              value.speakerId === speaker.id,
+            (attendeeFavorite) => attendeeFavorite.speakerId === speaker.id,
           ),
         };
       });
-      return speakers;
     } else {
       return speakers;
     }

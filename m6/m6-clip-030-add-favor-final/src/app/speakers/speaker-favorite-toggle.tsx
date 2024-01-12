@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
+import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
                                                 speakerId,
@@ -8,6 +9,7 @@ export default function SpeakerFavoriteToggle({
   speakerId: number;
 }) {
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
+  const { data: session } = useSession();
 
   const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
@@ -18,6 +20,7 @@ export default function SpeakerFavoriteToggle({
   return (
     <div>
       <button
+        disabled={!session?.user?.email}
         className={
           speakerRec?.favorite
             ? "heart-red-button btn"
