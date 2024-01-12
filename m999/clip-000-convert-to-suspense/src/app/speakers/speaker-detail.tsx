@@ -34,7 +34,6 @@ export default function SpeakerDetail({ speakerId }: { speakerId: number }) {
 
             <div className="col-8 d-flex flex-column flex-nowrap">
               <div className="card-body">
-
                 <h4 className="card-title">
                   {speakerRec.firstName} {speakerRec.lastName}
                 </h4>

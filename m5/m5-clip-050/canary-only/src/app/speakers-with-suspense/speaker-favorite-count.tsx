@@ -42,8 +42,6 @@ export default function SpeakerFavoriteCount({
     [dependency],
   );
 
-  // <Suspense fallback={<div className="text-muted">Favorite Count: *</div>}>
-
   return (
     <ErrorBoundary
       fallback={

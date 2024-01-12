@@ -1,18 +1,14 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect,  }
-  from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // FooterSubscribe component
 export default function FooterSubscribe() {
   const [email, setEmail] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] =
-    useState<boolean>(false);
-  const [isButtonDisabled, setIsButtonDisabled] =
-    useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  const handleEmailChange =
-    (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
