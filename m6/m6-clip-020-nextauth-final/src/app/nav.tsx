@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -46,21 +45,23 @@ export default function Nav() {
         className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
         id="navbarNav"
       >
-        <ul className="navbar-nav mr-auto">
-          <li
-            className={`nav-item ${
-              activeNav === NavRoutes.Speakers ? "active" : ""
-            }`}
-          >
-            <a
-              className="nav-link"
-              href={NavRoutes.Speakers}
-              onClick={() => handleNavClick(NavRoutes.Speakers)}
+        <div className="d-flex justify-content-between w-100">
+          <ul className="navbar-nav">
+            <li
+              className={`nav-item ${
+                activeNav === NavRoutes.Speakers ? "active" : ""
+              }`}
             >
-              Speakers
-            </a>
-          </li>
-          <li>
+              <a
+                className="nav-link"
+                href={NavRoutes.Speakers}
+                onClick={() => handleNavClick(NavRoutes.Speakers)}
+              >
+                Speakers
+              </a>
+            </li>
+          </ul>
+          <div>
             {session?.user ? (
               <a
                 className="nav-link"
@@ -71,7 +72,7 @@ export default function Nav() {
                   signOut();
                 }}
               >
-                Logout: {session?.user.email}
+                <b>Logout:</b> {session?.user.email}
               </a>
             ) : (
               <a
@@ -83,11 +84,11 @@ export default function Nav() {
                   signIn();
                 }}
               >
-                Login {JSON.stringify(session?.user)}
+                <b>Login </b>
               </a>
             )}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </nav>
   );

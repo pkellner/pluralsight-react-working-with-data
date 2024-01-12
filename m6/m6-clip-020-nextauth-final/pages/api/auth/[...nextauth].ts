@@ -1,27 +1,18 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma/prisma";
 
 export const authOptions: NextAuthOptions = {
-  pages: {
-    //signIn: "/auth/signin",
-  },
-
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Pluralsight Demo App",
-      // `credentials` is used to generate a form on the sign in id.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         username: {
-          label: "Username",
+          label: "Email",
           type: "text",
-          placeholder: "Username",
+          placeholder: "Email",
         },
-        password: { label: "Password", type: "password" },
+        password: { label: "Password: Not Needed For Demo", type: "password" },
       },
       async authorize(credentials, req) {
         async function goAsync() {
@@ -41,11 +32,9 @@ export const authOptions: NextAuthOptions = {
             },
           });
 
+          // no password check needed for demo. if attendee is null, then, login fails (meaning not found)
+
           if (attendee) {
-            //userObject.email = attendee.Email ?? "";
-
-
-
             userObject.user = {
               email: attendee.email ?? "",
               id: attendee.id,
@@ -56,24 +45,18 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
         }
-        const userObject = await goAsync();
-        console.log("authorize: userObject:", userObject);
-        return userObject;
+        return await goAsync();
       },
     }),
   ],
 
-  // this helped: https://stackoverflow.com/questions/64576733/where-and-how-to-change-session-user-object-after-signing-in/64595973#64595973
   callbacks: {
     jwt: async function ({ token, user }) {
-      // invoked before session function
       user && (token.email = user.email);
-      const newToken = { ...token, ...user };
-      return newToken;
+      return {...token, ...user};
     },
     session: async function ({ session, token }) {
-      const _session = { ...session, ...token };
-      return _session;
+      return {...session, ...token};
     },
   },
 };
