@@ -4,8 +4,8 @@ import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
-                                                speakerId,
-                                              }: {
+  speakerId,
+}: {
   speakerId: number;
 }) {
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading

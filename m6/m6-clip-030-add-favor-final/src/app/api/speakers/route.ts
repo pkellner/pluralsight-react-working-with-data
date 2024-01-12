@@ -8,17 +8,13 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 export async function GET(request: NextRequest) {
-  await sleep(2000);
+  await sleep(1000);
 
   const authSessionData: { user?: { id: string; email: string } } | null =
     await getServerSession(authOptions);
 
-  console.log("/api/speakers GET sessionData", authSessionData?.user?.id);
-
   const attendeeId = authSessionData?.user?.id;
-
   const speakers = await getSpeakers(attendeeId ?? "");
-  console.log("/api/speakers GET speakers", speakers);
 
   return new Response(JSON.stringify(speakers, null, 2), {
     status: 200,

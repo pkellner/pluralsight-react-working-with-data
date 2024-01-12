@@ -29,14 +29,11 @@ const SpeakerDataContext = createContext<SpeakerDataContextProps | undefined>(
   undefined,
 );
 
-
 export default function SpeakerDataProvider({
-                                              children,
-                                            }: {
+  children,
+}: {
   children: ReactNode;
 }) {
-
-
   const initialState: SpeakerState = {
     speakerList: [],
     loadingStatus: "loading",
@@ -135,17 +132,6 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // get original speaker data so can check and see if favorite has changed and have some hope of getting latest favoriteCount
-        const responseOriginalSpeaker = await fetch(
-          `/api/speakers/${speaker.id}`,
-        );
-        if (!responseOriginalSpeaker.ok) {
-          throw new Error(
-            `Network response was not ok for fetch /api/speakers/${speaker.id}`,
-          );
-        }
-        const originalSpeaker = await responseOriginalSpeaker.json();
-
         // now update the speaker
         const response = await fetch(`/api/speakers/${speaker.id}`, {
           method: "PUT",
@@ -158,30 +144,14 @@ export default function SpeakerDataProvider({
           throw new Error(`Error: ${response.status}`);
         }
 
-        // check to see if favorite has changed
+        const updatedSpeakerRec = await response.json(); // Read the response once
 
-        if (originalSpeaker?.favorite !== speaker?.favorite) {
-          // if favorite has changed, then need to update the speakerList
-          // first remove the original speaker from the speakerList
-          const filteredSpeakerList = speakerState.speakerList.filter(
-            (speakerRec) => speakerRec.id !== speaker.id,
-          );
-
-          setSpeakerState((prevState) => ({
-            ...prevState,
-            speakerList: [...filteredSpeakerList, speaker],
-          }));
-        }
-
-        const updatedSpeaker = await response.json();
         setSpeakerState((prevState) => ({
           ...prevState,
-          speakerList: prevState.speakerList.map((speaker) =>
-            speaker.id === updatedSpeaker.id ? updatedSpeaker : speaker,
+          speakerList: prevState.speakerList.map((speakerRec) =>
+            speakerRec.id === speaker.id ? updatedSpeakerRec : speakerRec,
           ),
         }));
-
-        return updatedSpeaker;
       } catch (error) {
         console.error("Error updating speaker:", error);
         throw error;

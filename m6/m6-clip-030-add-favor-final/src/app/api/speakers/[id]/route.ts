@@ -7,14 +7,8 @@ import {
   updateSpeakerRecord,
 } from "@/lib/prisma/speaker-utils";
 import { Speaker } from "@/lib/general-types";
-
-function getValuesFromToken(value: string) {
-  const [firstName, lastName, attendeeId] = value.split("/");
-  if (!firstName || !lastName || !attendeeId) {
-    throw new Error("Invalid authorization token");
-  }
-  return { firstName, lastName, attendeeId };
-}
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../../pages/api/auth/[...nextauth]";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -59,11 +53,9 @@ export async function GET(
 // This function handles the PUT request (UPDATE)
 export async function PUT(request: NextRequest) {
   // check for logged in attendee
-  const authorization = request.cookies.get("authToken");
-  const attendeeId =
-    authorization && authorization.value && authorization.value.length > 0
-      ? getValuesFromToken(authorization.value).attendeeId
-      : undefined; // or any other default value for the case when the user is not logged in
+
+  const authSessionData: { user?: { id: string; email: string } } | null =
+    await getServerSession(authOptions);
 
   const requestData = await request.json();
   const {
@@ -91,7 +83,10 @@ export async function PUT(request: NextRequest) {
   await sleep(1000);
 
   try {
-    let updatedSpeaker = await updateSpeakerRecord(speaker, attendeeId);
+    let updatedSpeaker = await updateSpeakerRecord(
+      speaker,
+      authSessionData?.user?.id,
+    );
 
     return new Response(JSON.stringify(updatedSpeaker, null, 2), {
       status: 200,
