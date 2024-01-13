@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/contexts/speaker-data-context";

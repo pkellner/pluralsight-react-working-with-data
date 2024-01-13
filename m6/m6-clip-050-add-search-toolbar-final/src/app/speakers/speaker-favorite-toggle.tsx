@@ -40,7 +40,7 @@ export default function SpeakerFavoriteToggle({
         }
         onClick={(e) => {
           e.preventDefault();
-          setSpeakerOptimistic(latestSpeakerRec);
+          setSpeakerOptimistic(updatedSpeakerRec);
           setLoadingStatus("loading");
           updateSpeaker(
             updatedSpeakerRec,
