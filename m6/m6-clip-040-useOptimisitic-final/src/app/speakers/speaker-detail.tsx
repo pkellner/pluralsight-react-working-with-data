@@ -30,7 +30,7 @@ export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
             <div className="card-body">
               <div className="speaker-action d-flex">
                 <div className="favoriteToggleWrapper">
-                  <SpeakerFavoriteToggle speakerId={speaker.id} />
+                  <SpeakerFavoriteToggle speaker={speaker} />
                 </div>
               </div>
 

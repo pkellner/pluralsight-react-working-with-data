@@ -4,46 +4,61 @@ import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
-  speakerId,
+  speaker,
 }: {
-  speakerId: number;
+  speaker: Speaker;
 }) {
   const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
+
   const { data: session } = useSession();
 
-  const { speakerState, updateSpeaker } = useSpeakerDataContext();
+  const { updateSpeaker } = useSpeakerDataContext();
 
-  const speakerRec: Speaker =
-    speakerState.speakerList.find((value) => value.id === speakerId) ??
-    ({} as Speaker); // this should always be a real speaker
+  const [speakerLocal] = useState<Speaker>(speaker);
+
+  const [speakerOptimistic, setSpeakerOptimistic] =
+    useState<Speaker>(speakerLocal);
+
+  const updatedSpeakerRec: Speaker = {
+    ...speakerOptimistic,
+    favorite: !speakerOptimistic?.favorite,
+    favoriteCount:
+      (speakerOptimistic?.favoriteCount ?? 0) +
+      (speakerOptimistic?.favorite ? -1 : 1),
+  };
 
   return (
     <div>
       <button
         disabled={!session?.user?.email}
         className={
-          speakerRec?.favorite
-            ? "heart-red-button btn"
-            : "heart-dark-button btn"
+          speakerOptimistic?.favorite ? "heart-red-button btn" : "heart-dark-button btn"
         }
         onClick={(e) => {
           e.preventDefault();
-          const newSpeakerRec: Speaker = {
-            ...speakerRec,
-            favorite: !speakerRec?.favorite,
-          };
+          setSpeakerOptimistic(updatedSpeakerRec);
           setLoadingStatus("loading");
-          updateSpeaker(newSpeakerRec, () => {
+          updateSpeaker(updatedSpeakerRec, () => {
             setLoadingStatus("success");
           });
         }}
       >
         {loadingStatus === "loading" ? (
-          <i className="spinner-border text-dark" role="status" />
+          <>
+            <span className="m-2 text-primary" style={{ opacity: 50 }}>
+              ({speakerOptimistic?.favoriteCount})
+            </span>
+            <i className="spinner-border text-dark" role="status" />{" "}
+          </>
         ) : (
-          <span className="m-2 text-primary">
-            ({speakerRec?.favoriteCount})
-          </span>
+          <>
+            <span className="m-2 text-primary">({speaker?.favoriteCount})</span>
+            <i
+              className="spinner-border text-dark"
+              role="status"
+              style={{ opacity: 0 }}
+            />{" "}
+          </>
         )}
       </button>
     </div>
