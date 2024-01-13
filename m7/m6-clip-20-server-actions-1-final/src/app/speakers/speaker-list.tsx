@@ -1,24 +1,17 @@
+"use client";
 import SpeakerDetail from "@/app/speakers/speaker-detail";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
+import { useSpeakerMenuContext } from "@/contexts/speaker-menu-context";
+import useSpeakerSortAndFilter from "@/hooks/use-speaker-sort-and-filter";
 
 export default function SpeakerList() {
   const { speakerState } = useSpeakerDataContext();
+  const { searchText } = useSpeakerMenuContext();
 
-  if (speakerState.loadingStatus === "error") {
-    return <div className="card">Error: {speakerState.error}</div>;
-  }
-
-  if (speakerState.loadingStatus === "loading") {
-    return <div>Loading ...</div>;
-  }
-
-  const speakerListSorted = speakerState.speakerList.sort(
-    (a: Speaker, b: Speaker) => {
-      const nameA = (a.lastName + a.firstName).toLowerCase();
-      const nameB = (b.lastName + b.firstName).toLowerCase();
-      return nameA.localeCompare(nameB);
-    },
+  const speakerListSorted = useSpeakerSortAndFilter(
+    speakerState.speakerList,
+    searchText,
   );
 
   return (

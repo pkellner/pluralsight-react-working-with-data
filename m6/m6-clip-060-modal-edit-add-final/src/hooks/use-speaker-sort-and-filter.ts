@@ -1,3 +1,5 @@
+import { Speaker } from "@/lib/general-types";
+
 export default function useSpeakerSortAndFilter(
   speakerList: Array<any>,
   searchText: string,
@@ -12,14 +14,10 @@ export default function useSpeakerSortAndFilter(
             )
           );
         })
-        .sort(function (a, b) {
-          if (a.firstName < b.firstName) {
-            return -1;
-          }
-          if (a.firstName > b.firstName) {
-            return 1;
-          }
-          return 0;
+        .sort((a: Speaker, b: Speaker) => {
+          const nameA = (a.lastName + a.firstName).toLowerCase();
+          const nameB = (b.lastName + b.firstName).toLowerCase();
+          return nameA.localeCompare(nameB);
         })
     : [];
 }

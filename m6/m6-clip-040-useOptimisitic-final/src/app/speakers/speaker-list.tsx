@@ -15,8 +15,8 @@ export default function SpeakerList() {
 
   const speakerListSorted = speakerState.speakerList.sort(
     (a: Speaker, b: Speaker) => {
-      const nameA = a.lastName + a.firstName;
-      const nameB = b.lastName + b.firstName;
+      const nameA = (a.lastName + a.firstName).toLowerCase();
+      const nameB = (b.lastName + b.firstName).toLowerCase();
       return nameA.localeCompare(nameB);
     },
   );
