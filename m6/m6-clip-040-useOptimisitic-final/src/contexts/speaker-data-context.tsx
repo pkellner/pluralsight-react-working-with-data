@@ -19,7 +19,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 interface SpeakerDataContextProps {
   speakerState: SpeakerState;
   setSpeakerState: React.Dispatch<React.SetStateAction<SpeakerState>>;
-  updateSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
+  updateSpeaker: (
+    speakerRec: Speaker,
+    completionFunction: () => void,
+    errorFunction: () => void,
+  ) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
 }
@@ -115,13 +119,19 @@ export default function SpeakerDataProvider({
       }
     }
     create().then(() => {
-      completionFunction();
+      if (completionFunction) {
+        completionFunction();
+      }
     });
   }
 
   // this is included here because it is used in the SpeakerMenu component from speaker-dialog-add.tsx.
   // that uses the same window for both create and updated, even though it is only used in add mode from that component.
-  function updateSpeaker(speaker: Speaker, completionFunction: () => void) {
+  function updateSpeaker(
+    speaker: Speaker,
+    completionFunction: () => void,
+    errorFunction?: () => void,
+  ) {
     async function update() {
       try {
         // cleanup timeSpeaking
@@ -149,15 +159,18 @@ export default function SpeakerDataProvider({
             ),
           }));
         } else {
-          console.log("RESPONSE FAILED!!!!!");
-          completionFunction();
+          if (errorFunction) {
+            errorFunction();
+          }
         }
       } catch (error) {
         console.error("Error updating speaker:", error);
       }
     }
     update().then(() => {
-      completionFunction();
+      if (completionFunction) {
+        completionFunction();
+      }
     });
   }
 
@@ -194,7 +207,9 @@ export default function SpeakerDataProvider({
       }
     }
     deleteSpeakerInternal().then(() => {
-      completionFunction();
+      if (completionFunction) {
+        completionFunction();
+      }
     });
   }
 

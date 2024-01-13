@@ -14,7 +14,7 @@ export default function SpeakerFavoriteToggle({
 
   const { updateSpeaker } = useSpeakerDataContext();
 
-  const [speakerLocal] = useState<Speaker>(speaker);
+  const [speakerLocal, setSpeakerLocal] = useState<Speaker>(speaker);
 
   const [speakerOptimistic, setSpeakerOptimistic] =
     useState<Speaker>(speakerLocal);
@@ -32,15 +32,24 @@ export default function SpeakerFavoriteToggle({
       <button
         disabled={!session?.user?.email}
         className={
-          speakerOptimistic?.favorite ? "heart-red-button btn" : "heart-dark-button btn"
+          speakerOptimistic?.favorite
+            ? "heart-red-button btn"
+            : "heart-dark-button btn"
         }
         onClick={(e) => {
           e.preventDefault();
           setSpeakerOptimistic(updatedSpeakerRec);
           setLoadingStatus("loading");
-          updateSpeaker(updatedSpeakerRec, () => {
-            setLoadingStatus("success");
-          });
+          updateSpeaker(
+            updatedSpeakerRec,
+            () => {
+              setLoadingStatus("success");
+            },
+            () => {
+              setLoadingStatus("error");
+              setSpeakerOptimistic(speakerLocal);
+            },
+          );
         }}
       >
         {loadingStatus === "loading" ? (
@@ -52,7 +61,9 @@ export default function SpeakerFavoriteToggle({
           </>
         ) : (
           <>
-            <span className="m-2 text-primary">({speaker?.favoriteCount})</span>
+            <span className="m-2 text-primary">
+              ({speakerOptimistic?.favoriteCount})
+            </span>
             <i
               className="spinner-border text-dark"
               role="status"
