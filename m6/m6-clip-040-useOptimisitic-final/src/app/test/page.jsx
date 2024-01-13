@@ -50,6 +50,7 @@ export default function App() {
 }
 
 async function deliverMessage(message) {
+  //throw new Error("Failed to deliver message");
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(message);

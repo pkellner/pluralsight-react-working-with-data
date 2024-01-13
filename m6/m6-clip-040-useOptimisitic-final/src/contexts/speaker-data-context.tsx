@@ -140,21 +140,20 @@ export default function SpeakerDataProvider({
           },
           body: JSON.stringify(speaker),
         });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+        if (response?.ok) {
+          const updatedSpeakerRec = await response.json(); // Read the response once
+          setSpeakerState((prevState) => ({
+            ...prevState,
+            speakerList: prevState.speakerList.map((speakerRec) =>
+              speakerRec.id === speaker.id ? updatedSpeakerRec : speakerRec,
+            ),
+          }));
+        } else {
+          console.log("RESPONSE FAILED!!!!!");
+          completionFunction();
         }
-
-        const updatedSpeakerRec = await response.json(); // Read the response once
-
-        setSpeakerState((prevState) => ({
-          ...prevState,
-          speakerList: prevState.speakerList.map((speakerRec) =>
-            speakerRec.id === speaker.id ? updatedSpeakerRec : speakerRec,
-          ),
-        }));
       } catch (error) {
         console.error("Error updating speaker:", error);
-        throw error;
       }
     }
     update().then(() => {
