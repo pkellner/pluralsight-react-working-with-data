@@ -160,6 +160,7 @@ export default function SpeakerDataProvider({
           }));
         } else {
           if (errorFunction) {
+            await sleep(1000);
             errorFunction();
           }
         }
