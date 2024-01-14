@@ -1,9 +1,5 @@
 "use client";
-import React, { 
-  createContext, 
-  ReactNode, 
-  useContext, 
-  useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Speaker } from "@/lib/general-types";
 
 type SpeakerState = {

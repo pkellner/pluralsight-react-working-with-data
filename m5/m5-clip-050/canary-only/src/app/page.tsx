@@ -7,13 +7,13 @@ import Home from "@/app/home";
 
 export default function HomePage() {
   return (
-    <div className="container-fluid">
-      <Header />
+    <div className="container">
+      <Header/>
       <div className="full-page-border app-content-background">
-        <Nav />
-        <Home />
+        <Nav/>
+        <Home/>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

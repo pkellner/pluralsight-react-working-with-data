@@ -1,5 +1,5 @@
 "use client";
-import { useOptimistic, useState, useRef } from "react";
+import { useOptimistic, useRef, useState } from "react";
 
 function Thread({ messages, sendMessage }) {
   const formRef = useRef();

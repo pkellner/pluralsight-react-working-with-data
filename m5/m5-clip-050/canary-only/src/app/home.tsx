@@ -12,3 +12,20 @@ export default function Home() {
     </div>
   );
 }
+
+
+/*
+<div className="container">
+      <Header />
+      <div className="full-page-border app-content-background">
+        <Nav />
+        <ErrorBoundary fallback={<div>Error Retrieving Speakers Data</div>}>
+          <Suspense fallback={<div>Loading......</div>}>
+            <SpeakerList />
+          </Suspense>
+        </ErrorBoundary>
+      </div>
+      <Footer />
+    </div>
+
+ */

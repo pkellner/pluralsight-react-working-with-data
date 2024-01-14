@@ -3,17 +3,6 @@ import SpeakerFavoriteCountDisplay from "@/app/speakers-with-suspense/speaker-fa
 import { Suspense } from "react";
 import ErrorBoundary from "@/app/error-boundary";
 
-function SuspenseFallback() {
-  return (
-    <div>
-      <button disabled className="btn btn-primary m-3">
-        Refresh
-      </button>
-      <span className="text-muted">Favorite Count: *</span>
-    </div>
-  );
-}
-
 export default function SpeakerFavoriteCount({
   speakerId,
 }: {
@@ -33,21 +22,15 @@ export default function SpeakerFavoriteCount({
     const data = await response.json();
     return data.favoriteCount;
   }
-
   const [dependency, setDependency] = useState(0);
-
-  // const favoriteCountPromise = fetchFavoriteCount();
   const favoriteCountPromise = useMemo(
     () => fetchFavoriteCount(),
     [dependency],
   );
-
   return (
     <ErrorBoundary
       fallback={
-        <div className="text-danger">
-          Error Occurred when loading Favorite Count..
-        </div>
+        <div className="text-danger">Error Occurred when loading Favorite Count..</div>
       }
     >
       <Suspense fallback={<SuspenseFallback />}>
@@ -64,5 +47,16 @@ export default function SpeakerFavoriteCount({
         </div>
       </Suspense>
     </ErrorBoundary>
+  );
+}
+
+function SuspenseFallback() {
+  return (
+    <div>
+      <button disabled className="btn btn-primary m-3">
+        Refresh
+      </button>
+      <span className="text-muted">Favorite Count: *</span>
+    </div>
   );
 }
