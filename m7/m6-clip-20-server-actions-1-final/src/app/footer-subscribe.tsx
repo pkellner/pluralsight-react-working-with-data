@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import addAttendeeAction from "@/app/footer-subsribe-action";
+import { AttendeeSchema } from "@/lib/zod-schemas";
 
 function ButtonSubmitStep1({ buttonDisabled }: { buttonDisabled: boolean }) {
   const { pending } = useFormStatus();
@@ -31,6 +32,7 @@ export default function FooterSubscribe() {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [error, setError] = useState<string | undefined>();
 
   const initialState = {
     step: "STEP1",
@@ -121,7 +123,17 @@ export default function FooterSubscribe() {
             </div>
           </>
         )}
+        {error && <div className="text-danger">{error}</div>}
         {whichStep === "DONE" && "Thank you for subscribing!"}
+        {state?.message && (
+          <div
+            className={`mt-3 text-${
+              state.message.startsWith("error:") ? "danger" : "primary"
+            }`}
+          >
+            {state.message}
+          </div>
+        )}
       </form>
     </>
   );

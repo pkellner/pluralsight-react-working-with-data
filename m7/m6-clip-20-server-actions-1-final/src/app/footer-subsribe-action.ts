@@ -4,13 +4,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma/prisma";
 
 import { z } from 'zod';
-
-const AttendeeSchema = z.object({
-  id: z.string().nullable(),
-  firstName: z.string().min(1, 'First name is required').nullable().optional(),
-  lastName: z.string().min(1, 'Last name is required').nullable().optional(),
-  email: z.string().email('Invalid email format').nullable().optional(),
-});
+import { AttendeeSchema } from "@/lib/zod-schemas";
 
 type AttendeeZodType = z.infer<typeof AttendeeSchema>;
 
@@ -22,8 +16,6 @@ export default async function addAttendeeAction(
   prevState: any,
   formData: FormData,
 ) {
-
-
   // const email = formData.get("email") as string;
   // const id = formData.get("id") as string;
   // const firstName = formData.get("firstName") as string;
@@ -34,15 +26,23 @@ export default async function addAttendeeAction(
     firstName: formData.get("firstName") as string,
     lastName: formData.get("lastName") as string,
     email: formData.get("email") as string,
-    // Add other fields if necessary
   };
 
   // Validate the data against the AttendeeSchema
-  const validatedData = AttendeeSchema.parse(data);
+  const validatedFields = AttendeeSchema.safeParse(data);
 
-  const { email, id, firstName, lastName } = validatedData;
+  if (!validatedFields.success) {
+      let errorMessage = "";
+    validatedFields.error.issues.forEach(
+        (issue) => errorMessage += `${issue.path[0]}:${issue.message};`,
+      );
+    return {
+      message: errorMessage,
+      step: "ERROR"
+    }
+  }
 
-
+  const { email, id, firstName, lastName } = validatedFields.data
 
   await sleep(2000);
 
@@ -60,7 +60,7 @@ export default async function addAttendeeAction(
     revalidatePath("/");
 
     return {
-      message: "Updated attendee " + email,
+      message: "Success!",
       step: "DONE",
     };
   }
