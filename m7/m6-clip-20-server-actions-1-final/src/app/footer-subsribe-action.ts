@@ -3,6 +3,17 @@
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma/prisma";
 
+import { z } from 'zod';
+
+const AttendeeSchema = z.object({
+  id: z.string().nullable(),
+  firstName: z.string().min(1, 'First name is required').nullable().optional(),
+  lastName: z.string().min(1, 'Last name is required').nullable().optional(),
+  email: z.string().email('Invalid email format').nullable().optional(),
+});
+
+type AttendeeZodType = z.infer<typeof AttendeeSchema>;
+
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
@@ -11,10 +22,27 @@ export default async function addAttendeeAction(
   prevState: any,
   formData: FormData,
 ) {
-  const email = formData.get("email") as string;
-  const id = formData.get("id") as string;
-  const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
+
+
+  // const email = formData.get("email") as string;
+  // const id = formData.get("id") as string;
+  // const firstName = formData.get("firstName") as string;
+  // const lastName = formData.get("lastName") as string;
+
+  const data : AttendeeZodType = {
+    id: formData.get("id") as string,
+    firstName: formData.get("firstName") as string,
+    lastName: formData.get("lastName") as string,
+    email: formData.get("email") as string,
+    // Add other fields if necessary
+  };
+
+  // Validate the data against the AttendeeSchema
+  const validatedData = AttendeeSchema.parse(data);
+
+  const { email, id, firstName, lastName } = validatedData;
+
+
 
   await sleep(2000);
 
@@ -24,8 +52,8 @@ export default async function addAttendeeAction(
         id: id,
       },
       data: {
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstName ?? "",
+        lastName: lastName ?? "",
       },
     });
 
@@ -44,10 +72,10 @@ export default async function addAttendeeAction(
       return v.toString(16);
     });
   }
-  
+
   const attendee = {
     id: createGUID(),
-    email: email,
+    email: email ?? "",
     firstName: "_firstName_",
     lastName: "_lastName_",
     createdDate: new Date(),
@@ -56,7 +84,7 @@ export default async function addAttendeeAction(
   try {
     const count = await prisma.attendee.count({
       where: {
-        email: email,
+        email: email ?? "",
       },
     });
     if (count > 0) {
