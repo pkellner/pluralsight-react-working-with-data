@@ -1,6 +1,5 @@
-import { useState, useMemo } from "react";
+import { Suspense, useMemo, useState } from "react";
 import SpeakerFavoriteCountDisplay from "@/app/speakers-with-suspense/speaker-favorite-count-display";
-import { Suspense } from "react";
 import ErrorBoundary from "@/app/error-boundary";
 
 export default function SpeakerFavoriteCount({
@@ -30,7 +29,9 @@ export default function SpeakerFavoriteCount({
   return (
     <ErrorBoundary
       fallback={
-        <div className="text-danger">Error Occurred when loading Favorite Count..</div>
+        <div className="text-danger">
+          Error Occurred when loading Favorite Count..
+        </div>
       }
     >
       <Suspense fallback={<SuspenseFallback />}>

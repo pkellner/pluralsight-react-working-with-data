@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function FooterSubscribe() {
   const [email, setEmail] = useState<string>("");

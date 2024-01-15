@@ -1,6 +1,3 @@
-import SpeakerFavoriteToggle from "@/app/speakers/speaker-favorite-toggle";
-import SpeakerDialogEdit from "@/app/speakers/speaker-dialog-edit";
-import DeleteSpeakerButton from "@/app/speakers/delete-speaker-button";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/components/contexts/speaker-data-context";
 import { useLocalAuthContext } from "@/components/contexts/auth-context";

@@ -2,7 +2,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import addAttendeeAction from "@/app/footer-subsribe-action";
-import { AttendeeSchema } from "@/lib/zod-schemas";
 
 function ButtonSubmitStep1({ buttonDisabled }: { buttonDisabled: boolean }) {
   const { pending } = useFormStatus();

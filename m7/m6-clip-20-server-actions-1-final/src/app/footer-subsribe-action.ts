@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma/prisma";
 
-import { z } from 'zod';
+import { z } from "zod";
 import { AttendeeSchema } from "@/lib/zod-schemas";
 
 type AttendeeZodType = z.infer<typeof AttendeeSchema>;
@@ -21,7 +21,7 @@ export default async function addAttendeeAction(
   // const firstName = formData.get("firstName") as string;
   // const lastName = formData.get("lastName") as string;
 
-  const data : AttendeeZodType = {
+  const data: AttendeeZodType = {
     id: formData.get("id") as string,
     firstName: formData.get("firstName") as string,
     lastName: formData.get("lastName") as string,
@@ -32,17 +32,17 @@ export default async function addAttendeeAction(
   const validatedFields = AttendeeSchema.safeParse(data);
 
   if (!validatedFields.success) {
-      let errorMessage = "";
+    let errorMessage = "";
     validatedFields.error.issues.forEach(
-        (issue) => errorMessage += `${issue.path[0]}:${issue.message};`,
-      );
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
+    );
     return {
       message: errorMessage,
-      step: "ERROR"
-    }
+      step: "ERROR",
+    };
   }
 
-  const { email, id, firstName, lastName } = validatedFields.data
+  const { email, id, firstName, lastName } = validatedFields.data;
 
   await sleep(2000);
 

@@ -1,4 +1,4 @@
-import { AttendeeFavorite, Speaker, SpeakerSession } from "@/lib/general-types";
+import { Speaker } from "@/lib/general-types";
 
 export default function SpeakerDetail({ speaker }: { speaker: Speaker }) {
   type Speaker = {

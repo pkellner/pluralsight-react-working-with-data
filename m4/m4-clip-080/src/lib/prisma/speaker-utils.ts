@@ -71,10 +71,7 @@ export async function getSpeakers(attendeeId: string) {
             },
           },
         },
-        orderBy: [
-          { lastName: "asc" },
-          { firstName: "asc" },
-        ],
+        orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
       })
     ).map((speaker) => ({
       ...speaker,

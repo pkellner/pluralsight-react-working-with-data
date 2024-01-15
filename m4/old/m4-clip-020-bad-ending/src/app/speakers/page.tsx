@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import SpeakerDetail from "./speaker-detail";
 import { Speaker } from "@/lib/general-types";
 import SpeakerDataProvider, {
