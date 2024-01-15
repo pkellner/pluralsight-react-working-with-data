@@ -36,7 +36,7 @@ export async function createSpeakerRecord(speaker: Speaker) {
 }
 
 export async function deleteSpeakerRecord(id: number) {
-  return await prisma.$transaction(async (prisma) => {
+  return prisma.$transaction(async (prisma) => {
     await prisma.speakerSession.deleteMany({
       where: { speakerId: Number(id) },
     });
@@ -52,6 +52,7 @@ export async function deleteSpeakerRecord(id: number) {
 }
 
 export async function getSpeakers(attendeeId: string) {
+  //} : Promise<Speaker[]>  {
   try {
     await sleep(1000);
     const speakers = (

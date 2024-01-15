@@ -1,6 +1,7 @@
-import prisma from "./prisma";
+import prisma from "@/lib/prisma/prisma";
 import { Speaker } from "@/lib/general-types";
 
+// Define an interface that extends the Speaker type from Prisma
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
@@ -51,6 +52,7 @@ export async function deleteSpeakerRecord(id: number) {
 }
 
 export async function getSpeakers(attendeeId: string) {
+  //} : Promise<Speaker[]>  {
   try {
     await sleep(1000);
     const speakers = (
