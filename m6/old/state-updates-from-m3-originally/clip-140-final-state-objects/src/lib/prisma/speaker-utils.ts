@@ -70,6 +70,10 @@ export async function getSpeakers(attendeeId: string) {
             },
           },
         },
+        orderBy: [
+          { lastName: "asc" },
+          { firstName: "asc" },
+        ],
       })
     )
       .sort(
