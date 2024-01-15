@@ -1,7 +1,6 @@
-import prisma from "@/lib/prisma/prisma";
+import prisma from "./prisma";
 import { Speaker } from "@/lib/general-types";
 
-// Define an interface that extends the Speaker type from Prisma
 export interface ExtendedSpeaker extends Speaker {
   favorite?: boolean;
 }
@@ -36,7 +35,7 @@ export async function createSpeakerRecord(speaker: Speaker) {
 }
 
 export async function deleteSpeakerRecord(id: number) {
-  return await prisma.$transaction(async (prisma) => {
+  return prisma.$transaction(async (prisma) => {
     await prisma.speakerSession.deleteMany({
       where: { speakerId: Number(id) },
     });
