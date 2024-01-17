@@ -22,7 +22,7 @@ interface SpeakerDataContextProps {
   updateSpeaker: (
     speakerRec: Speaker,
     completionFunction: () => void,
-    errorFunction: () => void,
+    errorFunction?: () => void,
   ) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
