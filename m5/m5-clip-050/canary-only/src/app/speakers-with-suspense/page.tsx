@@ -11,7 +11,8 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export default function Speakers() {
   async function fetchSpeakers() {
     await sleep(2000);
-    const response = await fetch("http://localhost:3000/api/speakers");
+    const response =
+      await fetch("http://localhost:3000/api/speakers");
     return await response.json();
   }
 
@@ -24,7 +25,8 @@ export default function Speakers() {
         <Nav />
         <ErrorBoundary fallback={<div>Error Retrieving Speakers Data</div>}>
           <Suspense fallback={<div>Loading......</div>}>
-            <SpeakerList speakerListPromise={speakerListPromise} />
+            <SpeakerList
+              speakerListPromise={speakerListPromise} />
           </Suspense>
         </ErrorBoundary>
       </div>

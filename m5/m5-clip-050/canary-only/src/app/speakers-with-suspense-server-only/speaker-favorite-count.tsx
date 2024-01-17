@@ -2,7 +2,7 @@ import SpeakerFavoriteCountDisplay from "@/app/speakers-with-suspense-server-onl
 import { Suspense } from "react";
 import ErrorBoundary from "@/app/error-boundary";
 
-export const dynamic = "force-dynamic";
+//export const dynamic = "force-dynamic";
 
 function SuspenseFallback() {
   return (
@@ -20,8 +20,6 @@ export default function SpeakerFavoriteCount({
 }: {
   speakerId: number;
 }) {
-  // <Suspense fallback={<div className="text-muted">Favorite Count: *</div>}>
-
   return (
     <ErrorBoundary
       fallback={
@@ -32,7 +30,7 @@ export default function SpeakerFavoriteCount({
     >
       <Suspense fallback={<SuspenseFallback />}>
         <form>
-          <button className="btn btn-primary m-3">Refresh</button>
+          <button className="btn btn-primary m-3" >Refresh</button>
           <SpeakerFavoriteCountDisplay speakerId={speakerId} />
         </form>
       </Suspense>
