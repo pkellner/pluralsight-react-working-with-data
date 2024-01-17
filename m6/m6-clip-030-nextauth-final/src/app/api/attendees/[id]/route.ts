@@ -1,5 +1,3 @@
-// This function handles the GET request
-
 import {
   deleteAttendeeRecord,
   getOneAttendeeRecord,
@@ -37,9 +35,8 @@ export async function GET(
 
 // This function handles the PUT request
 export async function PUT(request: Request) {
-  await sleep(3000);
+  await sleep(1000);
   try {
-    // const id = request.url.split("/").pop();
     const data = await request.json();
 
     const updatedAttendee = await updateAttendeeRecord(data);
@@ -71,9 +68,7 @@ export async function DELETE(
   const id = params.id;
   await sleep(3000);
   try {
-    // Start a transaction
     await deleteAttendeeRecord(id);
-
     return new Response(null, { status: 204 });
   } catch (error) {
     return new Response(

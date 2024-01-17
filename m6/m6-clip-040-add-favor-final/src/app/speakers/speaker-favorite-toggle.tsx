@@ -7,16 +7,15 @@ export default function SpeakerFavoriteToggle({
   speakerId,
 }: {
   speakerId: number;
-}) {
-  const [loadingStatus, setLoadingStatus] = useState("success"); // default to loading
-  const { data: session } = useSession();
-
+  }) {
+  const { data: session } = useSession();  // get authentication status
+  const [loadingStatus, setLoadingStatus] = useState("success");
   const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
     speakerState.speakerList.find((value) => value.id === speakerId) ??
     ({} as Speaker); // this should always be a real speaker
-
+  
   return (
     <div>
       <button
@@ -28,23 +27,31 @@ export default function SpeakerFavoriteToggle({
         }
         onClick={(e) => {
           e.preventDefault();
-          const newSpeakerRec: Speaker = {
+          setLoadingStatus("loading");
+          const updatedSpeakerRec: Speaker = {
             ...speakerRec,
             favorite: !speakerRec?.favorite,
           };
-          setLoadingStatus("loading");
-          updateSpeaker(newSpeakerRec, () => {
+          updateSpeaker(updatedSpeakerRec, () => {
             setLoadingStatus("success");
           });
         }}
       >
-        {loadingStatus === "loading" ? (
-          <i className="spinner-border text-dark" role="status" />
-        ) : (
-          <span className="m-2 text-primary">
-            ({speakerRec?.favoriteCount})
+        <>
+          <span
+            className={`m-2 text-primary ${
+              loadingStatus === "loading" ? "hide-modal" : ""
+            }`}
+          >
+            {speakerRec?.favoriteCount}
           </span>
-        )}
+          <i
+            className={`spinner-border text-dark ${
+              loadingStatus === "loading" ? "" : "hide-modal"
+            }`}
+            role="status"
+          />
+        </>
       </button>
     </div>
   );

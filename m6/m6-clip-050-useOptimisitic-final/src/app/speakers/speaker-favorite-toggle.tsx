@@ -1,78 +1,63 @@
-import { useState } from "react";
+import { useState, useOptimistic } from "react";
 import { Speaker } from "@/lib/general-types";
 import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
-  speakerId,
-}: {
+                                                speakerId,
+                                              }: {
   speakerId: number;
 }) {
+  const { data: session } = useSession();  // get authentication status
   const [loadingStatus, setLoadingStatus] = useState("success");
+  const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
-  const { data: session } = useSession();
+  const speakerRec: Speaker =
+    speakerState.speakerList.find((value) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
-  const { updateSpeaker, speakerState } = useSpeakerDataContext();
-  const { speakerList } = speakerState;
+  const [speakerRecOptimistic, setSpeakerRecOptimistic] =
+    useState<Speaker>(speakerRec);
 
-  const latestSpeakerRec: Speaker =
-    speakerList.find((rec: Speaker) => rec.id === speakerId) ?? ({} as Speaker);
-
-  const [speakerOptimistic, setSpeakerOptimistic] =
-    useState<Speaker>(latestSpeakerRec);
-
-  const updatedSpeakerRec: Speaker = {
-    ...latestSpeakerRec,
-    favorite: !latestSpeakerRec?.favorite,
-    favoriteCount:
-      (latestSpeakerRec?.favoriteCount ?? 0) +
-      (latestSpeakerRec?.favorite ? -1 : 1),
-  };
 
   return (
     <div>
       <button
-        disabled={!session?.user}
+        disabled={!session?.user?.email}
         className={
-          speakerOptimistic?.favorite
+          speakerRecOptimistic?.favorite
             ? "heart-red-button btn"
             : "heart-dark-button btn"
         }
         onClick={(e) => {
           e.preventDefault();
-          setSpeakerOptimistic(updatedSpeakerRec);
+          const updatedSpeakerRec: Speaker = {
+            ...speakerRec,
+            favorite: !speakerRec?.favorite,
+            favoriteCount:
+              (speakerRec?.favoriteCount ?? 0) +
+              (speakerRec?.favorite ? -1 : 1),
+          };
+          setSpeakerRecOptimistic(updatedSpeakerRec);
           setLoadingStatus("loading");
-          updateSpeaker(
-            updatedSpeakerRec,
-            () => {
-              setLoadingStatus("success");
-            },
-            () => {
-              setLoadingStatus("error");
-              setSpeakerOptimistic(latestSpeakerRec);
-            },
-          );
+          updateSpeaker(updatedSpeakerRec, () => {
+            setLoadingStatus("success");
+          });
         }}
       >
-        {loadingStatus === "loading" ? (
-          <>
-            <span className="m-2 text-primary" style={{ opacity: 50 }}>
-              ({speakerOptimistic?.favoriteCount})
-            </span>
-            <i className="spinner-border text-dark" role="status" />{" "}
-          </>
-        ) : (
-          <>
-            <span className="m-2 text-primary">
-              ({speakerOptimistic?.favoriteCount})
-            </span>
-            <i
-              className="spinner-border text-dark"
-              role="status"
-              style={{ opacity: 0 }}
-            />{" "}
-          </>
-        )}
+        <>
+          <span
+            className={`m-2 text-primary`}
+          >
+            {speakerRecOptimistic?.favoriteCount}
+          </span>
+          <i
+            className={`spinner-border text-dark ${
+              loadingStatus === "loading" ? "" : "hide-modal"
+            }`}
+            role="status"
+          />
+        </>
       </button>
     </div>
   );
