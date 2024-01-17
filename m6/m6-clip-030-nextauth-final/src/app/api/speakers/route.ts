@@ -1,27 +1,18 @@
 import { NextRequest } from "next/server";
 import { createSpeakerRecord, getSpeakers } from "@/lib/prisma/speaker-utils";
-
-function getValuesFromToken(value: string) {
-  const [firstName, lastName, attendeeId] = value.split("/");
-  if (!firstName || !lastName || !attendeeId) {
-    throw new Error("Invalid authorization token");
-  }
-  return { firstName, lastName, attendeeId };
-}
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../pages/api/auth/[...nextauth]";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 export async function GET(request: NextRequest) {
-  await sleep(2000);
+  await sleep(1000);
 
-  // DANGER: This authentication is purely for demo purpose and is absolutely not secure. Do not use this in any kind of production app.
-  let attendeeId;
-  const authorization = request.cookies.get("authToken");
-  if (authorization && authorization.value && authorization.value.length > 0) {
-    attendeeId = getValuesFromToken(authorization.value).attendeeId;
-  }
+  const authSessionData: { user?: { id: string; email: string } } | null =
+    await getServerSession(authOptions);
 
+  const attendeeId = authSessionData?.user?.id;
   const speakers = await getSpeakers(attendeeId ?? "");
 
   return new Response(JSON.stringify(speakers, null, 2), {
