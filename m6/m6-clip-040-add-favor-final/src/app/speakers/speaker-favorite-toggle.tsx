@@ -7,15 +7,15 @@ export default function SpeakerFavoriteToggle({
   speakerId,
 }: {
   speakerId: number;
-  }) {
-  const { data: session } = useSession();  // get authentication status
+}) {
+  const { data: session } = useSession(); // get authentication status
   const [loadingStatus, setLoadingStatus] = useState("success");
   const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
     speakerState.speakerList.find((value) => value.id === speakerId) ??
     ({} as Speaker); // this should always be a real speaker
-  
+
   return (
     <div>
       <button

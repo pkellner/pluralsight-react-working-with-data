@@ -4,11 +4,11 @@ import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
-                                                speakerId,
-                                              }: {
+  speakerId,
+}: {
   speakerId: number;
 }) {
-  const { data: session } = useSession();  // get authentication status
+  const { data: session } = useSession(); // get authentication status
   const [loadingStatus, setLoadingStatus] = useState("success");
   const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
@@ -18,7 +18,6 @@ export default function SpeakerFavoriteToggle({
 
   const [speakerRecOptimistic, setSpeakerRecOptimistic] =
     useState<Speaker>(speakerRec);
-
 
   return (
     <div>
@@ -46,9 +45,7 @@ export default function SpeakerFavoriteToggle({
         }}
       >
         <>
-          <span
-            className={`m-2 text-primary`}
-          >
+          <span className={`m-2 text-primary`}>
             {speakerRecOptimistic?.favoriteCount}
           </span>
           <i
