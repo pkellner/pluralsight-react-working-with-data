@@ -7,12 +7,12 @@ import useSpeakerSortAndFilter from "@/hooks/use-speaker-sort-and-filter";
 export default function SpeakerList() {
   const { speakerState } = useSpeakerDataContext();
   const { searchText } = useSpeakerMenuContext();
-
+  
   const speakerListSorted = useSpeakerSortAndFilter(
     speakerState.speakerList,
     searchText,
   );
-
+  
   if (speakerState.loadingStatus === "error") {
     return <div className="card">Error: {speakerState.error}</div>;
   }
@@ -20,7 +20,6 @@ export default function SpeakerList() {
   if (speakerState.loadingStatus === "loading") {
     return <div>Loading ...</div>;
   }
-
   return (
     <div className="container pb-4">
       <div className="row g-4">

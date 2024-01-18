@@ -14,13 +14,13 @@ export default function Speakers() {
       <Header />
       <div className="full-page-border app-content-background">
         <NextAuthProvider>
-          <SpeakerMenuProvider>
-            <Nav />
-            <SpeakerDataProvider>
+          <Nav />
+          <SpeakerDataProvider>
+            <SpeakerMenuProvider>
               <SpeakerMenu />
               <SpeakerList />
-            </SpeakerDataProvider>
-          </SpeakerMenuProvider>
+            </SpeakerMenuProvider>
+          </SpeakerDataProvider>
         </NextAuthProvider>
       </div>
       <Footer />
