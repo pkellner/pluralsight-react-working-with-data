@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import FooterSubscribe from "@/app/footer-subscribe";
 

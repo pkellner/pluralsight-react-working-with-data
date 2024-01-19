@@ -8,71 +8,50 @@ export default function SpeakerFavoriteToggle({
 }: {
   speakerId: number;
 }) {
+  const { data: session } = useSession(); // get authentication status
   const [loadingStatus, setLoadingStatus] = useState("success");
+  const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
-  const { data: session } = useSession();
-
-  const { updateSpeaker, speakerState } = useSpeakerDataContext();
-  const { speakerList } = speakerState;
-
-  const latestSpeakerRec: Speaker =
-    speakerList.find((rec: Speaker) => rec.id === speakerId) ?? ({} as Speaker);
-
-  const [speakerOptimistic, setSpeakerOptimistic] =
-    useState<Speaker>(latestSpeakerRec);
-
-  const updatedSpeakerRec: Speaker = {
-    ...latestSpeakerRec,
-    favorite: !latestSpeakerRec?.favorite,
-    favoriteCount:
-      (latestSpeakerRec?.favoriteCount ?? 0) +
-      (latestSpeakerRec?.favorite ? -1 : 1),
-  };
+  const speakerRec: Speaker =
+    speakerState.speakerList.find((value) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   return (
     <div>
       <button
-        disabled={!session?.user}
+        disabled={!session?.user?.email}
         className={
-          speakerOptimistic?.favorite
+          speakerRec?.favorite
             ? "heart-red-button btn"
             : "heart-dark-button btn"
         }
         onClick={(e) => {
           e.preventDefault();
-          setSpeakerOptimistic(updatedSpeakerRec);
           setLoadingStatus("loading");
-          updateSpeaker(
-            updatedSpeakerRec,
-            () => {
-              setLoadingStatus("success");
-            },
-            () => {
-              setLoadingStatus("error");
-              setSpeakerOptimistic(latestSpeakerRec);
-            },
-          );
+          const updatedSpeakerRec: Speaker = {
+            ...speakerRec,
+            favorite: !speakerRec?.favorite,
+          };
+          updateSpeaker(updatedSpeakerRec, () => {
+            setLoadingStatus("success");
+          });
         }}
       >
-        {loadingStatus === "loading" ? (
-          <>
-            <span className="m-2 text-primary" style={{ opacity: 50 }}>
-              ({speakerOptimistic?.favoriteCount})
-            </span>
-            <i className="spinner-border text-dark" role="status" />{" "}
-          </>
-        ) : (
-          <>
-            <span className="m-2 text-primary">
-              ({speakerOptimistic?.favoriteCount})
-            </span>
-            <i
-              className="spinner-border text-dark"
-              role="status"
-              style={{ opacity: 0 }}
-            />{" "}
-          </>
-        )}
+        <>
+          <span
+            className={`m-2 text-primary ${
+              loadingStatus === "loading" ? "hide-modal" : ""
+            }`}
+          >
+            {speakerRec?.favoriteCount}
+          </span>
+          <i
+            className={`spinner-border text-dark ${
+              loadingStatus === "loading" ? "" : "hide-modal"
+            }`}
+            role="status"
+          />
+        </>
       </button>
     </div>
   );
