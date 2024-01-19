@@ -7,8 +7,7 @@ export default function SpeakerList({
 }: {
   speakerListPromise: Promise<Speaker[]>;
 }) {
-  const speakerList: Speaker[] =
-    use(speakerListPromise);
+  const speakerList: Speaker[] = use(speakerListPromise);
   return (
     <div className="container pb-4">
       <div className="row g-4">

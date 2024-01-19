@@ -3,7 +3,8 @@ import React, {
   createContext,
   ReactNode,
   useContext,
-  useEffect, useOptimistic,
+  useEffect,
+  useOptimistic,
   useState,
 } from "react";
 import { Speaker } from "@/lib/general-types";
@@ -48,7 +49,9 @@ export default function SpeakerDataProvider({
 
   const [speakerState, setSpeakerState] = useState<SpeakerState>(initialState);
 
-  const [speakerListOptimistic, setSpeakerListOptimistic] = useOptimistic<Speaker[]>(speakerState.speakerList);
+  const [speakerListOptimistic, setSpeakerListOptimistic] = useOptimistic<
+    Speaker[]
+  >(speakerState.speakerList);
 
   useEffect(() => {
     async function fetchSpeakers() {

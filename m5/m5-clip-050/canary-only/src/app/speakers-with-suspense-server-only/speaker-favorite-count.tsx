@@ -30,7 +30,7 @@ export default function SpeakerFavoriteCount({
     >
       <Suspense fallback={<SuspenseFallback />}>
         <form>
-          <button className="btn btn-primary m-3" >Refresh</button>
+          <button className="btn btn-primary m-3">Refresh</button>
           <SpeakerFavoriteCountDisplay speakerId={speakerId} />
         </form>
       </Suspense>

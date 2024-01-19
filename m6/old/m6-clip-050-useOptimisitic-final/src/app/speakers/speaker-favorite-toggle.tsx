@@ -4,13 +4,18 @@ import { useSpeakerDataContext } from "@/contexts/speaker-data-context";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerFavoriteToggle({
-                                                speakerId,
-                                              }: {
+  speakerId,
+}: {
   speakerId: number;
 }) {
   const { data: session } = useSession(); // get authentication status
   const [loadingStatus, setLoadingStatus] = useState("success");
-  const { speakerState, updateSpeaker, speakerListOptimistic, setSpeakerListOptimistic } = useSpeakerDataContext();
+  const {
+    speakerState,
+    updateSpeaker,
+    speakerListOptimistic,
+    setSpeakerListOptimistic,
+  } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
     speakerListOptimistic.find((value) => value.id === speakerId) ??

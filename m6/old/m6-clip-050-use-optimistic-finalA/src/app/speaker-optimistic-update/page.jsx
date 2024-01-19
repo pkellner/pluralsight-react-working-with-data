@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useState, useOptimistic, startTransition} from "react";
+import { useEffect, useState, useOptimistic, startTransition } from "react";
 
 export default function SpeakerOptimisticUpdate() {
   const [speakerList, setSpeakerList] = useState([]);
@@ -48,13 +48,19 @@ export default function SpeakerOptimisticUpdate() {
                   };
 
                   const newOptimisticSpeakerList = optimisticSpeakerList.map(
-                    (rec) => (rec.id === id ? {...toggledSpeakerRec, lastName: toggledSpeakerRec.lastName + " updating..."} : rec),
+                    (rec) =>
+                      rec.id === id
+                        ? {
+                            ...toggledSpeakerRec,
+                            lastName:
+                              toggledSpeakerRec.lastName + " updating...",
+                          }
+                        : rec,
                   );
 
                   startTransition(() => {
                     setOptimisticSpeakerList(newOptimisticSpeakerList);
                   });
-
 
                   fetch(`/api/speakers/${id}`, {
                     method: "PUT",

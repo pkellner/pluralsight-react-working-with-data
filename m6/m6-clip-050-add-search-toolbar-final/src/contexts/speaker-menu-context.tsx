@@ -4,7 +4,9 @@ interface SpeakerMenuContextProps {
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }
-const SpeakerMenuContext = createContext<SpeakerMenuContextProps | undefined>(undefined);
+const SpeakerMenuContext = createContext<SpeakerMenuContextProps | undefined>(
+  undefined,
+);
 export default function SpeakerMenuProvider({
   children,
 }: {
@@ -24,7 +26,9 @@ export default function SpeakerMenuProvider({
 export function useSpeakerMenuContext() {
   const context = useContext(SpeakerMenuContext);
   if (!context) {
-    throw new Error("useSpeakerMenuContext must be used within a SpeakerMenuProvider",);
+    throw new Error(
+      "useSpeakerMenuContext must be used within a SpeakerMenuProvider",
+    );
   }
   return context;
 }
