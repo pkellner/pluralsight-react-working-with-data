@@ -1,3 +1,4 @@
+'use client';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 // Types for the wizard steps

@@ -1,5 +1,3 @@
-"use client";
-
 export default function Header() {
   return (
     <div className="hero py-4 mt-2 header-footer-gradient home-rounded-corners-top-left">

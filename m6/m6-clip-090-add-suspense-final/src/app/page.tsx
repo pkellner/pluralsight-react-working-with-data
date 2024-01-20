@@ -1,4 +1,3 @@
-"use client";
 import Footer from "@/app/footer";
 import Nav from "@/app/nav";
 import Header from "@/app/header";
