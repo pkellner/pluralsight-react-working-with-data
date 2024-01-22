@@ -8,6 +8,7 @@ import {
 } from "@/lib/prisma/speaker-utils";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import { SpeakerSchema } from "@/lib/zod-schemas";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -15,11 +16,38 @@ const sleep = (milliseconds: number) => {
 
 export async function createSpeakerAction(speakerData: Speaker) {
   await sleep(1000);
+
+  const validatedFields = SpeakerSchema.safeParse(speakerData);
+  if (!validatedFields.success) {
+    let errorMessage = "";
+    validatedFields.error.issues.forEach(
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
+    );
+    throw new Error(errorMessage);
+    // return {
+    //   message: errorMessage,
+    //   step: "ERROR",
+    // };
+  }
+
   return await createSpeakerRecord(speakerData);
 }
 
 export async function updateSpeakerAction(speakerData: Speaker) {
   await sleep(1000);
+
+  const validatedFields = SpeakerSchema.safeParse(speakerData);
+  if (!validatedFields.success) {
+    let errorMessage = "";
+    validatedFields.error.issues.forEach(
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
+    );
+    throw new Error(errorMessage);
+    // return {
+    //   message: errorMessage,
+    //   step: "ERROR",
+    // };
+  }
 
   const authSessionData: { user?: { id: string; email: string } } | null =
     await getServerSession(authOptions);

@@ -40,9 +40,9 @@ export default function SpeakerModalFooter() {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
                 setModalShow(false);
               },
-              () => {
-                console.log("error in speaker update");
+              (error: string) => {
                 setUpdating(false);
+                throw new Error(error);
               },
             );
           }}

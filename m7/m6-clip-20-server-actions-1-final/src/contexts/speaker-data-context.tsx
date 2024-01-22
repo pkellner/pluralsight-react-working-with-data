@@ -19,7 +19,7 @@ interface SpeakerDataContextProps {
   updateSpeaker: (
     speakerRec: Speaker,
     completionFunction: () => void,
-    errorFunction?: () => void,
+    errorFunction?: (message: string) => void,
   ) => void;
   createSpeaker: (speakerRec: Speaker, completionFunction: () => void) => void;
   deleteSpeaker: (id: number, completionFunction: () => void) => void;
@@ -49,7 +49,6 @@ export default function SpeakerDataProvider({
       const speakerToAdd: Speaker = { ...speaker, id: 0 };
 
       try {
-        // SHOULD BE DOING ZOD THING HERE
         const newSpeaker = await createSpeakerAction(speakerToAdd);
         setSpeakerState((prevState) => ({
           ...prevState,
@@ -73,7 +72,7 @@ export default function SpeakerDataProvider({
   function updateSpeaker(
     speaker: Speaker,
     completionFunction: () => void,
-    errorFunction?: () => void,
+    errorFunction?: (val: string) => void,
   ) {
     async function update() {
       try {
@@ -97,10 +96,10 @@ export default function SpeakerDataProvider({
               : speakerRec,
           ),
         }));
-      } catch (error) {
+      } catch (error : unknown) {
         console.error("Error updating speaker:", error);
         if (errorFunction) {
-          errorFunction();
+          errorFunction((error as { message: string }).message);
         }
       }
     }
