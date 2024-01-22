@@ -28,7 +28,7 @@ export default async function ListAttendees() {
             <td>{attendee.firstName}</td>
             <td>{attendee.lastName}</td>
             <td>{attendee.email}</td>
-            <td>{attendee.createdDate.toLocaleTimeString()}</td>
+            <td>{attendee.createdDate.toLocaleTimeString()} - {attendee.id}</td>
           </tr>
         ))}
         </tbody>

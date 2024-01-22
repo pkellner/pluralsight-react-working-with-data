@@ -1,5 +1,5 @@
 "use client";
-import { AddNewAttendeeActionFromClientWithZod } from "@/app/server-action-example/page-server-action-from-client-with-zod";
+import { AddNewAttendeeActionFromClient } from "@/app/server-action-example/page-server-action-from-client";
 import { ServerActionSubmitButton } from "@/app/server-action-example/page-server-action-submit-button";
 import { useFormState } from "react-dom";
 
@@ -9,7 +9,7 @@ export default function ServerActionExample() {
   };
 
   const [state, formAction] = useFormState(
-    AddNewAttendeeActionFromClientWithZod,
+    AddNewAttendeeActionFromClient,
     initialState,
   );
 
