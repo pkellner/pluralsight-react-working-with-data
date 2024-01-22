@@ -1,6 +1,6 @@
 "use server";
 import prisma from "@/lib/prisma/prisma";
-import { Prisma } from ".prisma/client";
+import { Attendee, Prisma } from ".prisma/client";
 import { z } from "zod";
 
 type FormState = {
@@ -18,30 +18,34 @@ export async function AddNewAttendeeActionFromClientWithZod(
   prevState: FormState,
   formData: FormData,
 ) {
-  const result = AttendeeSchema.safeParse({
+
+  await new Promise<void>((resolve) => setTimeout(resolve, 2000));
+
+  const parsedData = AttendeeSchema.safeParse({
     email: formData.get("email"),
     firstName: formData.get("firstName"),
     lastName: formData.get("lastName"),
   });
 
-  if (!result.success) {
-    console.log("/server-action-example/page-server-action-from-client-with-zod.ts:", result.error.issues[0].message);
+  if (!parsedData.success) {
+    let errorMessage = "";
+    parsedData.error.issues.forEach(
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
+    );
     return {
       ...prevState,
-      message: `Validation error: ${result.error.issues[0].message}`,
+      message: `Validation error: ${errorMessage}`,
     };
   }
 
-  await new Promise<void>((resolve) => setTimeout(resolve, 2000));
+
   try {
+    // Use the validated data directly from Zod
     const attendeeRec = {
+      ...parsedData.data,
       id: crypto.randomUUID(),
-      email: formData.get("email") as string,
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
       createdDate: new Date(),
     };
-
     await prisma.attendee.create({
       data: attendeeRec,
     });
