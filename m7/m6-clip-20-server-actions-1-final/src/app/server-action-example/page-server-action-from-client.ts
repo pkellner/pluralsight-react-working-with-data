@@ -11,9 +11,7 @@ export async function AddNewAttendeeActionFromClient(
   formData: FormData,
 ) {
   await new Promise<void>((resolve) => setTimeout(resolve, 2000));
-
   try {
-    await new Promise<void>((resolve) => setTimeout(resolve, 2000));
 
     const attendeeRec = {
       id: crypto.randomUUID(),
