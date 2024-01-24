@@ -2,7 +2,7 @@
 
 export default function ServerActionExample() {
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 bg-dark-subtle">
       <form action="/api/attendee">
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">

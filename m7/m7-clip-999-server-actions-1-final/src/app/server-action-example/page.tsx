@@ -14,7 +14,7 @@ export default function ServerActionExample() {
   );
 
   return (
-    <div className="container mt-5">
+    <div className="container m-5 p-2 rounded-2 bg-dark-subtle">
       <form action={formAction}>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">

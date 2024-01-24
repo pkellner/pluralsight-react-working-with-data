@@ -1,12 +1,13 @@
 "use server";
 import prisma from "@/lib/prisma/prisma";
 import { redirect } from "next/navigation";
+import { randomUUID } from "node:crypto";
 
 export async function AddNewAttendeeAction(formData: FormData) {
   await new Promise<void>((resolve) => setTimeout(resolve, 2000));
 
   const attendeeRec = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     email: formData.get("email") as string,
     firstName: formData.get("firstName") as string,
     lastName: formData.get("lastName") as string,

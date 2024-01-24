@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma/prisma";
-import { revalidatePath } from "next/cache";
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 
