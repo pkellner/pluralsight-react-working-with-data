@@ -1,11 +1,21 @@
+'use client';
+
 import { addAttendeeAction } from "@/app/server-action-example/page-server-action";
 import SubmitButton from "@/app/server-action-example/submit-button";
+import { useFormState } from "react-dom";
 
 export default function ServerActionExample() {
 
+  const [state, formAction] = useFormState(
+    addAttendeeAction,
+    {
+      message: "",
+    },
+  );
+
   return (
     <div className="container m-2 p-4 rounded-2 bg-dark-subtle">
-      <form action={addAttendeeAction}>
+      <form action={formAction}>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">
             First Name
@@ -39,6 +49,15 @@ export default function ServerActionExample() {
           />
         </div>
         <SubmitButton />
+        {state.message && (
+          <div
+            className={`mt-2 ${state.message.startsWith("error") ?
+              "text-danger" : "text-muted"
+              }`}
+          >
+            {state.message}
+          </div>
+        )}
       </form>
     </div>
   );
