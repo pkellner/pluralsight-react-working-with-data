@@ -6,11 +6,16 @@ import { useFormState } from "react-dom";
 
 export default function ServerActionExample() {
 
+  const initialValue: {
+    firstName: string,
+    lastName: string,
+    email: string,
+    message: string,
+  } = { firstName: "", lastName: "", email: "", message: ""}
+
   const [state, formAction] = useFormState(
     addAttendeeAction,
-    {
-      message: "",
-    },
+    initialValue,
   );
 
   return (
