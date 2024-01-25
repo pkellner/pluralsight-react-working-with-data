@@ -7,7 +7,7 @@ export default function SubmitButton() {
   return (
     <button type="submit" aria-disabled={pending}
       className="btn btn-primary">
-      Submit
+      {pending ? "Adding..." : "Add"}
     </button>
   );
 }

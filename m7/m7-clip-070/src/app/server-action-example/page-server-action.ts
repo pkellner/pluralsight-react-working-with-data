@@ -6,7 +6,7 @@ import { randomUUID } from "node:crypto";
 
 export async function addAttendeeAction(formData: FormData) {
 
-  //await new Promise<void>((resolve) => setTimeout(resolve, 3000));
+  await new Promise<void>((resolve) => setTimeout(resolve, 3000));
   
   const attendeeRec = {
     id: randomUUID() as string,
