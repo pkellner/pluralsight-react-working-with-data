@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function ListAttendees() {
   const attendees = await prisma.attendee.findMany({
-    orderBy: { createdDate: "desc", },
+    orderBy: { createdDate: "desc" },
     take: 10,
   });
 
@@ -26,7 +26,9 @@ export default async function ListAttendees() {
               <td>{attendee.firstName}</td>
               <td>{attendee.lastName}</td>
               <td>{attendee.email}</td>
-              <td>{attendee.createdDate.toLocaleTimeString()} - {attendee.id}</td>
+              <td>
+                {attendee.createdDate.toLocaleTimeString()} - {attendee.id}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -3,7 +3,6 @@ import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 
 export default function ServerActionExample() {
-
   async function addAttendeeAction(formData: FormData) {
     "use server";
     const attendeeRec = {
@@ -12,8 +11,8 @@ export default function ServerActionExample() {
       firstName: formData.get("firstName") as string,
       lastName: formData.get("lastName") as string,
       createdDate: new Date(),
-    }
-    await prisma.attendee.create({ data: attendeeRec, });
+    };
+    await prisma.attendee.create({ data: attendeeRec });
     redirect("/server-component-example");
   }
 
@@ -27,7 +26,8 @@ export default function ServerActionExample() {
           <input
             id="firstName"
             type="text"
-            className="form-control" name="firstName"
+            className="form-control"
+            name="firstName"
           />
         </div>
         <div className="mb-3">

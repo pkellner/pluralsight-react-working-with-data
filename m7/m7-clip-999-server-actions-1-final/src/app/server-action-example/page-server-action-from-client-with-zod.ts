@@ -14,8 +14,11 @@ const AttendeeSchema = z.object({
   id: z.string().uuid().optional(),
 });
 
-export async function EmailInDb(email: string) : Promise<boolean> {
-  console.log("/src/app/server-action-example/page-server-action-from-client-with-zod.ts: VerifyEmailAddress: email: ", email);
+export async function EmailInDb(email: string): Promise<boolean> {
+  console.log(
+    "/src/app/server-action-example/page-server-action-from-client-with-zod.ts: VerifyEmailAddress: email: ",
+    email,
+  );
   await new Promise<void>((resolve) => setTimeout(resolve, 100));
   const attendee = await prisma.attendee.findUnique({
     where: {

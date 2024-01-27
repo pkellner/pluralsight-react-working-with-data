@@ -2,7 +2,6 @@ import { addAttendeeAction } from "@/app/server-action-example/page-server-actio
 import SubmitButton from "@/app/server-action-example/submit-button";
 
 export default function ServerActionExample() {
-
   return (
     <div className="container m-2 p-4 rounded-2 bg-dark-subtle">
       <form action={addAttendeeAction}>
@@ -13,7 +12,8 @@ export default function ServerActionExample() {
           <input
             id="firstName"
             type="text"
-            className="form-control" name="firstName"
+            className="form-control"
+            name="firstName"
           />
         </div>
         <div className="mb-3">
