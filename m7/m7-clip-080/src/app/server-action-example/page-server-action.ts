@@ -5,12 +5,7 @@ import { Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 
 export async function addAttendeeAction(
-  prevState: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    message: string;
-  },
+  prevState: { message: string },
   formData: FormData,
 ) {
   await new Promise<void>((resolve) => setTimeout(resolve, 3000));
@@ -31,9 +26,6 @@ export async function addAttendeeAction(
     ) {
       return {
         ...prevState,
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: "",
         message:
           `error: An attendee with the email ` +
           `${formData.get("email")} already exists.`,
@@ -41,9 +33,6 @@ export async function addAttendeeAction(
     } else {
       return {
         ...prevState,
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: formData.get("email") as string,
         message: "error: An error occurred while adding attendee.",
       };
     }
@@ -51,9 +40,6 @@ export async function addAttendeeAction(
 
   return {
     ...prevState,
-    firstName: "",
-    lastName: "",
-    email: "",
     message:
       `Attendee ${attendeeRec.firstName} ` +
       `${attendeeRec.lastName} / ` +
