@@ -1,6 +1,6 @@
 "use server";
 import prisma from "@/lib/prisma/prisma";
-import { Attendee, Prisma } from ".prisma/client";
+import { Attendee, Prisma } from ".pvrisma/client";
 import { z } from "zod";
 
 type FormState = {
