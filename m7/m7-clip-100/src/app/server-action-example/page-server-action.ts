@@ -4,6 +4,16 @@ import prisma from "@/lib/prisma/prisma";
 import { Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 
+export async function CheckEmailExistsAction(email: string): Promise<boolean> {
+  await new Promise<void>((resolve) => setTimeout(resolve, 3000));
+  const attendee = await prisma.attendee.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  return attendee !== null; 
+}
+
 export async function addAttendeeAction(
   prevState: {
     firstName: string;
