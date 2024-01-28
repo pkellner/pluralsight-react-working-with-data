@@ -1,10 +1,8 @@
 "use client";
 import { ChangeEvent, useState, useEffect } from "react";
 import { useFormState } from "react-dom";
-import { addAttendeeAction } from
-  "@/app/server-action-example/page-server-action";
-import SubmitButton from
-  "@/app/server-action-example/submit-button";
+import { addAttendeeAction } from "@/app/server-action-example/page-server-action";
+import SubmitButton from "@/app/server-action-example/submit-button";
 
 type FormDataType = {
   firstName: string;
@@ -20,8 +18,7 @@ export default function ServerActionExample() {
     email: string;
   } = { message: "", firstName: "", lastName: "", email: "" };
 
-  const [state, formAction] =
-    useFormState(addAttendeeAction, initialState);
+  const [state, formAction] = useFormState(addAttendeeAction, initialState);
   const [formData, setFormData] = useState<FormDataType>({
     firstName: state.firstName,
     lastName: state.lastName,
@@ -34,7 +31,7 @@ export default function ServerActionExample() {
       lastName: state.lastName as string,
       email: state.email as string,
     });
-  },[state]);
+  }, [state]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -42,7 +39,7 @@ export default function ServerActionExample() {
       ...prevState,
       [name]: value,
     }));
-  }
+  };
 
   return (
     <div className="container m-2 p-4 rounded-2 bg-dark-subtle">
@@ -90,8 +87,7 @@ export default function ServerActionExample() {
         {state.message && (
           <div
             className={`mt-2 ${
-              state.message.startsWith("error") ?
-                "text-danger" : "text-muted"
+              state.message.startsWith("error") ? "text-danger" : "text-muted"
             }`}
           >
             {state.message}

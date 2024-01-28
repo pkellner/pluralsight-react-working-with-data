@@ -1,9 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
-import { addAttendeeAction } from
-  "@/app/server-action-example/page-server-action";
-import SubmitButton from
-  "@/app/server-action-example/submit-button";
+import { addAttendeeAction } from "@/app/server-action-example/page-server-action";
+import SubmitButton from "@/app/server-action-example/submit-button";
 
 export default function ServerActionExample() {
   const initialState: {
