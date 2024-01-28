@@ -9,7 +9,7 @@ export async function addAttendeeAction(
     firstName: string;
     lastName: string;
     email: string;
-    message: string
+    message: string;
   },
   formData: FormData,
 ) {
