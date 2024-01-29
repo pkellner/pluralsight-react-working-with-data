@@ -5,17 +5,22 @@ export default function EmailInput({
   formData: { email },
   onChange,
 }: {
-    formData: FormDataType;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  }) {
-  
+  formData: FormDataType;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <div className="mb-3">
       <label htmlFor="email" className="form-label">
         Email Address
       </label>
-      <input type="email" className="form-control" id="email" name="email"
-        value={email} onChange={onChange} />
+      <input
+        type="email"
+        className="form-control"
+        id="email"
+        name="email"
+        value={email}
+        onChange={onChange}
+      />
     </div>
   );
 }

@@ -11,7 +11,7 @@ export async function CheckEmailExistsAction(email: string): Promise<boolean> {
       email: email,
     },
   });
-  return attendee !== null; 
+  return attendee !== null;
 }
 
 export async function addAttendeeAction(

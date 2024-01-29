@@ -11,8 +11,6 @@ export type FormDataType = {
   email: string;
 };
 
-
-
 export default function ServerActionExample() {
   const initialState: {
     message: string;
@@ -73,8 +71,8 @@ export default function ServerActionExample() {
             onChange={handleChange}
           />
         </div>
-        <EmailInput formData={formData} onChange={handleChange}/>
-        <SubmitButton/>
+        <EmailInput formData={formData} onChange={handleChange} />
+        <SubmitButton />
         {state.message && (
           <div
             className={`mt-2 ${
