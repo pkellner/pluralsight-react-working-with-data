@@ -119,7 +119,6 @@ export default function SpeakerDataProvider({
           speaker.timeSpeaking = new Date(0);
         }
 
-        // implement zod here
         const {
           originalSpeaker,
           updatedSpeaker,
@@ -164,7 +163,6 @@ export default function SpeakerDataProvider({
   ) {
     async function deleteSpeakerInternal() {
       try {
-        // SHOULD BE DOING ZOD THING HERE
         await deleteSpeakerAction(id);
         setSpeakerState((prevState) => ({
           ...prevState,
