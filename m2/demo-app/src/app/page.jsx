@@ -1,7 +1,8 @@
-'use client';import React, { useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 
-const rooms = ["Unassigned", "Ballroom", "Garden", "Pavilion", "Terrace"];
+const rooms = ["Unassigned", "Ballroom", "Garden", "Terrace"];
 
 function App() {
   const [currentRoom, setCurrentRoom] = useState(rooms[0]); // Default to the first room
@@ -13,8 +14,6 @@ function App() {
   const handleDrop = (e, room) => {
     e.preventDefault();
     const speakerId = e.dataTransfer.getData("text");
-    const speaker = document.getElementById(speakerId);
-    speaker.style.opacity = "1"; // Reset the opacity if you changed it during drag
     setCurrentRoom(room);
   };
 
@@ -35,13 +34,17 @@ function App() {
             <h5>{room}</h5>
             {currentRoom === room && (
               <div
-                id="speaker"
+                id="speakerCard"
                 draggable="true"
                 onDragStart={handleDragStart}
-                className="p-2 bg-primary text-white"
-                style={{ cursor: 'move' }}
+                className="card"
+                style={{ width: '8', cursor: 'move' }}
               >
-                Speaker
+                <img src="/images/speaker-1124.jpg" className="card-img-top" alt="Douglas Crockfod"   />
+                <div className="card-body">
+                  <h5 className="card-title">Douglas Crockford</h5>
+                  <p className="card-text">Douglas Crockford discovered the JSON Data Interchange Format.</p>
+                </div>
               </div>
             )}
           </div>
