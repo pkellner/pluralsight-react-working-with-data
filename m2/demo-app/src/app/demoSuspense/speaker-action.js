@@ -2,7 +2,6 @@
 
 const fs = require("fs");
 import path from "path";
-import {readFile} from "node:fs";
 
 const dataFilePath = path.join(process.cwd(), 'data.json');
 

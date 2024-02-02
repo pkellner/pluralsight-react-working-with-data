@@ -33,10 +33,10 @@ export default function SpeakerFavorite({ speaker }) {
           src={`/images/${
             speakerLocal.favorite ? "heart-red.png" : "heart-dark.png"
           }`}
-          onClick={!updating ? toggleFavorite : undefined} // Disable onClick when updating
+          onClick={!updating ? toggleFavorite : undefined}
           alt="Favorite Toggle"
           style={{
-            cursor: updating ? "default" : "pointer", // Change cursor based on updating status
+            cursor: updating ? "default" : "pointer",
           }}
         />
       )}

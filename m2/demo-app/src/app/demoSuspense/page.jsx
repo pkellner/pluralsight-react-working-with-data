@@ -2,17 +2,15 @@ import SpeakerList from "./speaker-list";
 import { Suspense } from "react";
 import path from "path";
 
-const fs = require('fs').promises; // Import the promises API
+const fs = require('fs').promises;
 
 const dataFilePath = path.join(process.cwd(), 'data.json');
 
 async function readData() {
   try {
-    // Try to read the file directly
     const data = await fs.readFile(dataFilePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    // If the file does not exist, write the default data to a new file
     if (error.code === 'ENOENT') {
       const defaultData = [
         {
@@ -37,7 +35,6 @@ async function readData() {
       await fs.writeFile(dataFilePath, JSON.stringify(defaultData, null, 2));
       return defaultData;
     } else {
-      // If there's another error, throw it to be handled by the caller
       throw error;
     }
   }
@@ -45,9 +42,7 @@ async function readData() {
 
 
 export default async function Page() {
-
   const speakers = await readData();
-
   return (
     <div className="container mt-3">
       <h1>Conference Speakers</h1>

@@ -18,7 +18,7 @@ export default function SpeakerFavorite({ speaker }) {
         },
         body: JSON.stringify(updatedSpeaker),
       });
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       if (response.ok) {
         setSpeakerLocal(updatedSpeaker);
@@ -39,10 +39,10 @@ export default function SpeakerFavorite({ speaker }) {
           src={`/images/${
             speakerLocal.favorite ? "heart-red.png" : "heart-dark.png"
           }`}
-          onClick={!updating ? toggleFavorite : undefined} // Disable onClick when updating
+          onClick={!updating ? toggleFavorite : undefined}
           alt="Favorite Toggle"
           style={{
-            cursor: updating ? "default" : "pointer", // Change cursor based on updating status
+            cursor: updating ? "default" : "pointer",
           }}
         />
       )}
