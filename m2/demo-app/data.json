@@ -3,7 +3,7 @@
     "id": 1124,
     "firstName": "Douglas",
     "lastName": "Crockford",
-    "favorite": false
+    "favorite": true
   },
   {
     "id": 1530,
@@ -15,6 +15,6 @@
     "id": 2920,
     "firstName": "Ron",
     "lastName": "Lichty",
-    "favorite": false
+    "favorite": true
   }
 ]

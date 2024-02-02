@@ -13,7 +13,6 @@ export default async function speakerAction(updatedRecord) {
       const data = fs.readFileSync(dataFilePath, 'utf8');
       return JSON.parse(data);
     } catch (error) {
-      // If the file does not exist, write the default data to a new file
       if (error.code === "ENOENT") {
         const defaultData = [
           {
@@ -38,7 +37,6 @@ export default async function speakerAction(updatedRecord) {
         await fs.writeFile(dataFilePath, JSON.stringify(defaultData, null, 2));
         return defaultData;
       } else {
-        // If there's another error, throw it to be handled by the caller
         throw error;
       }
     }
@@ -50,10 +48,7 @@ export default async function speakerAction(updatedRecord) {
   );
 
   if (recordIndex > -1) {
-    // Replace the record in the array
     records[recordIndex] = updatedRecord;
-
-    // Write the updated array back to data.json
     fs.writeFileSync(dataFilePath, JSON.stringify(records, null, 2));
     return true;
   }
