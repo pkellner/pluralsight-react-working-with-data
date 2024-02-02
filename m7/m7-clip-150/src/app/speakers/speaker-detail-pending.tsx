@@ -18,19 +18,13 @@ export default function SpeakerDetailPending() {
               <div className="card-body">
                 <div className="speaker-action d-flex"></div>
                 <h4 className="card-title bg-gradient-pending-text">
-                  <span className="invisible-text">
-                    firstName lastName
-                  </span>
+                  <span className="invisible-text">firstName lastName</span>
                 </h4>
                 <p className="card-text bg-gradient-pending-text">
                   <span className="invisible-text">
-                    Lorem ipsum dolor sit
-                    amet, consectetur
-                    adipiscing elit, sed do
-                    eiusmod tempor incididunt
-                    ut labore et dolore magna
-                    aliqua. Ut enim ad minim
-                    veniam
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam
                   </span>
                 </p>
               </div>

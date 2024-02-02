@@ -5,18 +5,13 @@ import { Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 
-export async function CheckEmailExistsAction(
-  email: string,
-): Promise<boolean> {
-  await new Promise<void>((resolve) =>
-    setTimeout(resolve, 3000),
-  );
-  const attendee =
-    await prisma.attendee.findUnique({
-      where: {
-        email: email,
-      },
-    });
+export async function CheckEmailExistsAction(email: string): Promise<boolean> {
+  await new Promise<void>((resolve) => setTimeout(resolve, 3000));
+  const attendee = await prisma.attendee.findUnique({
+    where: {
+      email: email,
+    },
+  });
   return attendee !== null;
 }
 
@@ -29,9 +24,7 @@ export async function addAttendeeAction(
   },
   formData: FormData,
 ) {
-  await new Promise<void>((resolve) =>
-    setTimeout(resolve, 3000),
-  );
+  await new Promise<void>((resolve) => setTimeout(resolve, 3000));
 
   const AttendeeSchema = z.object({
     email: z.string().email(),
@@ -40,27 +33,21 @@ export async function addAttendeeAction(
     id: z.string().uuid().optional(),
   });
 
-  const parsedData =
-    AttendeeSchema.safeParse({
-      email: formData.get("email"),
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-    });
+  const parsedData = AttendeeSchema.safeParse({
+    email: formData.get("email"),
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+  });
 
   if (!parsedData.success) {
     let errorMessage = "";
     parsedData.error.issues.forEach(
-      (issue) =>
-        (errorMessage += `${issue.path[0]}:${issue.message};`),
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
     );
     return {
       ...prevState,
-      firstName: formData.get(
-        "firstName",
-      ) as string,
-      lastName: formData.get(
-        "lastName",
-      ) as string,
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
       email: formData.get("email") as string,
       message: `error: validation: ${errorMessage}`,
     };
@@ -77,39 +64,25 @@ export async function addAttendeeAction(
     });
   } catch (error) {
     if (
-      error instanceof
-        Prisma.PrismaClientKnownRequestError &&
+      error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
       return {
         ...prevState,
-        firstName: formData.get(
-          "firstName",
-        ) as string,
-        lastName: formData.get(
-          "lastName",
-        ) as string,
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
         email: "",
         message:
           `error: An attendee with the email ` +
-          `${formData.get(
-            "email",
-          )} already exists.`,
+          `${formData.get("email")} already exists.`,
       };
     } else {
       return {
         ...prevState,
-        firstName: formData.get(
-          "firstName",
-        ) as string,
-        lastName: formData.get(
-          "lastName",
-        ) as string,
-        email: formData.get(
-          "email",
-        ) as string,
-        message:
-          "error: An error occurred while adding attendee.",
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        email: formData.get("email") as string,
+        message: "error: An error occurred while adding attendee.",
       };
     }
   }

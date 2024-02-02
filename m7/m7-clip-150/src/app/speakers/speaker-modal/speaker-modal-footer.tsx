@@ -15,13 +15,10 @@ export default function SpeakerModalFooter() {
     modalSpeakerFavorite,
   } = useSpeakerModalContext();
 
-  const { updateSpeaker, createSpeaker } =
-    useSpeakerDataContext();
+  const { updateSpeaker, createSpeaker } = useSpeakerDataContext();
 
-  const [updating, setUpdating] =
-    useState(false);
-  const [adding, setAdding] =
-    useState(false);
+  const [updating, setUpdating] = useState(false);
+  const [adding, setAdding] = useState(false);
   return (
     <div className="modal-footer justify-content-center">
       {modalSpeakerId !== 0 && (
@@ -31,28 +28,20 @@ export default function SpeakerModalFooter() {
             updateSpeaker(
               {
                 id: modalSpeakerId,
-                firstName:
-                  modalSpeakerFirstName,
-                lastName:
-                  modalSpeakerLastName,
+                firstName: modalSpeakerFirstName,
+                lastName: modalSpeakerLastName,
                 company: modalSpeakerCompany,
-                twitterHandle:
-                  modalSpeakerTwitterHandle,
-                userBioShort:
-                  modalUserBioShort,
-                timeSpeaking:
-                  modalSpeakerTimeSpeaking,
-                favorite:
-                  modalSpeakerFavorite,
+                twitterHandle: modalSpeakerTwitterHandle,
+                userBioShort: modalUserBioShort,
+                timeSpeaking: modalSpeakerTimeSpeaking,
+                favorite: modalSpeakerFavorite,
               },
               () => {
                 setUpdating(false); // so that when opening again, it's not disabled and not showing "saving...
                 setModalShow(false);
               },
               () => {
-                console.log(
-                  "error in speaker update",
-                );
+                console.log("error in speaker update");
                 setUpdating(false);
               },
             );
@@ -83,19 +72,13 @@ export default function SpeakerModalFooter() {
             createSpeaker(
               {
                 id: modalSpeakerId,
-                firstName:
-                  modalSpeakerFirstName,
-                lastName:
-                  modalSpeakerLastName,
+                firstName: modalSpeakerFirstName,
+                lastName: modalSpeakerLastName,
                 company: modalSpeakerCompany,
-                twitterHandle:
-                  modalSpeakerTwitterHandle,
-                userBioShort:
-                  modalUserBioShort,
-                timeSpeaking:
-                  modalSpeakerTimeSpeaking,
-                favorite:
-                  modalSpeakerFavorite,
+                twitterHandle: modalSpeakerTwitterHandle,
+                userBioShort: modalUserBioShort,
+                timeSpeaking: modalSpeakerTimeSpeaking,
+                favorite: modalSpeakerFavorite,
               },
               () => {
                 setAdding(false);

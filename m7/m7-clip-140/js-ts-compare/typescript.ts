@@ -17,7 +17,6 @@ function myFunction<Type>(arg: Type): Type {
   return arg;
 }
 
-const str: string =
-  myFunction<string>("abcd");
+const str: string = myFunction<string>("abcd");
 
 const num: number = myFunction<number>(101);

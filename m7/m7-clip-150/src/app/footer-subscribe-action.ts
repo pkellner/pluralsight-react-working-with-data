@@ -7,32 +7,15 @@ import { z } from "zod";
 
 const AttendeeSchema = z.object({
   id: z.string().nullable().optional(),
-  firstName: z
-    .string()
-    .min(1, "First name is required")
-    .nullable()
-    .optional(),
-  lastName: z
-    .string()
-    .min(1, "Last name is required")
-    .nullable()
-    .optional(),
-  email: z
-    .string()
-    .email("Invalid email format")
-    .min(10)
-    .nullable()
-    .optional(),
+  firstName: z.string().min(1, "First name is required").nullable().optional(),
+  lastName: z.string().min(1, "Last name is required").nullable().optional(),
+  email: z.string().email("Invalid email format").min(10).nullable().optional(),
 });
 
-type AttendeeZodType = z.infer<
-  typeof AttendeeSchema
->;
+type AttendeeZodType = z.infer<typeof AttendeeSchema>;
 
 const sleep = (milliseconds: number) => {
-  return new Promise((resolve) =>
-    setTimeout(resolve, milliseconds),
-  );
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 export default async function addAttendeeAction(
@@ -46,24 +29,18 @@ export default async function addAttendeeAction(
 
   const data: AttendeeZodType = {
     id: formData.get("id") as string,
-    firstName: formData.get(
-      "firstName",
-    ) as string,
-    lastName: formData.get(
-      "lastName",
-    ) as string,
+    firstName: formData.get("firstName") as string,
+    lastName: formData.get("lastName") as string,
     email: formData.get("email") as string,
   };
 
   // Validate the data against the AttendeeSchema
-  const validatedFields =
-    AttendeeSchema.safeParse(data);
+  const validatedFields = AttendeeSchema.safeParse(data);
 
   if (!validatedFields.success) {
     let errorMessage = "";
     validatedFields.error.issues.forEach(
-      (issue) =>
-        (errorMessage += `${issue.path[0]}:${issue.message};`),
+      (issue) => (errorMessage += `${issue.path[0]}:${issue.message};`),
     );
     return {
       message: errorMessage,
@@ -71,8 +48,7 @@ export default async function addAttendeeAction(
     };
   }
 
-  const { email, id, firstName, lastName } =
-    validatedFields.data;
+  const { email, id, firstName, lastName } = validatedFields.data;
 
   await sleep(2000);
 
@@ -96,15 +72,11 @@ export default async function addAttendeeAction(
   }
 
   function createGUID(): string {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v =
-          c === "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      },
-    );
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
   }
 
   const attendee = {
@@ -116,23 +88,20 @@ export default async function addAttendeeAction(
   };
 
   try {
-    const count =
-      await prisma.attendee.count({
-        where: {
-          email: email ?? "",
-        },
-      });
+    const count = await prisma.attendee.count({
+      where: {
+        email: email ?? "",
+      },
+    });
     if (count > 0) {
       return {
-        message:
-          "error: email already exists so no need to add again",
+        message: "error: email already exists so no need to add again",
       };
     }
 
-    const newAttendee =
-      await prisma.attendee.create({
-        data: attendee,
-      });
+    const newAttendee = await prisma.attendee.create({
+      data: attendee,
+    });
     revalidatePath("/");
     // when we pass back an id, it will be used to update the attendee in step2.
     return {
@@ -144,8 +113,7 @@ export default async function addAttendeeAction(
     };
   } catch (e) {
     return {
-      message:
-        "error: Failed to create attendee from action",
+      message: "error: Failed to create attendee from action",
     };
   }
 }

@@ -6,11 +6,9 @@ export default function SpeakerDeleteButton({
 }: {
   speakerId: number;
 }) {
-  const { deleteSpeaker } =
-    useSpeakerDataContext();
+  const { deleteSpeaker } = useSpeakerDataContext();
 
-  const [deleting, setDeleting] =
-    useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   return (
     <button

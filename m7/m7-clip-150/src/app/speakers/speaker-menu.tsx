@@ -5,8 +5,7 @@ import SpeakerDialogAdd from "@/app/speakers/speaker-dialog-add";
 import { useSession } from "next-auth/react";
 
 export default function SpeakerMenu() {
-  const { searchText, setSearchText } =
-    useSpeakerMenuContext();
+  const { searchText, setSearchText } = useSpeakerMenuContext();
 
   const { data: session } = useSession();
 
@@ -21,9 +20,7 @@ export default function SpeakerMenu() {
           <input
             value={searchText}
             onChange={(event) => {
-              setSearchText(
-                event.target.value,
-              );
+              setSearchText(event.target.value);
             }}
             type="text"
             className="form-control"

@@ -9,15 +9,12 @@ export default function SpeakerFavoriteToggle({
   speakerId: number;
 }) {
   const { data: session } = useSession(); // get authentication status
-  const [loadingStatus, setLoadingStatus] =
-    useState("success");
-  const { speakerState, updateSpeaker } =
-    useSpeakerDataContext();
+  const [loadingStatus, setLoadingStatus] = useState("success");
+  const { speakerState, updateSpeaker } = useSpeakerDataContext();
 
   const speakerRec: Speaker =
-    speakerState.speakerList.find(
-      (value) => value.id === speakerId,
-    ) ?? ({} as Speaker); // this should always be a real speaker
+    speakerState.speakerList.find((value) => value.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   return (
     <div>
@@ -31,35 +28,26 @@ export default function SpeakerFavoriteToggle({
         onClick={(e) => {
           e.preventDefault();
           setLoadingStatus("loading");
-          const updatedSpeakerRec: Speaker =
-            {
-              ...speakerRec,
-              favorite:
-                !speakerRec?.favorite,
-            };
-          updateSpeaker(
-            updatedSpeakerRec,
-            () => {
-              setLoadingStatus("success");
-            },
-          );
+          const updatedSpeakerRec: Speaker = {
+            ...speakerRec,
+            favorite: !speakerRec?.favorite,
+          };
+          updateSpeaker(updatedSpeakerRec, () => {
+            setLoadingStatus("success");
+          });
         }}
       >
         <>
           <span
             className={`m-2 text-primary ${
-              loadingStatus === "loading"
-                ? "hide-modal"
-                : ""
+              loadingStatus === "loading" ? "hide-modal" : ""
             }`}
           >
             {speakerRec?.favoriteCount}
           </span>
           <i
             className={`spinner-border text-dark ${
-              loadingStatus === "loading"
-                ? ""
-                : "hide-modal"
+              loadingStatus === "loading" ? "" : "hide-modal"
             }`}
             role="status"
           />

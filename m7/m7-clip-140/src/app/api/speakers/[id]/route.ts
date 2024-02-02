@@ -11,9 +11,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../../pages/api/auth/[...nextauth]";
 
 const sleep = (milliseconds: number) => {
-  return new Promise((resolve) =>
-    setTimeout(resolve, milliseconds),
-  );
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 // This function handles the GET request
@@ -25,8 +23,7 @@ export async function GET(
   try {
     await sleep(500);
 
-    let speaker =
-      await getSpeakerDataById(id);
+    let speaker = await getSpeakerDataById(id);
 
     if (!speaker) {
       return new Response(
@@ -36,22 +33,18 @@ export async function GET(
         {
           status: 404,
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
         },
       );
     }
 
-    return new Response(
-      JSON.stringify(speaker, null, 2),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
+    return new Response(JSON.stringify(speaker, null, 2), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({
@@ -68,15 +61,12 @@ export async function GET(
 }
 
 // This function handles the PUT request (UPDATE)
-export async function PUT(
-  request: NextRequest,
-) {
+export async function PUT(request: NextRequest) {
   // check for logged in attendee
 
   const authSessionData: {
     user?: { id: string; email: string };
-  } | null =
-    await getServerSession(authOptions);
+  } | null = await getServerSession(authOptions);
 
   const requestData = await request.json();
   const {
@@ -104,30 +94,20 @@ export async function PUT(
   await sleep(1000);
 
   try {
-    let updatedSpeaker =
-      await updateSpeakerRecord(
-        speaker,
-        authSessionData?.user?.id,
-      );
-
-    return new Response(
-      JSON.stringify(
-        updatedSpeaker,
-        null,
-        2,
-      ),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization",
-        },
-      },
+    let updatedSpeaker = await updateSpeakerRecord(
+      speaker,
+      authSessionData?.user?.id,
     );
+
+    return new Response(JSON.stringify(updatedSpeaker, null, 2), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({
@@ -146,9 +126,7 @@ export async function DELETE(
   { params }: { params: { id: number } },
 ) {
   await sleep(1000);
-  const id = Number(
-    request.url.split("/").pop(),
-  );
+  const id = Number(request.url.split("/").pop());
 
   try {
     await deleteSpeakerRecord(id);

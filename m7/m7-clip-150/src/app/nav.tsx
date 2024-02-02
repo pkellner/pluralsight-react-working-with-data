@@ -8,14 +8,10 @@ enum NavRoutes {
 }
 
 export default function Nav() {
-  const [activeNav, setActiveNav] =
-    useState<NavRoutes>(NavRoutes.Home);
-  const [isNavCollapsed, setIsNavCollapsed] =
-    useState(true);
+  const [activeNav, setActiveNav] = useState<NavRoutes>(NavRoutes.Home);
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 
-  const handleNavClick = (
-    navItem: NavRoutes,
-  ) => {
+  const handleNavClick = (navItem: NavRoutes) => {
     setActiveNav(navItem);
     setIsNavCollapsed(true); // Collapse the menu after a selection
   };
@@ -26,10 +22,7 @@ export default function Nav() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light p-3">
-      <a
-        className="navbar-brand"
-        href={NavRoutes.Home}
-      >
+      <a className="navbar-brand" href={NavRoutes.Home}>
         <img
           src="/images/svcc-logo.png"
           alt="SVCC"
@@ -48,29 +41,20 @@ export default function Nav() {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div
-        className={`collapse navbar-collapse ${
-          !isNavCollapsed ? "show" : ""
-        }`}
+        className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
         id="navbarNav"
       >
         <div className="d-flex justify-content-between w-100">
           <ul className="navbar-nav">
             <li
               className={`nav-item ${
-                activeNav ===
-                NavRoutes.Speakers
-                  ? "active"
-                  : ""
+                activeNav === NavRoutes.Speakers ? "active" : ""
               }`}
             >
               <a
                 className="nav-link"
                 href={NavRoutes.Speakers}
-                onClick={() =>
-                  handleNavClick(
-                    NavRoutes.Speakers,
-                  )
-                }
+                onClick={() => handleNavClick(NavRoutes.Speakers)}
               >
                 Speakers
               </a>

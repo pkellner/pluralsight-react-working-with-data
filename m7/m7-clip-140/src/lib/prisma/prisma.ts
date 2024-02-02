@@ -33,18 +33,10 @@ function getPrismaOptions(): {
   log: LogOption[];
 } {
   // Convert environment variables to boolean, and set default values
-  const queryLogging =
-    process.env.PRISMA_EVENT_QUERY !==
-    "false"; // default true
-  const errorLogging =
-    process.env.PRISMA_STDOUT_ERROR !==
-    "false"; // default true
-  const infoLogging =
-    process.env.PRISMA_STDOUT_INFO ===
-    "true"; // default false
-  const warnLogging =
-    process.env.PRISMA_STDOUT_WARN ===
-    "true"; // default false
+  const queryLogging = process.env.PRISMA_EVENT_QUERY !== "false"; // default true
+  const errorLogging = process.env.PRISMA_STDOUT_ERROR !== "false"; // default true
+  const infoLogging = process.env.PRISMA_STDOUT_INFO === "true"; // default false
+  const warnLogging = process.env.PRISMA_STDOUT_WARN === "true"; // default false
 
   const logOptions: LogOption[] = [];
 
@@ -90,9 +82,7 @@ if (process.env.NODE_ENV === "production") {
   // @ts-ignore
   if (!global.prisma) {
     // @ts-ignore
-    global.prisma = new PrismaClient(
-      prismaOptions,
-    );
+    global.prisma = new PrismaClient(prismaOptions);
   }
   // @ts-ignore
   prisma = global.prisma;
@@ -101,16 +91,9 @@ if (process.env.NODE_ENV === "production") {
 // @ts-ignore
 prisma.$on("query", (e) => {
   // @ts-ignore
-  if (
-    e.query
-      .toString()
-      .includes("SELECT UserImage")
-  )
-    return null;
+  if (e.query.toString().includes("SELECT UserImage")) return null;
 
-  if (
-    process.env.LOGSQLSTATEMENT === "true"
-  ) {
+  if (process.env.LOGSQLSTATEMENT === "true") {
     // @ts-ignore
     console.log("Query: " + e.query);
     // @ts-ignore
@@ -119,9 +102,7 @@ prisma.$on("query", (e) => {
 
   if (process.env.LOGSQLMS === "true") {
     // @ts-ignore
-    console.log(
-      "Duration: " + e.duration + "ms",
-    );
+    console.log("Duration: " + e.duration + "ms");
   }
 });
 

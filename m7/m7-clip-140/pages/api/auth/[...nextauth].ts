@@ -1,12 +1,7 @@
-import NextAuth, {
-  NextAuthOptions,
-} from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma/prisma";
-import {
-  randomBytes,
-  randomUUID,
-} from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,8 +14,7 @@ export const authOptions: NextAuthOptions = {
           placeholder: "Email",
         },
         password: {
-          label:
-            "Password: Not Needed For Demo",
+          label: "Password: Not Needed For Demo",
           type: "password",
         },
       },
@@ -32,19 +26,15 @@ export const authOptions: NextAuthOptions = {
             user: credentials?.username,
           };
 
-          const attendee =
-            await prisma.attendee.findUnique(
-              {
-                where: {
-                  email:
-                    credentials?.username,
-                },
-                select: {
-                  email: true,
-                  id: true,
-                },
-              },
-            );
+          const attendee = await prisma.attendee.findUnique({
+            where: {
+              email: credentials?.username,
+            },
+            select: {
+              email: true,
+              id: true,
+            },
+          });
 
           // no password check needed for demo. if attendee is null, then, login fails (meaning not found)
 
@@ -83,10 +73,7 @@ export const authOptions: NextAuthOptions = {
     // The session token is usually either a random UUID or string, however if you
     // need a more customized session token string, you can define your own generate function.
     generateSessionToken: () => {
-      return (
-        randomUUID?.() ??
-        randomBytes(32).toString("hex")
-      );
+      return randomUUID?.() ?? randomBytes(32).toString("hex");
     },
   },
 
@@ -95,10 +82,7 @@ export const authOptions: NextAuthOptions = {
       user && (token.email = user.email);
       return { ...token, ...user };
     },
-    session: async function ({
-      session,
-      token,
-    }) {
+    session: async function ({ session, token }) {
       return { ...session, ...token };
     },
   },

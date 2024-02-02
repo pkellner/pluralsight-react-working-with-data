@@ -23,16 +23,13 @@ export default function SpeakerDialogAdd() {
           setModalSpeakerCompany("");
           setModalSpeakerTwitterHandle("");
           setModalUserBioShort("");
-          setModalSpeakerTimeSpeaking(
-            new Date(0),
-          ); // 0 time, jan 1, 1970 12:00 AM
+          setModalSpeakerTimeSpeaking(new Date(0)); // 0 time, jan 1, 1970 12:00 AM
           setModalShow(true);
           setModalSpeakerFavorite(false);
         }}
         className="btn btn-accent"
       >
-        Add Speaker{" "}
-        <i className="fa fa-plus" />
+        Add Speaker <i className="fa fa-plus" />
       </button>
     </>
   );

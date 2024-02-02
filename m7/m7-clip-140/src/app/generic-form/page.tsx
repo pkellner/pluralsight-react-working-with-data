@@ -8,23 +8,11 @@ export default function GenericForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        id="email"
-        name="email"
-      />
+      <input type="email" id="email" name="email" />
       <br />
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-      />
+      <input type="text" id="firstName" name="firstName" />
       <br />
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-      />
+      <input type="text" id="lastName" name="lastName" />
       <br />
       <input type="submit" value="Submit" />
     </form>

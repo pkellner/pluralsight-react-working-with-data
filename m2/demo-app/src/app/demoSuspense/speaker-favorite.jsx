@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import speakerAction from "./speaker-action";
 
 export default function SpeakerFavorite({ speaker }) {
@@ -18,8 +18,7 @@ export default function SpeakerFavorite({ speaker }) {
       setSpeakerLocal(updatedSpeaker);
     } catch (error) {
       console.error("Error updating favorite status:", error);
-    }
-    finally {
+    } finally {
       setUpdating(false);
     }
   }

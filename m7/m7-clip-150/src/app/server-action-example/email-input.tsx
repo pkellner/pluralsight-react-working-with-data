@@ -1,9 +1,4 @@
-import React, {
-  ChangeEvent,
-  useState,
-  useTransition,
-  useEffect,
-} from "react";
+import React, { ChangeEvent, useState, useTransition, useEffect } from "react";
 import { FormDataType } from "@/app/server-action-example/page";
 import { CheckEmailExistsAction } from "@/app/server-action-example/page-server-action";
 
@@ -12,40 +7,25 @@ export default function EmailInput({
   onChange,
 }: {
   formData: FormDataType;
-  onChange: (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const [
-    emailInDatabase,
-    setEmailInDatabase,
-  ] = useState(false);
-  const [pending, startTransition] =
-    useTransition();
+  const [emailInDatabase, setEmailInDatabase] = useState(false);
+  const [pending, startTransition] = useTransition();
 
   useEffect(() => {
     setEmailInDatabase(false);
   }, [email]);
 
-  const onBlur = async (
-    event: React.FocusEvent<HTMLInputElement>,
-  ) => {
+  const onBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
     const emailValue = event.target.value;
     startTransition(async () => {
-      setEmailInDatabase(
-        await CheckEmailExistsAction(
-          emailValue,
-        ),
-      );
+      setEmailInDatabase(await CheckEmailExistsAction(emailValue));
     });
   };
 
   return (
     <div className="mb-3">
-      <label
-        htmlFor="email"
-        className="form-label"
-      >
+      <label htmlFor="email" className="form-label">
         Email Address
       </label>
       <input
@@ -58,15 +38,9 @@ export default function EmailInput({
         onBlur={onBlur}
       />
       {emailInDatabase && (
-        <div className="text-danger">
-          Email address exists already
-        </div>
+        <div className="text-danger">Email address exists already</div>
       )}
-      {pending && (
-        <div className="text-info">
-          Checking email address...
-        </div>
-      )}
+      {pending && <div className="text-info">Checking email address...</div>}
     </div>
   );
 }

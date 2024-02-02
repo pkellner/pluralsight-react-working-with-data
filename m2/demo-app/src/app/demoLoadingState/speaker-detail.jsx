@@ -1,7 +1,7 @@
 import SpeakerFavorite from "./speaker-favorite";
 import React from "react";
 
-export default function SpeakerDetail({speaker}) {
+export default function SpeakerDetail({ speaker }) {
   return (
     <div key={speaker.id} className="col-4">
       <div className="card">
@@ -9,7 +9,7 @@ export default function SpeakerDetail({speaker}) {
           src={`/images/speaker-${speaker.id}.jpg`}
           alt={`${speaker.firstName} ${speaker.lastName}`}
           className="card-img-top"
-          style={{width: "100%", height: "auto"}}
+          style={{ width: "100%", height: "auto" }}
         />
         <div className="card-body">
           <h5 className="card-title">
@@ -17,11 +17,11 @@ export default function SpeakerDetail({speaker}) {
           </h5>
           <ul className="list-unstyled">
             <li>
-              <SpeakerFavorite speaker={speaker}/>
+              <SpeakerFavorite speaker={speaker} />
             </li>
           </ul>
         </div>
       </div>
     </div>
-  )
+  );
 }

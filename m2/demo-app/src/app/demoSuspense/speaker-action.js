@@ -3,13 +3,12 @@
 const fs = require("fs");
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), 'data.json');
+const dataFilePath = path.join(process.cwd(), "data.json");
 
 export default async function speakerAction(updatedRecord) {
-
   async function readData() {
     try {
-      const data = fs.readFileSync(dataFilePath, 'utf8');
+      const data = fs.readFileSync(dataFilePath, "utf8");
       return JSON.parse(data);
     } catch (error) {
       if (error.code === "ENOENT") {
@@ -51,6 +50,4 @@ export default async function speakerAction(updatedRecord) {
     fs.writeFileSync(dataFilePath, JSON.stringify(records, null, 2));
     return true;
   }
-
-
 }

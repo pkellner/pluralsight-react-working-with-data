@@ -7,15 +7,12 @@ export default function SpeakerDialogEdit({
 }: {
   speakerId: number;
 }) {
-  const { speakerState } =
-    useSpeakerDataContext();
+  const { speakerState } = useSpeakerDataContext();
   const { speakerList } = speakerState;
 
   const speakerRec: Speaker =
-    speakerList.find(
-      (speaker: Speaker) =>
-        speaker.id === speakerId,
-    ) ?? ({} as Speaker); // this should always be a real speaker
+    speakerList.find((speaker: Speaker) => speaker.id === speakerId) ??
+    ({} as Speaker); // this should always be a real speaker
 
   const {
     id,
@@ -47,19 +44,11 @@ export default function SpeakerDialogEdit({
         setModalSpeakerId(id);
         setModalSpeakerFirstName(firstName);
         setModalSpeakerLastName(lastName);
-        setModalSpeakerCompany(
-          company ?? "",
-        );
-        setModalSpeakerTwitterHandle(
-          twitterHandle ?? "",
-        );
-        setModalSpeakerTimeSpeaking(
-          timeSpeaking,
-        );
+        setModalSpeakerCompany(company ?? "");
+        setModalSpeakerTwitterHandle(twitterHandle ?? "");
+        setModalSpeakerTimeSpeaking(timeSpeaking);
         setModalUserBioShort(userBioShort);
-        setModalSpeakerFavorite(
-          favorite ?? false,
-        );
+        setModalSpeakerFavorite(favorite ?? false);
         setModalShow(true);
       }}
       className="btn btn-accent btn-sm"

@@ -17,11 +17,7 @@ export default function Speakers() {
           <SpeakerMenuProvider>
             <SpeakerModalProvider>
               <Nav />
-              <Suspense
-                fallback={
-                  <SpeakerListPending />
-                }
-              >
+              <Suspense fallback={<SpeakerListPending />}>
                 <SpeakerListContainer />
               </Suspense>
             </SpeakerModalProvider>

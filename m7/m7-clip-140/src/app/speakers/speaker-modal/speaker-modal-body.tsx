@@ -21,10 +21,7 @@ export default function SpeakerModalBody() {
     setModalSpeakerTimeSpeaking,
   } = useSpeakerModalContext();
 
-  const speakingTime = prismaDateToIsoString(
-    modalSpeakerTimeSpeaking,
-    true,
-  );
+  const speakingTime = prismaDateToIsoString(modalSpeakerTimeSpeaking, true);
 
   return (
     <div className="modal-body">
@@ -35,22 +32,16 @@ export default function SpeakerModalBody() {
               <div className="col-md-12">
                 <div className="note-title">
                   <label>Speaker Id:</label>
-                  <span>
-                    {modalSpeakerId}
-                  </span>
+                  <span>{modalSpeakerId}</span>
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="note-title">
                   <label>First Name</label>
                   <input
-                    value={
-                      modalSpeakerFirstName
-                    }
+                    value={modalSpeakerFirstName}
                     onChange={(event) =>
-                      setModalSpeakerFirstName(
-                        event.target.value,
-                      )
+                      setModalSpeakerFirstName(event.target.value)
                     }
                     type="text"
                     className="form-control"
@@ -62,13 +53,9 @@ export default function SpeakerModalBody() {
                 <div className="note-title">
                   <label>Last Name</label>
                   <input
-                    value={
-                      modalSpeakerLastName
-                    }
+                    value={modalSpeakerLastName}
                     onChange={(event) =>
-                      setModalSpeakerLastName(
-                        event.target.value,
-                      )
+                      setModalSpeakerLastName(event.target.value)
                     }
                     type="text"
                     className="form-control"
@@ -80,13 +67,9 @@ export default function SpeakerModalBody() {
                 <div className="note-title">
                   <label>Company</label>
                   <input
-                    value={
-                      modalSpeakerCompany
-                    }
+                    value={modalSpeakerCompany}
                     onChange={(event) =>
-                      setModalSpeakerCompany(
-                        event.target.value,
-                      )
+                      setModalSpeakerCompany(event.target.value)
                     }
                     type="text"
                     className="form-control"
@@ -96,17 +79,11 @@ export default function SpeakerModalBody() {
               </div>
               <div className="col-md-12">
                 <div className="note-title">
-                  <label>
-                    Twitter Handle
-                  </label>
+                  <label>Twitter Handle</label>
                   <input
-                    value={
-                      modalSpeakerTwitterHandle
-                    }
+                    value={modalSpeakerTwitterHandle}
                     onChange={(event) =>
-                      setModalSpeakerTwitterHandle(
-                        event.target.value,
-                      )
+                      setModalSpeakerTwitterHandle(event.target.value)
                     }
                     type="text"
                     className="form-control"
@@ -116,16 +93,12 @@ export default function SpeakerModalBody() {
               </div>
               <div className="col-md-12">
                 <div className="note-title">
-                  <label>
-                    Time Speaking
-                  </label>
+                  <label>Time Speaking</label>
                   <input
                     value={speakingTime}
                     onChange={(event) => {
                       setModalSpeakerTimeSpeaking(
-                        isoStringDateToPrismaDate(
-                          event.target.value,
-                        ),
+                        isoStringDateToPrismaDate(event.target.value),
                       );
                     }}
                     type="datetime-local"
@@ -139,9 +112,7 @@ export default function SpeakerModalBody() {
                   <textarea
                     value={modalUserBioShort}
                     onChange={(event) =>
-                      setModalUserBioShort(
-                        event.target.value,
-                      )
+                      setModalUserBioShort(event.target.value)
                     }
                     className="form-control"
                     placeholder="speaker bio..."

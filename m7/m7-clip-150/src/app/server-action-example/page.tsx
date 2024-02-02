@@ -1,9 +1,5 @@
 "use client";
-import {
-  ChangeEvent,
-  useState,
-  useEffect,
-} from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { addAttendeeAction } from "@/app/server-action-example/page-server-action";
 import SubmitButton from "@/app/server-action-example/submit-button";
@@ -28,16 +24,12 @@ export default function ServerActionExample() {
     email: "",
   };
 
-  const [state, formAction] = useFormState(
-    addAttendeeAction,
-    initialState,
-  );
-  const [formData, setFormData] =
-    useState<FormDataType>({
-      firstName: state.firstName,
-      lastName: state.lastName,
-      email: state.email,
-    });
+  const [state, formAction] = useFormState(addAttendeeAction, initialState);
+  const [formData, setFormData] = useState<FormDataType>({
+    firstName: state.firstName,
+    lastName: state.lastName,
+    email: state.email,
+  });
 
   useEffect(() => {
     setFormData({
@@ -47,9 +39,7 @@ export default function ServerActionExample() {
     });
   }, [state]);
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -61,10 +51,7 @@ export default function ServerActionExample() {
     <div className="container m-2 p-4 rounded-2 bg-dark-subtle">
       <form action={formAction}>
         <div className="mb-3">
-          <label
-            htmlFor="firstName"
-            className="form-label"
-          >
+          <label htmlFor="firstName" className="form-label">
             First Name
           </label>
           <input
@@ -77,10 +64,7 @@ export default function ServerActionExample() {
           />
         </div>
         <div className="mb-3">
-          <label
-            htmlFor="lastName"
-            className="form-label"
-          >
+          <label htmlFor="lastName" className="form-label">
             Last Name
           </label>
           <input
@@ -92,19 +76,12 @@ export default function ServerActionExample() {
             onChange={handleChange}
           />
         </div>
-        <EmailInput
-          formData={formData}
-          onChange={handleChange}
-        />
+        <EmailInput formData={formData} onChange={handleChange} />
         <SubmitButton />
         {state.message && (
           <div
             className={`mt-2 ${
-              state.message.startsWith(
-                "error",
-              )
-                ? "text-danger"
-                : "text-muted"
+              state.message.startsWith("error") ? "text-danger" : "text-muted"
             }`}
           >
             {state.message}

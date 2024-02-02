@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  signIn,
-  signOut,
-  useSession,
-} from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function LoginOnNavbar() {
   const { data: session } = useSession();
@@ -19,8 +15,7 @@ export default function LoginOnNavbar() {
             signOut();
           }}
         >
-          <b>Logout:</b>{" "}
-          {session?.user.email}
+          <b>Logout:</b> {session?.user.email}
         </a>
       ) : (
         <a

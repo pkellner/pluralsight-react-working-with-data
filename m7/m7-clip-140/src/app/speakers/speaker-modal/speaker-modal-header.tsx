@@ -1,8 +1,7 @@
 import { useSpeakerModalContext } from "@/contexts/speaker-modal-context";
 
 export default function SpeakerModalHeader() {
-  const { setModalShow, modalSpeakerId } =
-    useSpeakerModalContext();
+  const { setModalShow, modalSpeakerId } = useSpeakerModalContext();
   return (
     <div className="modal-header bg-main-gradient text-white">
       <h5 className="modal-title">

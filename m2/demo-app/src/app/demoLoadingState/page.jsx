@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import SpeakerList from "./speaker-list";
 
 export default function Page() {

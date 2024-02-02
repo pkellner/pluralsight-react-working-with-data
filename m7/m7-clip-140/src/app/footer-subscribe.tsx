@@ -1,79 +1,48 @@
 "use client";
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 // Types for the wizard steps
 type Step = "STEP1" | "STEP2";
 
-const sleep = (ms: number) =>
-  new Promise((resolve) =>
-    setTimeout(resolve, ms),
-  );
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // FooterSubscribe component
 export default function FooterSubscribe() {
-  const [email, setEmail] =
-    useState<string>("");
-  const [firstName, setFirstName] =
-    useState<string>("");
-  const [lastName, setLastName] =
-    useState<string>("");
-  const [attendeeIdGuid, setAttendeeIdGuid] =
-    useState<string>("");
-  const [isSubmitting, setIsSubmitting] =
-    useState<boolean>(false);
-  const [
-    isButtonDisabled,
-    setIsButtonDisabled,
-  ] = useState<boolean>(true);
-  const [currentStep, setCurrentStep] =
-    useState<Step>("STEP1");
+  const [email, setEmail] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [attendeeIdGuid, setAttendeeIdGuid] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [currentStep, setCurrentStep] = useState<Step>("STEP1");
 
-  const handleEmailChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleFirstNameChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
   };
 
-  const handleLastNameChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value);
   };
 
   useEffect(() => {
-    const isValidEmail = email.match(
-      /\S+@\S+\.\S+/,
-    );
+    const isValidEmail = email.match(/\S+@\S+\.\S+/);
     setIsButtonDisabled(!isValidEmail);
   }, [email]);
 
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
 
     function createGUID(): string {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        (c) => {
-          const r = (Math.random() * 16) | 0;
-          const v =
-            c === "x" ? r : (r & 0x3) | 0x8;
-          return v.toString(16);
-        },
-      );
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
     }
 
     if (currentStep === "STEP1") {
@@ -85,30 +54,22 @@ export default function FooterSubscribe() {
           lastName: "",
           createdDate: new Date(),
         };
-        const response = await fetch(
-          "/api/attendees",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-            body: JSON.stringify(postData),
+        const response = await fetch("/api/attendees", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(postData),
+        });
         const data = await response.json();
         setAttendeeIdGuid(data.id);
         if (response.ok) {
           setCurrentStep("STEP2");
         } else {
-          alert(
-            `Failed to subscribe ${email}. Please try again.`,
-          );
+          alert(`Failed to subscribe ${email}. Please try again.`);
         }
       } catch (error) {
-        alert(
-          "An error occurred. Please try again later.",
-        );
+        alert("An error occurred. Please try again later.");
       } finally {
         setIsSubmitting(false);
       }
@@ -120,35 +81,25 @@ export default function FooterSubscribe() {
           firstName: firstName,
           lastName: lastName,
         };
-        const response = await fetch(
-          `/api/attendees/${attendeeIdGuid}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-            body: JSON.stringify(putData),
+        const response = await fetch(`/api/attendees/${attendeeIdGuid}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(putData),
+        });
 
         if (response.ok) {
-          alert(
-            "Subscription updated successfully.",
-          );
+          alert("Subscription updated successfully.");
           setCurrentStep("STEP1");
           setEmail("");
           setFirstName("");
           setLastName("");
         } else {
-          alert(
-            "Failed to update subscription. Please try again.",
-          );
+          alert("Failed to update subscription. Please try again.");
         }
       } catch (error) {
-        alert(
-          "An error occurred. Please try again later.",
-        );
+        alert("An error occurred. Please try again later.");
       } finally {
         setIsSubmitting(false);
       }
@@ -164,9 +115,7 @@ export default function FooterSubscribe() {
 
   return (
     <>
-      <h5 className="text-uppercase mb-4">
-        Stay Updated
-      </h5>
+      <h5 className="text-uppercase mb-4">Stay Updated</h5>
       <form onSubmit={handleSubmit}>
         {currentStep === "STEP1" && (
           <div className="d-flex">
@@ -181,23 +130,16 @@ export default function FooterSubscribe() {
             <button
               type="submit"
               className="btn btn-outline-dark"
-              disabled={
-                isButtonDisabled ||
-                isSubmitting
-              }
+              disabled={isButtonDisabled || isSubmitting}
             >
-              {isSubmitting
-                ? "Subscribing..."
-                : "Subscribe"}
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
             </button>
           </div>
         )}
         {currentStep === "STEP2" && (
           <>
             <div className="mb-3">
-              <div className="text">
-                Email: {email}
-              </div>
+              <div className="text">Email: {email}</div>
             </div>
             <div className="mb-3">
               <input
@@ -205,9 +147,7 @@ export default function FooterSubscribe() {
                 className="form-control"
                 placeholder="First Name"
                 value={firstName}
-                onChange={
-                  handleFirstNameChange
-                }
+                onChange={handleFirstNameChange}
                 required
               />
             </div>
@@ -217,9 +157,7 @@ export default function FooterSubscribe() {
                 className="form-control"
                 placeholder="Last Name"
                 value={lastName}
-                onChange={
-                  handleLastNameChange
-                }
+                onChange={handleLastNameChange}
                 required
               />
             </div>
@@ -229,14 +167,9 @@ export default function FooterSubscribe() {
                 className="btn btn-outline-dark"
                 disabled={isSubmitting}
               >
-                {isSubmitting
-                  ? "Updating..."
-                  : "Update"}
+                {isSubmitting ? "Updating..." : "Update"}
               </button>
-              <button
-                onClick={handleCancel}
-                className="btn btn-outline-dark"
-              >
+              <button onClick={handleCancel} className="btn btn-outline-dark">
                 Cancel
               </button>
             </div>

@@ -7,8 +7,7 @@ import SpeakerModalBody from "@/app/speakers/speaker-modal/speaker-modal-body";
 import { useSpeakerModalContext } from "@/contexts/speaker-modal-context";
 
 export default function SpeakerModal() {
-  const { modalShow } =
-    useSpeakerModalContext();
+  const { modalShow } = useSpeakerModalContext();
 
   const cssShowHide =
     modalShow && modalShow
@@ -16,10 +15,7 @@ export default function SpeakerModal() {
       : "modal hide-modal";
 
   return (
-    <div
-      role="dialog"
-      className={cssShowHide}
-    >
+    <div role="dialog" className={cssShowHide}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content border-0">
           <SpeakersModalHeader />

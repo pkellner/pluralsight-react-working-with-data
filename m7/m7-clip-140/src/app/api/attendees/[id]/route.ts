@@ -4,10 +4,7 @@ import {
   updateAttendeeRecord,
 } from "@/lib/prisma/attendee-utils";
 
-const sleep = (ms: number) =>
-  new Promise((resolve) =>
-    setTimeout(resolve, ms),
-  );
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function GET(
   request: Request,
@@ -15,8 +12,7 @@ export async function GET(
 ) {
   await sleep(3000);
   try {
-    const attendee =
-      await getOneAttendeeRecord(params.id);
+    const attendee = await getOneAttendeeRecord(params.id);
 
     if (!attendee) {
       return new Response(
@@ -29,15 +25,12 @@ export async function GET(
       );
     }
 
-    return new Response(
-      JSON.stringify(attendee, null, 2),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
+    return new Response(JSON.stringify(attendee, null, 2), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({
@@ -56,27 +49,17 @@ export async function PUT(request: Request) {
   try {
     const data = await request.json();
 
-    const updatedAttendee =
-      await updateAttendeeRecord(data);
+    const updatedAttendee = await updateAttendeeRecord(data);
 
-    return new Response(
-      JSON.stringify(
-        updatedAttendee,
-        null,
-        2,
-      ),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization",
-        },
+    return new Response(JSON.stringify(updatedAttendee, null, 2), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
-    );
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({

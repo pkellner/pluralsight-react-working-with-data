@@ -9,17 +9,12 @@ import { getSpeakers } from "@/lib/prisma/speaker-utils";
 export default async function SpeakerListContainer() {
   const authSessionData: {
     user?: { id: string; email: string };
-  } | null =
-    await getServerSession(authOptions);
+  } | null = await getServerSession(authOptions);
 
-  const speakerList = await getSpeakers(
-    authSessionData?.user?.id ?? "",
-  );
+  const speakerList = await getSpeakers(authSessionData?.user?.id ?? "");
 
   return (
-    <SpeakerDataProvider
-      speakerListInit={speakerList}
-    >
+    <SpeakerDataProvider speakerListInit={speakerList}>
       <SpeakerModal />
       <SpeakerMenu />
       <SpeakerList />

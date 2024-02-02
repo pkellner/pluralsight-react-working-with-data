@@ -7,14 +7,10 @@ const Footer = () => {
       <div className="container p-4">
         <div className="row">
           <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4">
-              Silicon Valley Code Camp
-            </h5>
+            <h5 className="text-uppercase mb-4">Silicon Valley Code Camp</h5>
             <p>
-              An event for developers to
-              learn, connect, and explore the
-              latest in tech and software
-              development.
+              An event for developers to learn, connect, and explore the latest
+              in tech and software development.
             </p>
           </div>
 
@@ -23,9 +19,7 @@ const Footer = () => {
           </div>
 
           <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-4">
-              Follow Us
-            </h5>
+            <h5 className="text-uppercase mb-4">Follow Us</h5>
             <a
               href="#"
               className="btn btn-outline-dark btn-floating m-1 social-icon facebook"

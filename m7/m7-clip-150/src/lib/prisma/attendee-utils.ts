@@ -19,11 +19,8 @@ export async function getAttendeeRecords() {
   });
 }
 
-export async function updateAttendeeRecord(
-  attendee: Attendee,
-) {
-  const { id, firstName, lastName, email } =
-    attendee;
+export async function updateAttendeeRecord(attendee: Attendee) {
+  const { id, firstName, lastName, email } = attendee;
   return prisma.attendee.update({
     where: { id },
     data: {
@@ -34,37 +31,22 @@ export async function updateAttendeeRecord(
   });
 }
 
-export async function deleteAttendeeRecord(
-  id: string,
-) {
+export async function deleteAttendeeRecord(id: string) {
   let attendeeRecordDeleted;
-  await prisma.$transaction(async function (
-    prisma: any,
-  ) {
-    await prisma.attendeeFavorite.deleteMany(
-      {
-        where: { attendeeId: id },
-      },
-    );
+  await prisma.$transaction(async function (prisma: any) {
+    await prisma.attendeeFavorite.deleteMany({
+      where: { attendeeId: id },
+    });
 
-    attendeeRecordDeleted =
-      await prisma.attendee.delete({
-        where: { id },
-      });
+    attendeeRecordDeleted = await prisma.attendee.delete({
+      where: { id },
+    });
   });
   return attendeeRecordDeleted;
 }
 
-export async function createAttendeeRecord(
-  attendee: Attendee,
-) {
-  const {
-    id,
-    firstName,
-    lastName,
-    email,
-    createdDate,
-  } = attendee;
+export async function createAttendeeRecord(attendee: Attendee) {
+  const { id, firstName, lastName, email, createdDate } = attendee;
 
   return prisma.attendee.create({
     data: {
@@ -77,9 +59,7 @@ export async function createAttendeeRecord(
   });
 }
 
-export async function getOneAttendeeRecord(
-  id: string,
-) {
+export async function getOneAttendeeRecord(id: string) {
   return prisma.attendee.findUnique({
     where: { id: id },
     select: {

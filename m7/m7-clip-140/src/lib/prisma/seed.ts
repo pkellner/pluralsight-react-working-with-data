@@ -1,15 +1,11 @@
-const {
-  PrismaClient,
-} = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const data = require("./db.json");
 const prisma = new PrismaClient();
 
 // seed all the tables for all data scenarios in the course
 async function main() {
   // clear all tables first just in case there is data in them
-  await prisma.attendeeFavorite.deleteMany(
-    {},
-  );
+  await prisma.attendeeFavorite.deleteMany({});
   await prisma.attendee.deleteMany({});
   await prisma.speakerSession.deleteMany({});
   await prisma.session.deleteMany({});
@@ -30,20 +26,18 @@ async function main() {
 
   // Seed Speakers
   for (const speaker of data.speakers) {
-    const createdSpeaker =
-      await prisma.speaker.create({
-        data: {
-          id: speaker.id,
-          firstName: speaker.firstName,
-          lastName: speaker.lastName,
-          company: speaker.company,
-          twitterHandle:
-            speaker.twitterHandle,
-          userBioShort: speaker.userBioShort,
-          timeSpeaking: speaker.timeSpeaking,
-        },
-        // sessions and favorites will be handled separately
-      });
+    const createdSpeaker = await prisma.speaker.create({
+      data: {
+        id: speaker.id,
+        firstName: speaker.firstName,
+        lastName: speaker.lastName,
+        company: speaker.company,
+        twitterHandle: speaker.twitterHandle,
+        userBioShort: speaker.userBioShort,
+        timeSpeaking: speaker.timeSpeaking,
+      },
+      // sessions and favorites will be handled separately
+    });
 
     // Seed SpeakerSessions
     for (const sessionId of speaker.sessionIds) {
@@ -61,8 +55,7 @@ async function main() {
       id: "3d5b5db2-2c5d-4a82-8e56-7e38dd5c43d5", // arbitrary id
       firstName: "admin",
       lastName: "admin",
-      email:
-        "admin@siliconvalley-codecamp.com",
+      email: "admin@siliconvalley-codecamp.com",
       createdDate: new Date(),
     },
   });
@@ -85,15 +78,12 @@ async function main() {
 
   // Seed AttendeeFavorites
   for (const favorite of data.attendeeFavorites) {
-    const attendeeRecExists =
-      await prisma.attendee.findUnique({
-        where: { id: favorite.attendeeId },
-      });
+    const attendeeRecExists = await prisma.attendee.findUnique({
+      where: { id: favorite.attendeeId },
+    });
     if (!attendeeRecExists) {
       console.log("no attendee found");
-      console.log(
-        `Attendee ${favorite.attendeeId} does not exist`,
-      );
+      console.log(`Attendee ${favorite.attendeeId} does not exist`);
     }
 
     await prisma.attendeeFavorite.create({
@@ -107,9 +97,7 @@ async function main() {
 
 main()
   .then(async () => {
-    console.log(
-      "Seeding from db.json complete",
-    );
+    console.log("Seeding from db.json complete");
     await prisma.$disconnect();
   })
   .catch(async (e) => {
