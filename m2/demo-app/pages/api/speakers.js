@@ -4,10 +4,11 @@ import path from 'path';
 // Define the path to the data file
 const dataFilePath = path.join(process.cwd(), 'data.json');
 
-
+// Sleep function to introduce delay
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Function to read data from the file
-const readData = () => {
+const readData = async () => {
   // Check if the file exists
   if (!fs.existsSync(dataFilePath)) {
     // Initialize the file with default data if it doesn't exist
@@ -40,17 +41,19 @@ const readData = () => {
   }
 };
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   switch (req.method) {
     case 'GET':
-      // Handle GET request
-      const data = readData();
+      // Handle GET request with a 2-second delay
+      await sleep(2000);
+      const data = await readData();
       res.status(200).json(data);
       break;
     case 'PUT':
-      // Handle PUT request to update a specific record
+      // Handle PUT request with a 2-second delay
+      await sleep(2000);
       const updatedRecord = req.body; // Assuming this contains the record to update, including its 'id'
-      const records = readData(); // Read the current data
+      const records = await readData(); // Read the current data
 
       // Find the index of the record to update
       const recordIndex = records.findIndex(record => record.id === updatedRecord.id);
@@ -67,7 +70,7 @@ export default function handler(req, res) {
       }
       break;
     default:
-      // Handle any other HTTP method
+      // Immediately reject any other HTTP method
       res.setHeader('Allow', ['GET', 'PUT']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
+import speakerAction from "./speaker-action";
 
 export default function SpeakerFavorite({ speaker }) {
   const [speakerLocal, setSpeakerLocal] = useState(speaker);
@@ -11,21 +12,14 @@ export default function SpeakerFavorite({ speaker }) {
         ...speakerLocal,
         favorite: !speakerLocal.favorite,
       };
-      const response = await fetch(`http://localhost:3000/api/speakers`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedSpeaker),
-      });
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
 
-      if (response.ok) {
-        setSpeakerLocal(updatedSpeaker);
-      }
+      await speakerAction(updatedSpeaker);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setSpeakerLocal(updatedSpeaker);
     } catch (error) {
       console.error("Error updating favorite status:", error);
-    } finally {
+    }
+    finally {
       setUpdating(false);
     }
   }
