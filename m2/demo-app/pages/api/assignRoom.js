@@ -40,6 +40,6 @@ export default function handler(req, res) {
   } else {
     // Handle unsupported methods
     res.setHeader('Allow', ['GET', 'PUT']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

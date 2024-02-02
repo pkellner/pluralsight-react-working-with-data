@@ -53,6 +53,9 @@ function App() {
   return (
     <div className="container">
       <div className="row">
+        <h1>Drag and Drop App</h1>
+      </div>
+      <div className="row">
         {rooms.map(room => (
           <div
             key={room}
