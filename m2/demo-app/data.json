@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1124,
+    "firstName": "Douglas",
+    "lastName": "Crockford",
+    "favorite": true
+  },
+  {
+    "id": 1530,
+    "firstName": "Tammy",
+    "lastName": "Baker",
+    "favorite": false
+  },
+  {
+    "id": 2920,
+    "firstName": "Ron",
+    "lastName": "Lichty",
+    "favorite": true
+  }
+]

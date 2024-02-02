@@ -1,4 +1,3 @@
-// pages/api/data.js
 import fs from 'fs';
 import path from 'path';
 
@@ -47,10 +46,23 @@ export default function handler(req, res) {
       res.status(200).json(data);
       break;
     case 'PUT':
-      // Handle PUT request
-      const newData = req.body;
-      fs.writeFileSync(dataFilePath, JSON.stringify(newData, null, 2));
-      res.status(200).json(newData);
+      // Handle PUT request to update a specific record
+      const updatedRecord = req.body; // Assuming this contains the record to update, including its 'id'
+      const records = readData(); // Read the current data
+
+      // Find the index of the record to update
+      const recordIndex = records.findIndex(record => record.id === updatedRecord.id);
+      if (recordIndex > -1) {
+        // Replace the record in the array
+        records[recordIndex] = updatedRecord;
+
+        // Write the updated array back to data.json
+        fs.writeFileSync(dataFilePath, JSON.stringify(records, null, 2));
+        res.status(200).json(updatedRecord);
+      } else {
+        // If the record doesn't exist, return a 404
+        res.status(404).json({message: "Record not found"});
+      }
       break;
     default:
       // Handle any other HTTP method
