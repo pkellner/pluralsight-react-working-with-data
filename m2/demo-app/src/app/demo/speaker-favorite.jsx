@@ -8,7 +8,6 @@ export default function SpeakerFavorite({ speaker }) {
 
   async function toggleFavorite() {
     // this assume no one else is updating the same speaker at any time
-
     try {
       setUpdating(true);
       const updatedSpeaker = { ...speakerLocal, favorite: !speakerLocal.favorite };

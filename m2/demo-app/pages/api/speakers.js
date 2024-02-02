@@ -4,6 +4,8 @@ import path from 'path';
 // Define the path to the data file
 const dataFilePath = path.join(process.cwd(), 'data.json');
 
+
+
 // Function to read data from the file
 const readData = () => {
   // Check if the file exists
