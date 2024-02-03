@@ -38,7 +38,7 @@ const readData = async () => {
 export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
-      await sleep(2000);
+      await sleep(10000);
       const data = await readData();
       res.status(200).json(data);
       break;

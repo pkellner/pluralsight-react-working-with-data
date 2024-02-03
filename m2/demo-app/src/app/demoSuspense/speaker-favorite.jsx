@@ -15,7 +15,7 @@ export default function SpeakerFavorite({ speaker }) {
       };
 
       await speakerAction(updatedSpeaker);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 60000));
       setSpeakerLocal(updatedSpeaker);
     } catch (error) {
       console.error("Error updating favorite status:", error);

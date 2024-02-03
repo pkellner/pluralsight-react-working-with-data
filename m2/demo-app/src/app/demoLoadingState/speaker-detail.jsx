@@ -3,7 +3,7 @@ import React from "react";
 
 export default function SpeakerDetail({ speaker }) {
   return (
-    <div key={speaker.id} className="col-4">
+    <div className="col-4">
       <div className="card">
         <img
           src={`/images/speaker-${speaker.id}.jpg`}
@@ -12,8 +12,8 @@ export default function SpeakerDetail({ speaker }) {
           style={{ width: "100%", height: "auto" }}
         />
         <div className="card-body">
-          <h5 className="card-title">
-            {speaker.firstName} {speaker.lastName}
+          <h5 className="card-title" style={{visibility: "hidden"}}>
+            {speaker.firstName} {speaker.lastName} {"."} {"."}
           </h5>
           <ul className="list-unstyled">
             <li>

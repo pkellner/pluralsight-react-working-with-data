@@ -27,7 +27,7 @@ export default function SpeakerList() {
       <div className="container mt-3">
         <div className="row">
           {[1,2,3].map((id) => (
-            <SpeakerDetailLoading key={id} />
+            <SpeakerDetailLoading key={id} speaker={{firstName: "Douglas", lastName: "Crockford"}} />
           ))}
         </div>
       </div>
