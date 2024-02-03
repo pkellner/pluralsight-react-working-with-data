@@ -1,12 +1,12 @@
+import React, { Suspense } from "react";
 import SpeakerList from "./speaker-list";
-import { Suspense } from "react";
-import SpeakerDetailLoading from "../demoLoadingState/speaker-detail-loading";
+import SpeakerDetailLoading from "./speaker-detail-loading";
 
 function SpeakerListLoading() {
   return (
     <div className="container mt-3">
       <div className="row">
-        {[1, 2].map((id) => (
+        {[1, 2, 3].map((id) => (
           <SpeakerDetailLoading key={id} />
         ))}
       </div>
@@ -14,12 +14,12 @@ function SpeakerListLoading() {
   );
 }
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className="container mt-3">
       <h1>Conference Speakers</h1>
       <Suspense fallback={<SpeakerListLoading />}>
-        <SpeakerList  />
+        <SpeakerList />
       </Suspense>
     </div>
   );

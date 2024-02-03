@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function SpeakerDetail() {
+export default function SpeakerDetailLoading() {
   return (
     <div  className="col-4">
       <div className="card">
