@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import SpeakerDetailLoading from "./speaker-detail-loading";
 import SpeakerDetail from "./speaker-detail";
@@ -27,7 +26,7 @@ export default function SpeakerList() {
       <div className="container mt-3">
         <div className="row">
           {[1,2,3].map((id) => (
-            <SpeakerDetailLoading key={id} speaker={{firstName: "Douglas", lastName: "Crockford"}} />
+            <SpeakerDetailLoading key={id} />
           ))}
         </div>
       </div>
