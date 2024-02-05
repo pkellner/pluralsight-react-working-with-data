@@ -20,7 +20,7 @@ This GitHub repo includes the final code for all the modules in the course
 
 ## Course Description
 
-Good app design means fewer bugs, lower maintenance costs, and happier users. In this course, Server Component Fundamentals in React, you’ll learn about React Server Components and how you can use them to provide a better user experience. First, you’ll dive into the technology behind server components so that using them makes sense. Next, you’ll explore how to build Server Components that work with async data sources. Finally, you’ll learn how to incorporate Server Components in a real-world app so that your apps provide great browser user experiences and are easy to build. When you’re finished with this course, you’ll have all the knowledge and tools necessary to build apps with React Server and Client Components that provide excellent and performant UIs for your users.
+React applications running in browsers often need to retrieve remote data, which could be from databases, web servers, or other sources. Understanding the best methods for incorporating this data into your production application is crucial. In the course "Working with Data in React," you will explore how to leverage React's latest concurrent rendering features, such as Server Components and Server Actions, to establish a data connection. You will learn best practices that facilitate development and maintenance, enable outstanding user interfaces, and provide performant experiences for users of your browser applications. By the end of this course, you will possess the knowledge required to ensure that your applications adhere to the highest standards.
 
 ## Getting Started
 1. **Install [nodejs.org](https://nodejs.org)**.
