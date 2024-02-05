@@ -3,13 +3,13 @@
     "id": 1124,
     "firstName": "Douglas",
     "lastName": "Crockford",
-    "favorite": false
+    "favorite": true
   },
   {
     "id": 1530,
     "firstName": "Tammy",
     "lastName": "Baker",
-    "favorite": true
+    "favorite": false
   },
   {
     "id": 2920,

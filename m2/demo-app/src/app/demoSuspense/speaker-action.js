@@ -1,10 +1,7 @@
 "use server";
-
 const fs = require("fs");
 import path from "path";
-
 const dataFilePath = path.join(process.cwd(), "data.json");
-
 export default async function speakerAction(updatedRecord) {
   async function readData() {
     try {
@@ -34,17 +31,13 @@ export default async function speakerAction(updatedRecord) {
         ];
         await fs.writeFile(dataFilePath, JSON.stringify(defaultData, null, 2));
         return defaultData;
-      } else {
-        throw error;
-      }
+      } else { throw error; }
     }
   }
-
   const records = await readData();
   const recordIndex = records.findIndex(
     (record) => record.id === updatedRecord.id,
   );
-
   if (recordIndex > -1) {
     records[recordIndex] = updatedRecord;
     fs.writeFileSync(dataFilePath, JSON.stringify(records, null, 2));

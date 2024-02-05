@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import speakerAction from "./speaker-action";
 
 export default function SpeakerFavorite({ speaker }) {
@@ -13,9 +13,8 @@ export default function SpeakerFavorite({ speaker }) {
         ...speakerLocal,
         favorite: !speakerLocal.favorite,
       };
-
       await speakerAction(updatedSpeaker);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 20000));
       setSpeakerLocal(updatedSpeaker);
     } catch (error) {
       console.error("Error updating favorite status:", error);
@@ -23,7 +22,6 @@ export default function SpeakerFavorite({ speaker }) {
       setUpdating(false);
     }
   }
-
   return (
     <>
       {updating ? (

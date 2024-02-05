@@ -38,12 +38,12 @@ const readData = async () => {
 export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
-      await sleep(10000);
+      await sleep(3000);
       const data = await readData();
       res.status(200).json(data);
       break;
     case "PUT":
-      await sleep(2000);
+      await sleep(3000);
       const updatedRecord = req.body;
       const records = await readData();
 
