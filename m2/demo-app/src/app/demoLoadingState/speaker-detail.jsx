@@ -12,8 +12,8 @@ export default function SpeakerDetail({ speaker }) {
           style={{ width: "100%", height: "auto" }}
         />
         <div className="card-body">
-          <h5 className="card-title" style={{visibility: "hidden"}}>
-            {speaker.firstName} {speaker.lastName} {"."} {"."}
+          <h5 className="card-title" style={{visibility: "visible"}}>
+            {speaker.firstName} {speaker.lastName} 
           </h5>
           <ul className="list-unstyled">
             <li>
