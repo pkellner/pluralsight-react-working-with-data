@@ -55,7 +55,7 @@ If that does not work, you can always run this command by hand, or execute them 
 The reason this is tricky is that we want this to work whether or not the database exists. If you are willing to type a few lines at the command line and use Prisma as it was intended, here is some guidance on that.
 
 When you have a project with no sqlite in the prisma folder, meaning, all you have is the schema.prisma file, you can type:
-`npx prisma genereate`
+`npx prisma generate`
 
 Then, to create your database with tables and seed it, you enter the command:
 `npx prisma migrate dev --name init`
