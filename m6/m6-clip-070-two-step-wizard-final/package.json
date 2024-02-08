@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "resetdb": "npx prisma migrate reset --force && npx prisma generate && npx prisma migrate dev --name init"
+    "resetdb": "npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init"
   },
   "prisma": {
     "seed": "ts-node src/lib/prisma/seed.ts"

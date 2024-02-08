@@ -44,11 +44,31 @@ Then, do run the app you just need type
 
 That will launch the web server on port 3000 where you can browser to it at the url: `http://localhost:3000`
 
-> **Note:** This is an important note that you should not overlook. Starting with module 3, clip 120 (/m3/clip-120/package.json) we have a dependency on sqlite. In order to initialize the sqlite database the easiest thing you can do is at a terminal prompt type:
+> **Note:** Starting with module 3, clip 120 (/m3/clip-120/package.json) we have a dependency on sqlite. In order to initialize the sqlite database the easiest thing you can do is at a terminal prompt type:
 
 `npm run resetdb`
 
+If that does not work, you can always run this command by hand, or execute them individually:
+
+`npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init`
+
+That would be line by line:
+
+```
+npx prisma migrate reset --force
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
 That will create the database and populate it with some initial data.
+
+> **Note:** If you are getting encryption type warnings it's likely because of the `next.auth` default settings. You can fix this by adding the following to your .env.local or just .env file. They are excluded from the repo by the .gitignore file so you can put them there and they won't be checked in.
+
+```
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-here
+```
+
 
 
 ## Repo or Course Issues
