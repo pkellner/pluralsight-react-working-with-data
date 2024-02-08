@@ -50,17 +50,21 @@ That will launch the web server on port 3000 where you can browser to it at the 
 
 If that does not work, you can always run this command by hand, or execute them individually:
 
-`npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init`
+`npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init && sleep 5 && npx prisma db seed`
 
-That would be line by line:
+The reason this is tricky is that we want this to work whether or not the database exists. If you are willing to type a few lines at the command line and use Prisma as it was intended, here is some guidance on that.
 
-```
-npx prisma migrate reset --force
-npx prisma generate
-npx prisma migrate dev --name init
-```
+When you have a project with no sqlite in the prisma folder, meaning, all you have is the schema.prisma file, you can type:
+`npx prisma genereate`
 
-That will create the database and populate it with some initial data.
+Then, to create your database with tables and seed it, you enter the command:
+`npx prisma migrate dev --name init`
+
+Once you've done that, if you later want to reset the database, you can type:
+`npx prisma migrate reset --force`
+
+Or, like I said, if you run the big command that is in the package.json file, `npm run resetdb` that will do all of this for you.
+If you do have issues, please contact me at http://peterkellner.net/contact/ and I will help you out best I can. I know this is tricky to get right.
 
 > **Note:** If you are getting encryption type warnings it's likely because of the `next.auth` default settings. You can fix this by adding the following to your .env.local or just .env file. They are excluded from the repo by the .gitignore file so you can put them there and they won't be checked in.
 
