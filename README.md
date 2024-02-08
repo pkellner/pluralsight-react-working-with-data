@@ -44,6 +44,8 @@ Then, do run the app you just need type
 
 That will launch the web server on port 3000 where you can browser to it at the url: `http://localhost:3000`
 
+## PRISMA Database Setup
+
 > **Note:** Starting with module 3, clip 120 (/m3/clip-120/package.json) we have a dependency on sqlite. In order to initialize the sqlite database the easiest thing you can do is at a terminal prompt type:
 
 `npm run resetdb`
@@ -65,6 +67,9 @@ Once you've done that, if you later want to reset the database, you can type:
 
 Or, like I said, if you run the big command that is in the package.json file, `npm run resetdb` that will do all of this for you.
 If you do have issues, please contact me at http://peterkellner.net/contact/ and I will help you out best I can. I know this is tricky to get right.
+
+
+## NextAuth Setup
 
 > **Note:** If you are getting encryption type warnings it's likely because of the `next.auth` default settings. You can fix this by adding the following to your .env.local or just .env file. They are excluded from the repo by the .gitignore file so you can put them there and they won't be checked in.
 
