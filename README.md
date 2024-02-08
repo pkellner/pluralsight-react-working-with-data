@@ -44,6 +44,12 @@ Then, do run the app you just need type
 
 That will launch the web server on port 3000 where you can browser to it at the url: `http://localhost:3000`
 
+> **Note:** This is an important note that you should not overlook. Starting with module 3, clip 120 (/m3/clip-120/package.json) we have a dependency on sqlite. In order to initialize the sqlite database the easiest thing you can do is at a terminal prompt type:
+
+`npm run resetdb`
+
+That will create the database and populate it with some initial data.
+
 
 ## Repo or Course Issues
 
