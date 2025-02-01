@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma/prisma";
 import { randomBytes, randomUUID } from "node:crypto";
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET || "your-default-secret-key-here",
   providers: [
     CredentialsProvider({
       name: "Pluralsight Demo App",
@@ -11,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         username: {
           label: "Email",
           type: "text",
-          placeholder: "Email",
+          placeholder: "Email  (try: Liana_Casper64@hotmail.com)",
         },
         password: { label: "Password: Not Needed For Demo", type: "password" },
       },
