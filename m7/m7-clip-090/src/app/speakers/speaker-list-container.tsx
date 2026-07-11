@@ -3,7 +3,7 @@ import SpeakerMenu from "@/app/speakers/speaker-menu";
 import SpeakerList from "@/app/speakers/speaker-list";
 import SpeakerDataProvider from "@/contexts/speaker-data-context";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getSpeakers } from "@/lib/prisma/speaker-utils";
 
 export default async function SpeakerListContainer() {

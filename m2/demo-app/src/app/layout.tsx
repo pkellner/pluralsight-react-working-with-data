@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import "/styles/site.css";
+import "../../styles/site.css";
 
 export const metadata = {
   title: "Demo App",

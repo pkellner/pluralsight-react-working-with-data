@@ -9,12 +9,12 @@
     "id": 1530,
     "firstName": "Tammy",
     "lastName": "Baker",
-    "favorite": false
+    "favorite": true
   },
   {
     "id": 2920,
     "firstName": "Ron",
     "lastName": "Lichty",
-    "favorite": true
+    "favorite": false
   }
 ]
