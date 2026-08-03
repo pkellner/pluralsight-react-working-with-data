@@ -7,13 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "resetdb": "npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init && sleep 5 && npx prisma db seed"
-  },
-  "prisma": {
-    "seed": "ts-node src/lib/prisma/seed.ts"
+    "resetdb": "prisma migrate reset --force || true && prisma migrate dev --name init && prisma generate && prisma db seed"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.1",
+    "@prisma/adapter-better-sqlite3": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "bootstrap": "^5.3.2",
     "next": "^16.2.10",
     "next-auth": "^4.24.14",
@@ -27,8 +25,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.2.10",
-    "prisma": "^5.7.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "prisma": "^7.8.0",
+    "tsx": "^4.23.0",
+    "typescript": "^5.9.2"
   }
 }
