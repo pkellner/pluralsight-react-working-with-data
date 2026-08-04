@@ -19,9 +19,9 @@ function getValuesFromToken(value: string) {
 // This function handles the GET request
 export async function GET(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const id = Number(params.id);
+  const id = Number((await params).id);
   try {
     let speaker = await getSpeakerDataById(id);
 
@@ -104,7 +104,7 @@ export async function PUT(request: NextRequest) {
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const id = Number(request.url.split("/").pop());
 
