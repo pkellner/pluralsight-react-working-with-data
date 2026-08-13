@@ -1,0 +1,4 @@
+
+# Prisma 7 generates the client into the source tree; it is rebuilt by
+# `npm run resetdb` (prisma generate), so it should not be committed.
+/src/generated/

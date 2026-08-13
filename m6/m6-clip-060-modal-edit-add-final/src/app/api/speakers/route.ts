@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { createSpeakerRecord, getSpeakers } from "@/lib/prisma/speaker-utils";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));

@@ -6,22 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.8",
     "fs": "^0.0.1-security",
-    "next": "14.1.0",
+    "next": "16.3.0",
     "path": "^0.12.7",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.0",
-    "typescript": "^5"
+    "@types/node": "^24",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.0",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.15"
   }
 }

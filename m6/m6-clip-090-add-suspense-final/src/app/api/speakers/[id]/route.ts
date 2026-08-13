@@ -8,7 +8,7 @@ import {
 } from "@/lib/prisma/speaker-utils";
 import { Speaker } from "@/lib/general-types";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -17,9 +17,9 @@ const sleep = (milliseconds: number) => {
 // This function handles the GET request
 export async function GET(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const id = Number(params.id);
+  const id = Number((await params).id);
   try {
     await sleep(500);
 
@@ -107,7 +107,7 @@ export async function PUT(request: NextRequest) {
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   await sleep(1000);
   const id = Number(request.url.split("/").pop());

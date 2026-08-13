@@ -8,11 +8,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   await sleep(3000);
   try {
-    const attendee = await getOneAttendeeRecord(params.id);
+    const attendee = await getOneAttendeeRecord((await params).id);
 
     if (!attendee) {
       return new Response(JSON.stringify({ message: "Attendee not found" }), {
@@ -63,9 +63,9 @@ export async function PUT(request: Request) {
 // This function handles the DELETE request
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const id = params.id;
+  const id = (await params).id;
   await sleep(3000);
   try {
     await deleteAttendeeRecord(id);

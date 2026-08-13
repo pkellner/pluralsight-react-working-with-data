@@ -1,6 +1,11 @@
-const { PrismaClient } = require("@prisma/client");
-const data = require("./db.json");
-const prisma = new PrismaClient();
+import path from "node:path";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaClient } from "../../generated/prisma/client";
+import data from "./db.json";
+
+const url = `file:${path.join(process.cwd(), "prisma", "dev.db")}`;
+const adapter = new PrismaBetterSqlite3({ url });
+const prisma = new PrismaClient({ adapter });
 
 // seed all the tables for all data scenarios in the course
 async function main() {

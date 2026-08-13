@@ -1,0 +1,32 @@
+{
+  "name": "pluralsight-course-react-working-with-data",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "resetdb": "npx prisma migrate reset --force || true && npx prisma generate && npx prisma migrate dev --name init && sleep 5 && npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node src/lib/prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "bootstrap": "^5.3.2",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.0",
+    "prisma": "^5.7.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
